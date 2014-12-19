@@ -1,0 +1,294 @@
+// PEG4d Python 2 Grammar
+
+File
+	= { (_ NL / EOS / @TopLevel)* #Source}
+
+Chunk
+	= TopLevel
+
+TopLevel
+	= Statement
+
+W
+	= [a-zA-Z0-9_]
+
+NL
+	= '\r'? '\n'
+
+S
+	= [ \t]
+
+EOS
+	= ';'
+	/ NL
+	/ "#" (!'\n' .)* '\n'
+
+_
+	= S*
+
+__
+	= (S / NL)*
+
+// Token
+// ====
+
+"if"       = 'if'       !W
+"else"     = 'else'     !W
+"while"    = 'while'    !W
+"elif"     = 'elif'     !W
+"do"       = 'do'       !W
+"for"      = 'for'      !W
+"class"    = 'class'    !W
+"raise"    = 'raise'    !W
+"with"     = 'with'     !W
+"continue" = 'continue' !W
+"break"    = 'break'    !W
+"return"   = 'return'   !W
+"print"    = 'print'    !W
+"as"       = 'as'       !W
+"in"       = 'in'       !W
+"import"   = 'import'   !W
+"from"     = 'from'     !W
+"def"      = 'def'      !W
+"try"      = 'try'      !W
+"except"   = 'except'   !W
+"or"       = 'or'       !W
+"and"      = 'and'      !W
+"not"      = 'not'      !W
+"True"     = 'True'     !W
+"False"    = 'False'    !W
+"self"     = 'self'     !W
+"pass"     = 'pass'     !W
+
+"*"   = '*' !'=' _
+"+"   = '+' ![+=] _
+"-"   = '-' !('-' / [=>]) _
+"~"   = '~' _
+"!"   = '!' !'=' _
+"["   = '[' _
+"]"   = ']' _
+","   = ',' _
+"..." = '...' _
+":"   = _ ':' ![>] _
+"/"   = '/' !'=' _
+"%"   = '%' ![=>] _
+"{"   = '{' !'=' _
+"}"   = '}' !'=' _
+"<="  = '<=' _
+">="  = '>=' _
+"<"   = '<' ![=] _
+">"   = '>' ![=] _
+"=="  = '==' _
+"!="  = '!=' _
+"^"   = '^' ![=] _
+"|"   = '|' ![=] _
+"&&"  = '&&' _
+"||"  = '||' _
+"?"   = '?' _
+
+"/="  = '/=' _
+"%="  = '%=' _
+"+="  = '+=' _
+"-="  = '-=' _
+"&="  = '&=' _
+"^="  = '^=' _
+"|="  = '|=' _
+"="   = '=' !'=' _
+"."   = '.' _
+
+"("   = '(' _
+")"   = ')' _
+
+// Block, Statement
+
+Statement
+	= { "if"     _ @Expr _ @Block (_ @Elif)* (_ NL* 'else' _ @Block)? #If }
+	/ { "while"  _ @Expr _ @Block #While}
+	/ { "for"    _ @Name _ "in" _ @Expr @Block #ForEach }
+	/ { "import" _ @ImportName (_ "," @Name)* #Import }
+	/ { "from"   _ @ImportName _ "import" _ @ImportName (_ "," @ImportName)* #FromImport }
+	/ { "break"    #Break }
+	/ { "continue" #Continue }
+	/ { (@Annotation)? "def"    _ @Name "(" @Params ")" @Block #Function }
+	/ { (@Annotation)? "class"  _ @Name (_ "(" (@Extend)? _ ")" )? @ClassBlock #Class }
+	/ { "try"    _ @Block "except" _ @Expr _ @Block #Try }
+	/ { "assert" _ @Expr (_ "," @Expr)? #Assert }
+	/ { "print"  _ @Expr #Print }
+	/ { "raise"  _ @Expr #Throw }
+	/ { "with"   _ @Expr ("as" _ @Name)? _ @Block #With }
+	/ { "return" (_ @Expr)? #Return }
+	/ "pass" { #Empty }
+	/ Expr EOS?
+
+Annotation
+	= '@' { @AnnotationContent #Annotation } __
+
+AnnotationContent
+	= { NAME #Name } {@  addSelector }* __
+
+Elif
+	= {"elif" S+ @Expr _ @Block #if }
+
+Asterisk
+	= { '*' #Asterisk}
+
+ImportName
+	= Name {@ '.' @Name #Field }*
+	/ Asterisk
+
+Extend
+	= { @ExtendContent #super }
+
+ExtendContent
+	= Name
+
+Block
+	= { <block ":" _ NL (_ NL / <indent> S+ @Statement)+ > #Block}
+	/ _ { @Statement #Block}
+
+ClassBlock
+	= { <block ":" _ NL (_ NL / <indent> S+ @Statement EOS?)+ > #Block};
+
+Expr
+	= Assign
+
+Assign
+	= OrExpr {@ S* addAssignOp S* OrExpr@}*
+
+addAssignOp
+	= '=' !'=' #Assign
+	/ '+='     #Addeq
+	/ '-='     #Subeq
+	/ '*='     #Muleq
+	/ '/='     #Diveq
+
+OrExpr
+	= AndExpr {@ S* 'or' S* @AndExpr #Or }*
+
+AndExpr
+	= BitwiseExpr {@ S* 'and' S* @BitwiseExpr #And }*
+
+BitwiseExpr
+	= Equal {@ S* ("|" !'|' #BitOr / "&" !'&' #BitAnd / "^" #BitXor) S* @Equal }*
+
+Equal
+	= Relation {@ S*  addEqOp S* @Relation}*
+
+addEqOp
+	= 'is' S+ 'not' #Noteq
+	/ 'is' #Eq
+	/ '==' #Eq
+	/ '!=' #Noteq
+	/ 'in' #In
+
+Relation
+	= Shift {@ _ addRelOp _ @Shift }*
+
+addRelOp
+	= '<=' #LessThanEquals
+	/ '<' !'<' #LessThan
+	/ '>=' #GreaterThanEquals
+	/ '>' !'>' #GreaterThan
+
+Shift
+	= Sum {@ _ ("<<" #LeftShift / ">>" #RightShift) _ @Sum }*
+
+Sum
+	= Product {@ _ ('+' #Add / '-' #Sub) _ @Product }*
+
+Product
+	= Unary {@ _ ("*" #Mul / "/" #Div / "%" #Mod) _ @Unary }*
+
+Unary
+	= { ("not" #LogicalNot / "!" #LogicalNot / "-" #Minus / "+" #Plus / "~" #Compl ) @Unary }
+	/ Value {@ addSelector }*
+
+addSelector
+	= '.' @Name #Field
+	/ '[' _ (@Slice / @Expr) S* ']' #Index
+	/ '(' @{ _ ( @Expr (_ "," @Expr )* )? #Args } ')'  #Apply
+
+Slice
+	= { @SliceBegin ":" @SliceEnd #Slice }
+	/ { @SliceBegin ":" #Slice }
+	/ { ":" @SliceEnd #Slice }
+
+SliceBegin
+	= { @Expr #SliceBegin }
+
+SliceEnd
+	= { @Expr #SliceEnd }
+
+Value
+	= StringLiteral
+	/ Symbol
+	/ Name
+	/ Number
+	/ ArrayLiteral
+	/ DictLiteral
+	/ TupleLiteral
+
+ArrayLiteral
+	= { "[" (@Expr)? (__ ',' __ @Expr)* _* "]" #Array }
+	/ { "[" @Expr _ "for" _ @Name _ "in" _ @Expr (_ "if" _ @Expr)? _ "]" #ListComprehension }
+
+DictLiteral
+	= { "{" _* (@DictContent)? (_* "," _* @DictContent )* _* "}" #Hash }
+
+TupleLiteral
+	= "(" Expr ")"
+	/ { "(" @Expr (_ "," @Expr)+ _ ")" #List }
+
+DictContent
+	= { (@StringLiteral / @Name) ":" @Expr #KeyValue }
+
+Params
+	= { (@Param)? (_ "," @Param)* _ #Params }
+
+Param
+	= { @Name (_ "=" @Expr)? #Param }
+
+Args
+	= { (@Expr)? (_ "," @Expr)* #Args }
+
+Symbol
+	= { "True"  #True }
+	/ { "False" #False }
+	/ { "None"  #Null }
+	/ { "self"  #This }
+
+Name
+	= { NAME #Name}
+
+KEYWORD
+	= 'if' / 'else' / 'while' / 'elif' / 'do' / 'for' / 'class' / 'raise' / 'with' / 'continue'
+	/ 'break' / 'return' / 'print' / 'as' / 'in' / 'import' / 'from' / 'def' / 'try' / 'except'
+	/ 'or' / 'and' / 'not' / 'True' / 'False' / 'self'
+
+NAME
+	= !DIGIT !(KEYWORD !W) W+
+
+StringLiteral
+	= [bru]? '"""' { ('\\"' / !'"""' .)*  #String } '"""'
+	/ [bru]? "'''" { ("\\'" / !"'''" .)*  #String } "'''"
+	/ [bru]? '"' { ('\\"' / !'"' .)* #String } '"'
+	/ [bru]? "'" { ("\\'" / !"'" .)* #String } "'"
+
+DIGIT = [0-9]
+
+EXPONENT = [eE] [+-]? DIGIT+
+
+FLOAT
+	= "." DIGIT+ EXPONENT?
+	/ DIGIT+ '.' EXPONENT
+	/ DIGIT+ (('.' (DIGIT+ EXPONENT?)?) / EXPONENT)
+
+INTEGER
+	= "0" [xX] [0-9a-fA-F]+      // hexadecimal integer
+	/ "0" [0-7]+                 // octal integer
+	/ "0"                        // zero
+	/ [1-9] DIGIT*               // decimal integer
+
+Number
+	= { ("-" / "+")? FLOAT   #Double }
+	/ { ("-" / "+")? INTEGER #Integer }
