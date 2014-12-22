@@ -27,6 +27,7 @@ File
 
 Chunk
 	= TopLevel
+	/ { @Statement (_ @Statement)+ #Source }
 	/ Statement
 	/ Expression
 	/ Type
@@ -223,7 +224,10 @@ FunctionParam
 //==============
 
 TypeDef
-	= { "typedef" _ @Type (_ @VarName _/_ @Name _)? (',' _ @VarName _/_ @Name _)* ";" #TypeDeclaration }
+	= { "typedef" _ @Type (_ @TypeDefName _)? (',' _ @TypeDefName _)* ";" #TypeDeclaration }
+
+TypeDefName
+    = <def TypeName (VarName / Name) >
 
 VariableDeclaration
 	= { @AnnotationList @Type @InitDecl ("," @InitDecl)*  ATTRIBUTE? ";" #Declaration }
@@ -289,8 +293,9 @@ PrimaryType
 	/ { "unsigned" `unsigned int` #TInt } _
 	/ { "_Bool" #TBoolean } _
 	/ { "_Complex" #TComplex } _
-	/ { NAME_T #TName } _
-	/ { NAME   #Name } _
+	/ { <isa TypeName> #TTypedef } _
+//	/ { NAME_T #TName } _
+//	/ { NAME   #Name } _
 
 StructDeclaration
 	= { "struct" _ (@Name)? addStructMember? #TStruct }
