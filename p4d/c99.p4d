@@ -293,9 +293,10 @@ PrimaryType
 	/ { "unsigned" `unsigned int` #TInt } _
 	/ { "_Bool" #TBoolean } _
 	/ { "_Complex" #TComplex } _
-	/ { "__builtin_va_list" #TVAList }
+	/ { "__builtin_va_list" #TName }
 	/ { <isa TypeName> #TTypedef } _
-//	/ { NAME_T #TName } _
+	/ { 'node_type_t' #TName }
+	/ { NAME_T #TName } _
 //	/ { NAME   #Name } _
 
 StructDeclaration
@@ -497,13 +498,13 @@ FLOAT_SUFFIX
 	= [flFL]
 
 CInteger
-	= { ( DECIMAL / HEXICAL / OCTAL ) #Integer } INT_SUFFIX? _
+	= { ( HEXICAL / OCTAL / DECIMAL ) #Integer } INT_SUFFIX? _
 
 DECIMAL
 	= [1-9] DIGIT*
 
 HEXICAL
-	= HEX_PREFIX HEX+
+	= ('0' [xX] [0-9A-Fa-f]+)
 
 OCTAL
 	= '0' [0-7]*
