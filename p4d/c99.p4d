@@ -273,7 +273,7 @@ TypeSuffix
 	}*
 
 addFuncType
-	= "(" _ ("*"/'^') _ (@Name)? (_ "(" @FunctionParamList ")")? _ ")" _  "(" @FunctionParamList ")" #TFunc
+	= "(" _ ("*"/'^') _ (<def TypeName @Name>)? (_ "(" @FunctionParamList ")")? _ ")" _  "(" @FunctionParamList ")" #TFunc
 
 POINTER_QUALIFIER
 	= "const" / "restrict"
