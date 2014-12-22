@@ -21,7 +21,7 @@ S
 EOS
 	= ';'
 	/ NL
-	/ "#" (!'\n' .)* '\n'
+	/ "#" (!'\n' .)*
 
 _
 	= S*
@@ -59,6 +59,8 @@ __
 "False"    = 'False'    !W
 "self"     = 'self'     !W
 "pass"     = 'pass'     !W
+"lambda"   = 'lambda'   !W
+"del"      = 'del'      !W
 
 "*"   = '*' !'=' _
 "+"   = '+' ![+=] _
@@ -104,19 +106,20 @@ __
 Statement
 	= { "if"     _ @Expr _ @Block (_ @Elif)* (_ NL* 'else' _ @Block)? #If }
 	/ { "while"  _ @Expr _ @Block #While}
-	/ { "for"    _ @Name _ "in" _ @Expr @Block #ForEach }
+	/ { "for"    _ @Name _ "in" _ @Expr (_ "," @Expr)* @Block #ForEach }
 	/ { "import" _ @ImportName (_ "," @Name)* #Import }
 	/ { "from"   _ @ImportName _ "import" _ @ImportName (_ "," @ImportName)* #FromImport }
 	/ { "break"    #Break }
 	/ { "continue" #Continue }
 	/ { (@Annotation)? "def"    _ @Name "(" @Params ")" @Block #Function }
 	/ { (@Annotation)? "class"  _ @Name (_ "(" (@Extend)? _ ")" )? @ClassBlock #Class }
-	/ { "try"    _ @Block "except" _ @Expr _ @Block #Try }
+	/ { "try"    _ @Block _ NL* "except" _ @Expr (_ "," @Expr)* _ @Block #Try }
 	/ { "assert" _ @Expr (_ "," @Expr)? #Assert }
 	/ { "print"  _ @Expr #Print }
-	/ { "raise"  _ @Expr #Throw }
+	/ { "raise"  (_ @Expr)? #Throw }
 	/ { "with"   _ @Expr ("as" _ @Name)? _ @Block #With }
 	/ { "return" (_ @Expr)? #Return }
+	/ { "del" _ @Expr #Delete }
 	/ "pass" { #Empty }
 	/ Expr EOS?
 
@@ -137,23 +140,28 @@ ImportName
 	/ Asterisk
 
 Extend
-	= { @ExtendContent #super }
+	= { @Name ("." @Name)* #super }
 
 ExtendContent
 	= Name
 
 Block
-	= { <block ":" _ NL (_ NL / <indent> S+ @Statement)+ > #Block}
+	= ":" (_ NL / _ EOS)* _ { <block @Statement (<indent> @Statement / _ NL / _ EOS)* > #Block}
 	/ _ { @Statement #Block}
 
 ClassBlock
-	= { <block ":" _ NL (_ NL / <indent> S+ @Statement EOS?)+ > #Block};
+	= ":" (_ NL / _ EOS)* _ { <block @Statement (<indent> @Statement / _ NL / _ EOS)* > #Block}
+	//= { <block ":" (_ NL / _ EOS/ <indent> S+ @Statement)+ > #Block}
 
 Expr
 	= Assign
 
 Assign
-	= OrExpr {@ S* addAssignOp S* OrExpr@}*
+	= ExprList {@ _ addAssignOp _ @OrExpr}*
+	/ OrExpr {@ _ addAssignOp _ @OrExpr}*
+
+ExprList
+	= { @OrExpr (_ "," _ @Expr)+ #List }
 
 addAssignOp
 	= '=' !'=' #Assign
@@ -197,16 +205,21 @@ Sum
 	= Product {@ _ ('+' #Add / '-' #Sub) _ @Product }*
 
 Product
-	= Unary {@ _ ("*" #Mul / "/" #Div / "%" #Mod) _ @Unary }*
+	= Unary {@ __ ("*" #Mul / "/" #Div / "%" #Mod) __ @Unary }*
 
 Unary
-	= { ("not" #LogicalNot / "!" #LogicalNot / "-" #Minus / "+" #Plus / "~" #Compl ) @Unary }
+	= { ("not" _ #LogicalNot / "!" #LogicalNot / "-" #Minus / "+" #Plus / "~" #Compl ) @Unary }
+	/ Lambda
 	/ Value {@ addSelector }*
 
+Lambda
+	= { "lambda" _ @Params _ ":" _ @Expr #Lambda }
+
+
 addSelector
-	= '.' @Name #Field
+	= '.' @Expr #Field
 	/ '[' _ (@Slice / @Expr) S* ']' #Index
-	/ '(' @{ _ ( @Expr (_ "," @Expr )* )? #Args } ')'  #Apply
+	/ '(' @{ __ ( @Expr (_ "," @Expr )* )? #Args } __ ')'  #Apply
 
 Slice
 	= { @SliceBegin ":" @SliceEnd #Slice }
@@ -232,24 +245,27 @@ ArrayLiteral
 	= { "[" (@Expr)? (__ ',' __ @Expr)* _* "]" #Array }
 	/ { "[" @Expr _ "for" _ @Name _ "in" _ @Expr (_ "if" _ @Expr)? _ "]" #ListComprehension }
 
+ANYS
+	= ('#' (!'\n' .)* / __)*
+
 DictLiteral
-	= { "{" _* (@DictContent)? (_* "," _* @DictContent )* _* "}" #Hash }
+	= { "{" ANYS (@DictContent)? (ANYS "," ANYS @DictContent )* ("," ANYS)? ANYS "}" #Hash }
 
 TupleLiteral
 	= "(" Expr ")"
 	/ { "(" @Expr (_ "," @Expr)+ _ ")" #List }
 
 DictContent
-	= { (@StringLiteral / @Name) ":" @Expr #KeyValue }
+	= { @Expr _ ":" _ @Expr #KeyValue }
 
 Params
-	= { (@Param)? (_ "," @Param)* _ #Params }
+	= { (@Param)? (__ "," __ @Param)* __ #Params }
 
 Param
-	= { @Name (_ "=" @Expr)? #Param }
+	= { (@Symbol / @Name) (__ "=" __ @Expr)? #Param }
 
 Args
-	= { (@Expr)? (_ "," @Expr)* #Args }
+	= { (@Expr)? (__ "," __ @Expr)* #Args }
 
 Symbol
 	= { "True"  #True }
