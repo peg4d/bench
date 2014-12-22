@@ -340,7 +340,7 @@ Statement
 	/ { "while" _ "(" @Expression ")" @Statement #While }
 	/ { "do" _ @Statement "while" _ "(" @Expression ")" ";" #DoWhile }
 	/ { "for" _ "(" (@Expression)? ";" (@Expression)? ";" (@Expression)? ")" @Statement #For }
-	/ { "for" _ "(" @Declaration (@Expression)? ";" (@Expression)? ";" @Statement #For }
+	/ { "for" _ "(" @VariableDeclaration (@Expression)? ";" (@Expression)? ")" @Statement #For }
 	/ { "goto" _ @Name ";" #Goto }
 	/ { "continue" _ ";" #Continue }
 	/ { "break" _ ";" #Break }
