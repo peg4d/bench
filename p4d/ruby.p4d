@@ -529,7 +529,10 @@ RescueItem
 ClassExpression
     [example: class Human; end]
     [example: class Human < Animal; end]
-    = { "class" __ @[0]Identifier (__ "<" __ @[1]Identifier)? EOS __ @[2]CompleteStatement __ "end" #Class }
+    = { "class" __ @[0]Identifier (__ "<" __ @[1]BaseClass)? EOS __ @[2]CompleteStatement __ "end" #Class }
+
+BaseClass
+    = Expression
 
 ModuleExpression
     = { "module" __ @Identifier __ @CompleteStatement __ "end" #Module }
@@ -760,7 +763,8 @@ DummySelf
 
 ArrayLiteral
     [example: [1,2,3]]
-    = { "[" __ addArgs? __ ("," __)? "]" #Array }
+    = { "[" (__ addArgsNoAssoc (__ "," __ @{ addAssocs #Hash } )?)? __ ("," __)? "]" #Array }
+    / { "[" (__ @{ addAssocs #Hash } )? __ ("," __)? "]" #Array }
 
 UnwrapedArray
     [example: 1,2]

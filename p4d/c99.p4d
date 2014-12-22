@@ -27,6 +27,7 @@ File
 
 Chunk
 	= TopLevel
+	/ { @Statement (_ @Statement)+ #Source }
 	/ Statement
 	/ Expression
 	/ Type
@@ -223,7 +224,10 @@ FunctionParam
 //==============
 
 TypeDef
-	= { "typedef" _ @Type (_ @VarName _/_ @Name _)? (',' _ @VarName _/_ @Name _)* ";" #TypeDeclaration }
+	= { "typedef" _ @Type (_ @TypeDefName _)? (',' _ @TypeDefName _)* ";" #TypeDeclaration }
+
+TypeDefName
+    = <def TypeName (VarName / Name) >
 
 VariableDeclaration
 	= { @AnnotationList @Type @InitDecl ("," @InitDecl)*  ATTRIBUTE? ";" #Declaration }
@@ -269,7 +273,7 @@ TypeSuffix
 	}*
 
 addFuncType
-	= "(" _ ("*"/'^') _ (@Name)? (_ "(" @FunctionParamList ")")? _ ")" _  "(" @FunctionParamList ")" #TFunc
+	= "(" _ ("*"/'^') _ (<def TypeName @Name>)? (_ "(" @FunctionParamList ")")? _ ")" _  "(" @FunctionParamList ")" #TFunc
 
 POINTER_QUALIFIER
 	= "const" / "restrict"
@@ -278,6 +282,7 @@ PrimaryType
 	= StructDeclaration
 	/ { "void" #TVoid } _
 	/ { SIGN? "char"         #TInt } _
+	/ { SIGN? "short" _ "int" #TInt } _
 	/ { SIGN? "short"        #TInt } _
 	/ { SIGN? "int"          #TInt } _
 	/ { "float"       _   #TFloat } _
@@ -289,8 +294,11 @@ PrimaryType
 	/ { "unsigned" `unsigned int` #TInt } _
 	/ { "_Bool" #TBoolean } _
 	/ { "_Complex" #TComplex } _
+	/ { "__builtin_va_list" #TName }
+	/ { <isa TypeName> #TTypedef } _
+	/ { 'node_type_t' #TName }
 	/ { NAME_T #TName } _
-	/ { NAME   #Name } _
+//	/ { NAME   #Name } _
 
 StructDeclaration
 	= { "struct" _ (@Name)? addStructMember? #TStruct }
@@ -334,7 +342,7 @@ Statement
 	/ { "while" _ "(" @Expression ")" @Statement #While }
 	/ { "do" _ @Statement "while" _ "(" @Expression ")" ";" #DoWhile }
 	/ { "for" _ "(" (@Expression)? ";" (@Expression)? ";" (@Expression)? ")" @Statement #For }
-	/ { "for" _ "(" @Declaration (@Expression)? ";" (@Expression)? ";" @Statement #For }
+	/ { "for" _ "(" @VariableDeclaration (@Expression)? ";" (@Expression)? ")" @Statement #For }
 	/ { "goto" _ @Name ";" #Goto }
 	/ { "continue" _ ";" #Continue }
 	/ { "break" _ ";" #Break }
@@ -491,13 +499,13 @@ FLOAT_SUFFIX
 	= [flFL]
 
 CInteger
-	= { ( DECIMAL / HEXICAL / OCTAL ) #Integer } INT_SUFFIX? _
+	= { ( HEXICAL / OCTAL / DECIMAL ) #Integer } INT_SUFFIX? _
 
 DECIMAL
 	= [1-9] DIGIT*
 
 HEXICAL
-	= HEX_PREFIX HEX+
+	= ('0' [xX] [0-9A-Fa-f]+)
 
 OCTAL
 	= '0' [0-7]*

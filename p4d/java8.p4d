@@ -110,7 +110,7 @@ KEYWORD
 "^="   = '^='
 "|="   = '|='
 "="    = '=' !'='
-"."    = '.'
+"."    = '.' !'.'
 
 "("    = '('
 ")"    = ')'
@@ -455,7 +455,7 @@ MethodParam
 	= { (@VariableModifiers _ )? @Type _ @VarName #Param }
 
 VarArgs
-	= { @Type _ "..." _ @VarName #VarArgs }
+	= { (@VariableModifiers _ )? @Type _ "..." _ @VarName #VarArgs }
 
 Throws
 	= "throws" _ { @ClassOrInterfaceTypes #Throws }
@@ -556,8 +556,8 @@ Statement
 	/ { "for" _ "(" _ @VariableDeclaration _ ";" _ (@Expression)? _ ";" _ (@Expressions)? _ ")" _ @Statement #For }
 	/ { "for" _ "(" _ (@VariableModifiers _ )? @Type _ @Name _ ":" _ @Expression _ ")" _ @Statement #ForEach }
 	/ { "goto" _ @Name _ ";" #Goto }
-	/ { "continue" _ ";" #Continue }
-	/ { "break" _ ";" #Break }
+	/ { "continue" _ (@Name)? _ ";" #Continue }
+	/ { "break" _ (@Name)? _ ";" #Break }
 	/ { "return" _ (@Expression)? _ ";" #Return }
 	/ { "try" _ @ResourceStatement _ @Block ( _ @CatchBlock)* ( _ @{ "finally" _ @Block #Finally })? #Try }
 	/ { "try" _ @Block _ (@CatchBlock _ )* @{ "finally" _ @Block #Finally } #Try }
