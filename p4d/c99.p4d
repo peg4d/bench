@@ -282,6 +282,7 @@ PrimaryType
 	= StructDeclaration
 	/ { "void" #TVoid } _
 	/ { SIGN? "char"         #TInt } _
+	/ { SIGN? "short" _ "int" #TInt } _
 	/ { SIGN? "short"        #TInt } _
 	/ { SIGN? "int"          #TInt } _
 	/ { "float"       _   #TFloat } _
