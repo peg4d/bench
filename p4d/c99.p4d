@@ -293,6 +293,7 @@ PrimaryType
 	/ { "unsigned" `unsigned int` #TInt } _
 	/ { "_Bool" #TBoolean } _
 	/ { "_Complex" #TComplex } _
+	/ { "__builtin_va_list" #TVAList }
 	/ { <isa TypeName> #TTypedef } _
 //	/ { NAME_T #TName } _
 //	/ { NAME   #Name } _
