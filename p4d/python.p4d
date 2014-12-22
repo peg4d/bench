@@ -27,7 +27,7 @@ _
 	= S*
 
 __
-	= (S / NL)*
+	= (S / NL / '\\' NL)*
 
 // Token
 // ====
@@ -104,24 +104,27 @@ __
 // Block, Statement
 
 Statement
-	= { "if"     _ @Expr _ @Block (_ @Elif)* (_ NL* 'else' _ @Block)? #If }
-	/ { "while"  _ @Expr _ @Block #While}
-	/ { "for"    _ @Name _ "in" _ @Expr (_ "," @Expr)* @Block #ForEach }
-	/ { "import" _ @ImportName (_ "," @Name)* #Import }
-	/ { "from"   _ @ImportName _ "import" _ @ImportName (_ "," @ImportName)* #FromImport }
+	= { "if"     _ @Expr _ @Block (_ @Elif)* addElse? #If }
+	/ { "while"  _ @Expr _ @Block addElse? #While}
+	/ { "for"    _ @Name _ "in" _ @Expr (_ "," @Expr)* @Block addElse? #ForEach }
+	/ { "import" _ @ImportName (_ "," @Name)* (_ 'as' _ @Name)? #Import }
+	/ { "from"   _ @ImportName _ "import" _ @ImportName (_ "," @ImportName)* (_ 'as' _ @Name)? #FromImport }
 	/ { "break"    #Break }
 	/ { "continue" #Continue }
-	/ { (@Annotation)? "def"    _ @Name "(" @Params ")" @Block #Function }
-	/ { (@Annotation)? "class"  _ @Name (_ "(" (@Extend)? _ ")" )? @ClassBlock #Class }
-	/ { "try"    _ @Block _ NL* "except" _ @Expr (_ "," @Expr)* _ @Block #Try }
+	/ { (@Annotation)? "def"    _ @Name _ "(" @Params ")" @Block #Function }
+	/ { (@Annotation)? "class"  _ @Name (_ "(" (@Extend)? (__ "," __ @Extend)* (__ ",")? __ ")" )? @ClassBlock #Class }
+	/ { "try"    _ @Block (_ NL* "except" (_ @Expr)? (_ "," @Expr)* _ @Block)* (_ NL* 'finally' _ @Block)? addElse? #Try }
 	/ { "assert" _ @Expr (_ "," @Expr)? #Assert }
-	/ { "print"  _ @Expr #Print }
+	/ { "print"  (_ @Expr)? (_ "," _ @Expr)* (_ "," _)? #Print }
 	/ { "raise"  (_ @Expr)? #Throw }
 	/ { "with"   _ @Expr ("as" _ @Name)? _ @Block #With }
 	/ { "return" (_ @Expr)? #Return }
 	/ { "del" _ @Expr #Delete }
 	/ "pass" { #Empty }
 	/ Expr EOS?
+
+addElse
+	= _ NL* 'else' _ @Block
 
 Annotation
 	= '@' { @AnnotationContent #Annotation } __
@@ -157,11 +160,11 @@ Expr
 	= Assign
 
 Assign
-	= ExprList {@ _ addAssignOp _ @OrExpr}*
-	/ OrExpr {@ _ addAssignOp _ @OrExpr}*
+	= ExprList {@ _ addAssignOp __ @AsExpr}*
+	/ AsExpr {@ _ addAssignOp __ @AsExpr}*
 
 ExprList
-	= { @OrExpr (_ "," _ @Expr)+ #List }
+	= { @AsExpr (_ ","_ @Expr)+ #List }
 
 addAssignOp
 	= '=' !'=' #Assign
@@ -169,12 +172,17 @@ addAssignOp
 	/ '-='     #Subeq
 	/ '*='     #Muleq
 	/ '/='     #Diveq
+	/ '|='     #Oreq
+	/ '&='     #Oreq
+
+AsExpr
+	= OrExpr {@ S* 'as' __ @OrExpr #As }*
 
 OrExpr
-	= AndExpr {@ S* 'or' S* @AndExpr #Or }*
+	= AndExpr {@ S* 'or' __ @AndExpr #Or }*
 
 AndExpr
-	= BitwiseExpr {@ S* 'and' S* @BitwiseExpr #And }*
+	= BitwiseExpr {@ S* 'and' __ @BitwiseExpr #And }*
 
 BitwiseExpr
 	= Equal {@ S* ("|" !'|' #BitOr / "&" !'&' #BitAnd / "^" #BitXor) S* @Equal }*
@@ -187,6 +195,7 @@ addEqOp
 	/ 'is' #Eq
 	/ '==' #Eq
 	/ '!=' #Noteq
+	/ 'not'_ 'in' #NotIn
 	/ 'in' #In
 
 Relation
@@ -208,7 +217,7 @@ Product
 	= Unary {@ __ ("*" #Mul / "/" #Div / "%" #Mod) __ @Unary }*
 
 Unary
-	= { ("not" _ #LogicalNot / "!" #LogicalNot / "-" #Minus / "+" #Plus / "~" #Compl ) @Unary }
+	= { ("not" _ #LogicalNot / "!" #LogicalNot / "-" #Minus / "+" #Plus / "~" #Compl / "*" #Yield) @Unary }
 	/ Lambda
 	/ Value {@ addSelector }*
 
@@ -219,7 +228,8 @@ Lambda
 addSelector
 	= '.' @Expr #Field
 	/ '[' _ (@Slice / @Expr) S* ']' #Index
-	/ '(' @{ __ ( @Expr (_ "," @Expr )* )? #Args } __ ')'  #Apply
+	/ '(' @{ __ ( @Expr (__ "," __ @Expr )* )? #Args } (__ "," __)? __ ')'  #Apply _
+	/ 'if' _ @Expr _ 'else' _ @Expr #If
 
 Slice
 	= { @SliceBegin ":" @SliceEnd #Slice }
@@ -243,7 +253,7 @@ Value
 
 ArrayLiteral
 	= { "[" (@Expr)? (__ ',' __ @Expr)* _* "]" #Array }
-	/ { "[" @Expr _ "for" _ @Name _ "in" _ @Expr (_ "if" _ @Expr)? _ "]" #ListComprehension }
+	/ { "[" @Expr _ "for" _ @Name _ "in" _ @Expr (__ "if" _ @Expr)? _ "]" #ListComprehension }
 
 ANYS
 	= ('#' (!'\n' .)* / __)*
@@ -253,7 +263,7 @@ DictLiteral
 
 TupleLiteral
 	= "(" Expr ")"
-	/ { "(" @Expr (_ "," @Expr)+ _ ")" #List }
+	/ { "(" @Expr (_ "," __ @Expr)* _ (_ "," _)? ")" #List }
 
 DictContent
 	= { @Expr _ ":" _ @Expr #KeyValue }
@@ -262,7 +272,7 @@ Params
 	= { (@Param)? (__ "," __ @Param)* __ #Params }
 
 Param
-	= { (@Symbol / @Name) (__ "=" __ @Expr)? #Param }
+	= { @Expr (__ "=" __ @Expr)? #Param }
 
 Args
 	= { (@Expr)? (__ "," __ @Expr)* #Args }
