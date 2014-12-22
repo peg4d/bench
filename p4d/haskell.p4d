@@ -26,7 +26,7 @@ SC
   = (S / MULTI_LINE_COMMENT_SINGLE_LINE)
 
 _
-  = (S /  NL <indent> S+ / MULTI_LINE_COMMENT_SINGLE_LINE)*
+  = (S / SINGLE_LINE_COMMENT? NL <indent> S+ / MULTI_LINE_COMMENT_SINGLE_LINE)*
 
 __
   = (S / NL / COMMENT)*
@@ -118,6 +118,13 @@ CPreprocessor
 "<$>" = '<$>' !OperatorName
 "<*>" = '<*>' !OperatorName
 
+"elem" = 'elem' !W
+"notElem" = 'notelem' !W
+"div" = 'div' !W
+"mod" = 'mod' !W
+"rem" = 'rem' !W
+"quot" = 'quot' !W
+
 KEYWORD
   = "case" / "class" / "data" / "default" / "deriving" / "do" / "else"
   / "if" / "import" / "in" / "infix" / "infixl" / "infixr" / "instance"
@@ -131,6 +138,8 @@ DEFINE_OPERATOR
   / "`elem`" / "`notElem`" / ":" / "++" / "+" / "-" / "*" / "/" / "`div`" / "`mod`" / "`rem`"
   / "`quot`" / "^^" / "^" / "**" / "." / "!!" / "<$>" / "<*>"
 
+DEFINE_OPERATOR_FUNC
+  = "elem" / "notElem" / "div" / "mod" / "rem" / "quot"
 Chunk
   = {<block ChunkElement> #Chunk}
 
@@ -165,7 +174,7 @@ ModuleName
   = {@ComponentName ('.' @ModuleName)? #Module}
 
 IdList
-  = {'(' __ (@IdName (__ ',' __ @IdName)*)? __ ')' #IdList}
+  = {'(' __ (@IdName (__ ',' __ @IdName)*)? __ ','? __ ')' #IdList}
 
 IdName
   = {@ComponentName (__ '(' __ ('..' / @IdName (__ ',' __ @IdName)*)? __ ')')? #Component}
@@ -182,16 +191,16 @@ ComponentName
   = {!KEYWORD [A-Z] W* #Name}
 
 Variable
-  = {('!' #StrictVar / #Variable) @VariableName}
+  = {('!' #StrictVar / #Variable) @TypeVariableName}
 
 VariableName
   = {!KEYWORD [a-z_] W* #Name}
 
 FuncElement
-  = @VariableName
-  / '('_ (@VariableName/@Literal)? _ @OperatorName _ ')'
-  / '(' _ @OperatorName _ (@VariableName/@Literal)? _ ')'
-  / '(' _ @LambdaExpression _ ')'
+  = {@VariableName #Function}
+  / {'('_ (@VariableName/@Literal)? _ (@OperatorName / @{DEFINE_OPERATOR #OP}) _ ')' #Function}
+  / {'(' _ (@OperatorName / @{DEFINE_OPERATOR #OP}) _ (@VariableName/@Literal)? _ ')' #Function}
+  / {'(' _ @LambdaExpression _ ')' #Function}
 
 TypeName
   [example: Int]
@@ -227,13 +236,13 @@ DataTypeVariableName
 
 TypeVariableName
   = { (@ComponentName/@VariableName) _ @TypeVariableName #Functor}
+  / {@{@VariableName #First} _ ":" _ @FuncParamElement #ListParameter}
   / {@VariableName #TypeVariable}
   / TypeName
   / {'[' _ (@TypeVariableName _ )* ']' #List}
   / {'(' _ @{@TypeVariableName #First} _ ":" _ @TypeVariableName _ ')' #ListParameter}
   / {'(' _ @TypeVariableName? (_ ',' _ @TypeVariableName?)* _ ')' #Tuple}
   / {'(' _ @TypeVariableName (_ '->' _ @TypeVariableName)+ _ ')' #Function}
-  / {@{@VariableName #First} _ ":" _ @FuncParamElement #ListParameter}
 
 SourceElement
   = Statement
@@ -252,7 +261,7 @@ Statement
 
 VarDecl
   [example: a = 5]
-  = {(@VariableName / '('_ @OperatorName _ ')') _ "=" _ Initializer #VarDecl}
+  = {(@TypeVariableName / '('_ @OperatorName _ ')') _ "=" _ Initializer #VarDecl}
 
 Initializer
   = AssignmentExpression
@@ -285,7 +294,7 @@ P3OPExpression
   / P4OPExpression
 
 P4OPExpression
-  = {@P5OPExpression _ ('==' #Equals / '/=' #NotEquals / '<' #LessThan/ '<=' #LessThanEquals/ '>' #GreaterThan / '>=' #GreaterThanEquals / '`elem`' #OP/ '`notElem`' #OP) _ @P5OPExpression} //no join
+  = {@P5OPExpression _ ('==' #Equals / '/=' #NotEquals / "<=" #LessThanEquals / '<' #LessThan / '>=' #GreaterThanEquals / '>' #GreaterThan / '`elem`' #OP/ '`notElem`' #OP) _ @P5OPExpression} //no join
   / P5OPExpression
 
 P5OPExpression
@@ -306,7 +315,7 @@ P8OPExpression
 
 P9OPExpression
   = {@IfExpression _ ('.' #FuncJoin / !DEFINE_OPERATOR !OPERATOR_KEYWORD @OperatorName #Operator) _ @P9OPExpression } //right
-  / IfExpression _ {@ ( '!!' #ListAccess /!DEFINE_OPERATOR '`' @{@VariableName #FuncName} '`' #DefaultInfixFunc) _ @IfExpression }* //left
+  / IfExpression _ {@ ( '!!' #ListAccess /( '`' @{!DEFINE_OPERATOR_FUNC @VariableName #FuncName} '`') #DefaultInfixFunc) _ @IfExpression }* //left
   / IfExpression
 
 IfExpression
@@ -314,13 +323,13 @@ IfExpression
   / FuncExpression
 
 FuncExpression
-  ={FuncElement (@{(_ @OPExpression)+ #Parameter})? #Function}
+  ={@FuncElement (@{(_ @OPExpression)+ #Parameter}) #Function}
   / {@OPExpression _ ('<$>' #Fmap / '<*>' #Ap ) _ @OPExpression}
   / OPExpression
 
 OPExpression
   = ConstructorExpression
-  / LambdaExpression
+  / CaseExpression
   / ComponentName
   / {@VariableName _ '::'  _ @TypeVariableName #TypedVariable}
   / {@VariableName #Variable}
@@ -335,22 +344,22 @@ InDoExpression
   = {@VariableName _ '<-' _  (  @FuncExpression) #Bind}
 
 LetExpression
-  = {"let" _ @StrictVarDecl _ "in" _ @{@P0OPExpression #In} #Let}
-  / {"let" _ <block @StrictVarDecl ((_ NL)+ <indent> @StrictVarDecl)*> NL? _ "in" _ @{@P0OPExpression #In} #Let}
-  / <if DoBlock> {"let" _ <block @StrictVarDecl ((_ NL)+ <indent> @StrictVarDecl)*> #Let}
+  = {<block "let" _ <block @StrictVarDecl ((SC* EOS)+ <indent> @StrictVarDecl)*> (SC* EOS <indent>/ _) "in"> _ @{@P0OPExpression #In} #Let}
+  / <if DoBlock> {"let" _ <block @StrictVarDecl ((SC* EOS)+ <indent> @StrictVarDecl)*> #Let}
+  / {"let" _ @StrictVarDecl _ "in" _ @{@P0OPExpression #In} #Let}
 
 StrictVarDecl
   [example: a = 5]
-  = {(@Variable / '('_ @OperatorName _ ')') _ "=" _ Initializer #VarDecl}
+  = {(@FuncParam / @Variable / '('_ @OperatorName _ ')') _ "=" _ Initializer #VarDecl}
 
 CaseExpression
-  = {"case" _ @{@TypeVariableName #Condition} _ "of" _ @CaseBlock #CaseBlock}
+  = {"case" _ @{@P0OPExpression #Condition} _ "of" _ @CaseBlock #CaseBlock}
 
 CaseBlock
-  = (EOS SC+)? {<block @InCase  ((SC* EOS)+ <indent> @InCase)*> #Cases}
+  = (EOS SC+)? {<block @InCase ((SC* EOS)+ <indent> @InCase)*> #Cases}
 
 InCase
-  = {@{(<with Pattern @TypeVariableName> / @Literal) #Condition} _ "->" _ @{AssignmentExpression #Body} #Case}
+  = {@{(@FuncParam / @Literal) #Condition} _ "->" _ @{AssignmentExpression #Body} #Case}
 
 WhereClause
   = {"where" SC* @WhereBlock #Where}
@@ -377,6 +386,9 @@ Literal
   / <if Pattern> WildCard
 
 UntypedLiteral
+  = {@Literals ("#" #MagicHash/ #Literal) }
+
+Literals
   = NumberLiteral
   / CharLiteral
   / StringLiteral
@@ -390,7 +402,7 @@ NumberLiteral
 
 CharLiteral
   [example: 'a']
-  =['] {(!['] .) #Char} [']
+  =['] {("\\" . / !['] .) #Char} [']
 
 StringLiteral
   [example: "test"]
@@ -398,7 +410,7 @@ StringLiteral
 
 TupleLiteral
   [example: (1, ("abc", 2.0))]
-  = {'(' _ @Literal ( _ ',' _ @Literal )* _ ')' #Tuple}
+  = {'(' _ @P0OPExpression? ( _ ',' _ @P0OPExpression? )* _ ')' #Tuple}
   / {'(' _ ')' #Tuple}
 
 ListLiteral
@@ -418,7 +430,7 @@ DataTypeConstructor
   = {@ComponentName (_ @DataTypeVariableName)+ #Constructor}
 
 LambdaExpression
-  = {'\\' @{(_ @VariableName)+ #Parameter} _ '->' _ @{@P0OPExpression #Body} #Lambda}
+  = {'\\' _ (@{("~" #LazyParam / #Param) @FuncParam } _ )+ _ '->' _ @{@P0OPExpression #Body} #Lambda}
 
 DataTypeDecl
   [example: data Type = A|B deriving (Eq, Ord)]
@@ -461,12 +473,14 @@ FuncName
   / '('_ @OperatorName _ ')'
 
 FuncParam
-  = FuncParamElement
+  = {@{@VariableName #PatternName} "@" @{@FuncParam #Pattern} #AsPattern}
+  / FuncParamElement
   / Literal
   / '(' _ FuncParam _ ')'
 
 FuncParamElement
   = { @ComponentName _ @TypeVariableName #Functor}
+  / {@{(@VariableName / @WildCard) #First} _ ":" _ @FuncParamElement #ListParameter}
   / {@VariableName #Variable}
   / WildCard
   / TypeVariableName
@@ -474,7 +488,6 @@ FuncParamElement
   / {'(' _ @{@FuncParamElement #First} _ ":" _ @FuncParamElement _ ')' #ListParameter}
   / {'(' _ @FuncParamElement? (_ ',' _ @FuncParamElement?)* _ ')' #Tuple}
   / {'(' _ @FuncParamElement (_ '->' _ @FuncParamElement)+ _ ')' #Function}
-  / {@{(@TypeVariableName / @WildCard) #First} _ ":" _ @FuncParamElement #ListParameter}
 
 GuardBlock
   = (EOS SC+)? {<block "|" _ @GuardBody ((SC* EOS)+ <indent> "|" _ @GuardBody)*> #Guards}
