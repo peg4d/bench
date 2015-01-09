@@ -68,7 +68,7 @@ WHITESPACE
     / '\uFEFF'
 
 _ = WHITESPACE*
-__ = (WHITESPACE / NEW_LINE / COMMENT)*
+__ = (PP_DIRECTIVE / WHITESPACE / NEW_LINE / COMMENT)*
 
 // B.1.4 Tokens
 
@@ -321,114 +321,8 @@ NullLiteral
 
 // B.1.10 Pre-processing directives
 
-PPDerective
-    = PPConditional
-    / PPLine
-    / PPDiagnostic
-    / PPRegion
-    / PPPragma
-
-ConditionalSymbol
-    = { !"true" !"false" IDENTIFIER_OR_KEYWORD #Name }
-
-PPExpression
-    = PPOrExpression
-
-PPOrExpression
-    = PPAndExpression {@ _ "||" _ @PPAndExpression #LogicalOr }*
-
-PPAndExpression
-    = PPEqualityExpression {@ _ "&&" _ @PPEqualityExpression #LogicalAnd }*
-
-PPEqualityExpression
-    = PPUnaryExpression {@ _ addEqualityOperator _ @PPUnaryExpression }*
-
-PPUnaryExpression
-    = { "!" @PPUnaryExpression #LogicalNot }
-    / PPPrimaryExpression
-
-PPPrimaryExpression
-    = BooleanLiteral
-    / ConditionalSymbol
-    / '(' _ PPExpression _ ')'
-
-// used in CompilationUnit
-PPDeclaration
-    = { _ '#' _ "define" _ @ConditionalSymbol PP_NEWLINE #PPDefine }
-    / { _ '#' _ "undef" _ @ConditionalSymbol PP_NEWLINE #PPUndef }
-
-PP_NEWLINE
-    = _ SINGLE_LINE_COMMENT? NEW_LINE
-
-PPConditional
-    = { @PPIfSection (@PPElifSection)* (@PPElseSection)? PP_ENDIF #PPConditional }
-
-PPIfSection
-    = { _ '#' _ "if" WHITESPACE+ @PPExpression PP_NEWLINE (@ConditionalSection)? #PPIfSection }
-
-PPElifSection
-    = { _ '#' _ "elif" WHITESPACE+ @PPExpression PP_NEWLINE (@ConditionalSection)? #PPElifSection }
-
-PPElseSection
-    = { _ '#' _ "else" PP_NEWLINE (@ConditionalSection)? #PPElifSection }
-
-PP_ENDIF
-    = _ '#' _ "endif" PP_NEWLINE
-
-ConditionalSection
-    = <if PPInBlock> { __ (@StatementList)? __ #Block }
-    / <if PPInClass> { (__ @ClassMemberDeclaration)* __ #List }
-    / <if PPInTopLevel> { __ (@ExternAliasDerective __)* (@UsingDirective __)* (@TopLevelAttributes __)* (@NamespaceMemberDeclaration __)* #Source }
-
-PPDiagnostic
-    = { _ '#' _ "error" @PPMessage #PPError }
-    / { _ '#' _ "warning" @PPMessage #PPWarning }
-
-PP_MESSAGE
-    = NEW_LINE
-    / WHITESPACE+ INPUT_CHARACTER* NEW_LINE
-
-PPMessage
-    = { #PPMessage } NEW_LINE
-    / WHITESPACE+ { INPUT_CHARACTER* #PPMessage } NEW_LINE
-
-PPRegion
-    = { @PPStartRegion @ConditionalSection PP_END_REGION #PPRegion }
-
-PPStartRegion
-    = _ '#' _ "region" PPMessage
-
-PP_END_REGION
-    = _ '#' _ "endregion" PP_MESSAGE
-
-PPLine
-    = _ '#' _ "line" _ LineIndicator
-
-LineIndicator
-    = { DIGIT+ (WHITESPACE+ FILE_NAME)? #PPLine }
-    / { "default" #PPLine }
-    / { "hidden" #PPLine }
-
-FILE_NAME
-    = '"' FILE_NAME_CHARACTER+ '"'
-
-FILE_NAME_CHARACTER
-    = !'"' .
-
-PPPragma
-    = _ '#' _ "pragma" WHITESPACE+ PragmaBody PP_NEWLINE
-
-PragmaBody
-    = PragmaWarningBody
-
-PragmaWarningBody
-    = { "warning" WHITESPACE+ WARNING_ACTION (WHITESPACE+ WARNING_LIST)? #PPPragma }
-
-WARNING_ACTION
-    = "disable" / "restore"
-
-WARNING_LIST
-    = "CS"? DIGIT+ (_ ',' _ "CS"? DIGIT+)*
+PP_DIRECTIVE
+    = '#' (!NEW_LINE .) NEW_LINE
 
 //--------------------------------------------------
 // B.2 Syntactic grammar
@@ -910,7 +804,6 @@ Statement
     = LabeledStatement
     / DeclarationStatement
     / EmbeddedStatement
-    / PPStatement
 
 EmbeddedStatement
     = Block
@@ -1119,20 +1012,13 @@ YieldStatement
     = { "yield" __ @{ "return" __ @Expression __ ";" #Return } #Yield }
     / { "yield" __ @{ "break" __ ";" #Break } #Yield }
 
-PPStatement
-    = <with PPInBlock <without PPInTopLevel <without PPInClass PPDerective > > >
-
 // B.2.6 Namespaces
 
-PPInTopLevel
-    = <without PPInBlock <with PPInTopLevel <without PPInClass PPDerective > > >
-
 CompilationUnit
-    = { __ (@PPDeclaration __)* (@ExternAliasDerective __)* (@UsingDirective __)* (@TopLevelAttributes __)* (@NamespaceMemberDeclaration __)* #Source }
+    = { __ (@ExternAliasDerective __)* (@UsingDirective __)* (@TopLevelAttributes __)* (@NamespaceMemberDeclaration __)* #Source }
 
 TopLevelAttributes
     = GlobalAttributes
-    / PPInTopLevel
 
 NamespaceDeclaration
     = { "namespace" __ @QualifiedIdentifier __ @NamespaceBody (__ ";")? #Namespace }
@@ -1145,17 +1031,14 @@ NamespaceBody
 
 ExternAliasDerective
     = { "extern" __ "alias" __ @Identifier __ ";" #CSExtern }
-    / PPInTopLevel
 
 UsingDirective
     = { "using" __ @Identifier __ "=" __ @NamespaceOrTypeName __ ";" #UsingDirective }
     / { "using" __ @NamespaceName __ ";" #UsingDirective }
-    / PPInTopLevel
 
 NamespaceMemberDeclaration
     = NamespaceDeclaration
     / TypeDeclaration
-    / PPInTopLevel
 
 TypeDeclaration
     = ClassDeclaration
@@ -1235,7 +1118,6 @@ ClassMemberDeclaration
     / DestructorDeclaration
     / StaticConstructorDeclaration
     / TypeDeclaration
-    / PPInClass
 
 ConstantDeclaration
     = { (@ConstantModifierAndAttributes __)? "const" __ @[1]Type __ @[2]{ @ConstantDeclarator #List } __ ";" #ConstDeclStmt }
@@ -1426,9 +1308,6 @@ DestructorModifierAndAttributes
 
 DestructorModifier
     = { "extern" #Text }
-
-PPInClass
-    = <without PPInBlock <without PPInTopLevel <with PPInClass PPDerective > > >
 
 // B.2.8 Structs
 
