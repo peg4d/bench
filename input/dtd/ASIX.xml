@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE ASIX SYSTEM "ASIX.dtd">
+<ASIX>
+
+  <!-- ***** ALUMNES ***** -->
+  <alumnes>
+    <alumne dni="_1111111A">
+      <nom>Federicu Pi Puigg</nom>
+    </alumne>
+    <alumne dni="_2222222A">
+      <nom>Marianu Garcia Pollet</nom>
+    </alumne>
+    <alumne dni="_3333333A">
+      <nom>Santiago Gomez Pinyol</nom>
+    </alumne>
+    <alumne dni="_GK345678K-M">
+      <nom>Manolito Firstwpatrick</nom>
+    </alumne>
+    <alumne dni="_5555555A">
+      <nom>Filomeno Puig Borriol</nom>
+    </alumne>
+    <alumne dni="_6666666A">
+      <nom>Marcial Garrepa Perez</nom>
+    </alumne>
+    <alumne dni="_7777777A">
+      <nom>Eustaquio Pujol Martinez</nom>
+    </alumne>
+    <alumne dni="_8888888A">
+      <nom>Anunciació Sinde Canon</nom>
+    </alumne>
+    <alumne dni="_9999999A">
+      <nom>Gori Rabassa Puig</nom>
+    </alumne>
+    <alumne dni="_1111110A">
+      <nom>Joanot Villa</nom>
+    </alumne>
+    <alumne dni="_1222221A">
+      <nom>Hipolit González Fernández</nom>
+    </alumne>
+    <alumne dni="_US2345-AE">
+      <nom>John Doo</nom>
+    </alumne>
+    <alumne dni="_1444443A">
+      <nom>Maria de la Llum Pi Puig</nom>
+    </alumne>
+    <alumne dni="_1555554Z">
+      <nom>Pere Tort Mbele</nom>
+    </alumne>
+  </alumnes>
+  
+  <!-- ***** ESPECIALITATS ***** -->
+  <especialitats>
+    <especialitat IDEspecialitat="_507">Informàtica</especialitat>
+    <especialitat IDEspecialitat="_627">Sistemes i aplicacions informàtiques</especialitat>
+  </especialitats>
+  
+  <!-- ***** PROFESSORS ***** -->
+  <professors>
+    <professor IDProfessor="P1">
+      <nomp>Lleonard Carbassa Pons</nomp>
+      <especialitatp IDEspecialitat="_507"/>
+    </professor>
+    <professor IDProfessor="P2">
+      <nomp>Don Rigoberto Fernández Lopez</nomp>
+      <especialitatp IDEspecialitat="_627"/>
+    </professor>
+    <professor IDProfessor="P3">
+      <nomp>Facundo Barberà i Galé</nomp>
+      <especialitatp IDEspecialitat="_507"/>
+    </professor>
+  </professors>
+  
+  <!-- ***** ASSIGNATURES I QUALIFICACIONS ***** -->
+  <assignatures>
+    <!-- ASSIGNATURA 1 -->
+    <assignatura>
+      <noma>Llenguatge de marques i sistemes gestors d'informació</noma>
+      <professorassig IDProfessor="P1"/>
+      <qualificacions>
+        <alumneassig dni="_1111111A">
+          <uf num="1">2</uf>
+          <uf num="2">7</uf>
+          <uf num="3">7</uf>
+          <final>5,3</final>
+        </alumneassig>
+        <alumneassig dni="_2222222A">
+          <uf num="1">0</uf>
+          <uf num="2">1</uf>
+          <uf num="3">3</uf>
+          <final>1,3</final>
+        </alumneassig>
+        <alumneassig dni="_3333333A">
+          <uf num="1">5</uf>
+          <uf num="2">9</uf>
+          <uf num="3">1</uf>
+          <final>5,0</final>
+        </alumneassig>
+        <alumneassig dni="_GK345678K-M">
+          <uf num="1">1</uf>
+          <uf num="2">3</uf>
+          <uf num="3">7</uf>
+          <final>3,7</final>
+        </alumneassig>
+        <alumneassig dni="_5555555A">
+          <uf num="1">8</uf>
+          <uf num="2">0</uf>
+          <uf num="3">6</uf>
+          <final>4,7</final>
+        </alumneassig>
+        <alumneassig dni="_6666666A">
+          <uf num="1">7</uf>
+          <uf num="2">9</uf>
+          <uf num="3">3</uf>
+          <final>6,3</final>
+        </alumneassig>
+        <alumneassig dni="_7777777A">
+          <uf num="1">5</uf>
+          <uf num="2">5</uf>
+          <uf num="3">5</uf>
+          <final>5,0</final>
+        </alumneassig>
+        <alumneassig dni="_8888888A">
+          <uf num="1">0</uf>
+          <uf num="2">8</uf>
+          <uf num="3">7</uf>
+          <final>5,0</final>
+        </alumneassig>
+        <alumneassig dni="_9999999A">
+          <uf num="1">1</uf>
+          <uf num="2">3</uf>
+          <uf num="3">8</uf>
+          <final>4,0</final>
+        </alumneassig>
+        <alumneassig dni="_1111110A">
+          <uf num="1">7</uf>
+          <uf num="2">10</uf>
+          <uf num="3">8</uf>
+          <final>8,3</final>
+        </alumneassig>
+        <alumneassig dni="_1222221A">
+          <uf num="1">7</uf>
+          <uf num="2">2</uf>
+          <uf num="3">5</uf>
+          <final>4,7</final>
+        </alumneassig>
+        <alumneassig dni="_US2345-AE">
+          <uf num="1">4</uf>
+          <uf num="2">2</uf>
+          <uf num="3">6</uf>
+          <final>4,0</final>
+        </alumneassig>
+        <alumneassig dni="_1444443A">
+          <uf num="1">7</uf>
+          <uf num="2">7</uf>
+          <uf num="3">5</uf>
+          <final>6,3</final>
+        </alumneassig>
+        <alumneassig dni="_1555554Z">
+          <uf num="1">9</uf>
+          <uf num="2">8</uf>
+          <uf num="3">8</uf>
+          <final>8,3</final>
+        </alumneassig>
+      </qualificacions>
+    </assignatura>
+    
+    <!-- ASSIGNATURA 2 -->
+    <assignatura>
+      <noma>Administració de Sistemes operatius</noma>
+      <professorassig IDProfessor="P2"/>
+      <qualificacions>
+        <alumneassig dni="_1111111A">
+          <uf num="1">0</uf>
+          <uf num="2">3</uf>
+          <final>1,5</final>
+        </alumneassig>
+        <alumneassig dni="_2222222A">
+          <uf num="1">8</uf>
+          <uf num="2">9</uf>
+          <final>8,5</final>
+        </alumneassig>
+        <alumneassig dni="_3333333A">
+          <uf num="1">9</uf>
+          <uf num="2">6</uf>
+          <final>7,5</final>
+        </alumneassig>
+        <alumneassig dni="_GK345678K-M">
+          <uf num="1">4</uf>
+          <uf num="2">7</uf>
+          <final>5,5</final>
+        </alumneassig>
+        <alumneassig dni="_5555555A">
+          <uf num="1">0</uf>
+          <uf num="2">5</uf>
+          <final>2,5</final>
+        </alumneassig>
+        <alumneassig dni="_7777777A">
+          <uf num="1">6</uf>
+          <uf num="2">3</uf>
+          <final>4,5</final>
+        </alumneassig>
+        <alumneassig dni="_8888888A">
+          <uf num="1">2</uf>
+          <uf num="2">9</uf>
+          <final>5,5</final>
+        </alumneassig>
+        <alumneassig dni="_9999999A">
+          <uf num="1">5</uf>
+          <uf num="2">4</uf>
+          <final>4,5</final>
+        </alumneassig>
+        <alumneassig dni="_1111110A">
+          <uf num="1">5</uf>
+          <uf num="2">1</uf>
+          <final>3,0</final>
+        </alumneassig>
+        <alumneassig dni="_1222221A">
+          <uf num="1">0</uf>
+          <uf num="2">6</uf>
+          <final>3,0</final>
+        </alumneassig>
+        <alumneassig dni="_US2345-AE">
+          <uf num="1">5</uf>
+          <uf num="2">7</uf>
+          <final>6,0</final>
+        </alumneassig>
+        <alumneassig dni="_1444443A">
+          <uf num="1">7</uf>
+          <uf num="2">2</uf>
+          <final>4,5</final>
+        </alumneassig>
+        <alumneassig dni="_1555554Z">
+          <uf num="1">2</uf>
+          <uf num="2">5</uf>
+          <final>3,5</final>
+        </alumneassig>
+      </qualificacions>
+    </assignatura>
+    
+    <!-- ASSIGNATURA 3 -->
+    <assignatura>
+      <noma>Seguretat i alta disponibilitat</noma>
+      <professorassig IDProfessor="P3"/>
+      <qualificacions>
+        <alumneassig dni="_1111111A">
+          <uf num="1">8</uf>
+          <uf num="2">8</uf>
+          <uf num="3">4</uf>
+          <uf num="4">2</uf>
+          <final>5,5</final>
+        </alumneassig>
+        <alumneassig dni="_2222222A">
+          <uf num="1">4</uf>
+          <uf num="2">4</uf>
+          <uf num="3">5</uf>
+          <uf num="4">5</uf>
+          <final>5,0</final>
+        </alumneassig>
+        <alumneassig dni="_3333333A">
+          <uf num="1">8</uf>
+          <uf num="2">10</uf>
+          <uf num="3">2</uf>
+          <uf num="4">6</uf>
+          <final>6,5</final>
+        </alumneassig>
+        <alumneassig dni="_GK345678K-M">
+          <uf num="1">7</uf>
+          <uf num="2">0</uf>
+          <uf num="3">7</uf>
+          <uf num="4">5</uf>
+          <final>4,8</final>
+        </alumneassig>
+        <alumneassig dni="_5555555A">
+          <uf num="1">5</uf>
+          <uf num="2">6</uf>
+          <uf num="3">6</uf>
+          <uf num="4">6</uf>
+          <final>5,8</final>
+        </alumneassig>
+        <alumneassig dni="_9999999A">
+          <uf num="1">5</uf>
+          <uf num="2">7</uf>
+          <uf num="3">9</uf>
+          <uf num="4">9</uf>
+          <final>7,5</final>
+        </alumneassig>
+        <alumneassig dni="_1111110A">
+          <uf num="1">1</uf>
+          <uf num="2">4</uf>
+          <uf num="3">6</uf>
+          <uf num="4">9</uf>
+          <final>5,0</final>
+        </alumneassig>
+        <alumneassig dni="_1222221A">
+          <uf num="1">4</uf>
+          <uf num="2">9</uf>
+          <uf num="3">5</uf>
+          <uf num="4">1</uf>
+          <final>4,8</final>
+        </alumneassig>
+        <alumneassig dni="_1444443A">
+          <uf num="1">8</uf>
+          <uf num="2">2</uf>
+          <uf num="3">0</uf>
+          <uf num="4">9</uf>
+          <final>4,8</final>
+        </alumneassig>
+        <alumneassig dni="_1555554Z">
+          <uf num="1">7</uf>
+          <uf num="2">2</uf>
+          <uf num="3">9</uf>
+          <uf num="4">3</uf>
+          <final>5,3</final>
+        </alumneassig>
+      </qualificacions>
+    </assignatura>
+  </assignatures>
+</ASIX>
