@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE people SYSTEM "people.dtd">
+<people>
+	<person>
+		<firstName>&venus;</firstName><lastName><![CDATA[Williams]]></lastName>
+	</person>
+	<xi:include href="inc.xml" xmlns:xi="http://www.w3.org/2001/XInclude">
+		<xi:fallback>
+			<person>
+				<firstName>Lindsay</firstName><lastName>Davenport</lastName>
+			</person>
+		</xi:fallback>
+	</xi:include>
+</people>
