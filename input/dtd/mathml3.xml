@@ -1,0 +1,24 @@
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mlongdiv>
+  <mn> 12 </mn>
+  <mn> 16.5 </mn>
+  <mn> 198 </mn>
+  <msgroup position='1' shift='-1'>
+    <msgroup>
+      <mn> 12</mn>
+      <msline length='2'/>
+    </msgroup>
+    <msgroup>
+      <mn> 78</mn>
+      <mn> 72</mn>
+      <msline length='2'/>
+      <mn> 6.0</mn>
+      <mn> 6.0</mn>
+    </msgroup>
+    <msgroup position='-1'> <!-- extra shift to move to the right of the "." -->
+      <msline length='3'/>
+      <mn> 0</mn>
+    </msgroup>
+  </msgroup>
+</mlongdiv>
+</math>
