@@ -1,0 +1,40 @@
+Total Time    : 5771 [ms]
+Compile Time  : 279 [ms]
+Validate Time : 5492 [ms]
+
+Total Time    : 3769 [ms]
+Compile Time  : 38 [ms]
+Validate Time : 3731 [ms]
+
+Total Time    : 4105 [ms]
+Compile Time  : 22 [ms]
+Validate Time : 4083 [ms]
+
+Total Time    : 3602 [ms]
+Compile Time  : 14 [ms]
+Validate Time : 3588 [ms]
+
+Total Time    : 3680 [ms]
+Compile Time  : 13 [ms]
+Validate Time : 3667 [ms]
+
+Total Time    : 3857 [ms]
+Compile Time  : 12 [ms]
+Validate Time : 3845 [ms]
+
+Total Time    : 3575 [ms]
+Compile Time  : 13 [ms]
+Validate Time : 3562 [ms]
+
+Total Time    : 3599 [ms]
+Compile Time  : 13 [ms]
+Validate Time : 3586 [ms]
+
+Total Time    : 3802 [ms]
+Compile Time  : 13 [ms]
+Validate Time : 3789 [ms]
+
+Total Time    : 3638 [ms]
+Compile Time  : 13 [ms]
+Validate Time : 3625 [ms]
+
