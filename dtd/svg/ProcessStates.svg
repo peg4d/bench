@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 261.67 335.46" width="262pt" height="335pt">
+<g class="graph" id="graph0" transform="scale(1) rotate(0) translate(4 331.458)">
+<title>G</title>
+<polygon fill="white" stroke="none" points="-4,4 -4,-331.458 257.672,-331.458 257.672,4 -4,4" />
+<!-- run -->
+<g class="node" id="node1"><title>run</title>
+<ellipse fill="none" stroke="black" cx="90.6067" cy="-234.004" rx="27" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="90.6067" y="-229.804">run</text>
+</g>
+<!-- intr -->
+<g class="node" id="node2"><title>intr</title>
+<ellipse fill="none" stroke="black" cx="27" cy="-275.766" rx="27" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="27" y="-271.566">intr</text>
+</g>
+<!-- run&#45;&#45;intr -->
+<g class="edge" id="edge1"><title>run--intr</title>
+<path fill="none" stroke="black" d="M 71.1769 -246.761 C 63.2855 -251.942 54.19 -257.914 46.3107 -263.087" />
+</g>
+<!-- kernel -->
+<g class="node" id="node4"><title>kernel</title>
+<ellipse fill="none" stroke="black" cx="137.456" cy="-168.387" rx="35.3315" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="137.456" y="-164.187">kernel</text>
+</g>
+<!-- run&#45;&#45;kernel -->
+<g class="edge" id="edge4"><title>run--kernel</title>
+<path fill="none" stroke="black" d="M 102.429 -217.446 C 109.368 -207.727 118.125 -195.462 125.147 -185.627" />
+</g>
+<!-- runbl -->
+<g class="node" id="node3"><title>runbl</title>
+<ellipse fill="none" stroke="black" cx="86.6651" cy="-309.458" rx="31.341" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="86.6651" y="-305.258">runbl</text>
+</g>
+<!-- intr&#45;&#45;runbl -->
+<g class="edge" id="edge2"><title>intr--runbl</title>
+<path fill="none" stroke="black" d="M 47.868 -287.55 C 53.1103 -290.51 58.7598 -293.7 64.0817 -296.705" />
+</g>
+<!-- runbl&#45;&#45;run -->
+<g class="edge" id="edge3"><title>runbl--run</title>
+<path fill="none" stroke="black" d="M 87.6193 -291.193 C 88.239 -279.329 89.0434 -263.931 89.6613 -252.101" />
+</g>
+<!-- zombie -->
+<g class="node" id="node5"><title>zombie</title>
+<ellipse fill="none" stroke="black" cx="214.209" cy="-202.821" rx="39.4254" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="214.209" y="-198.621">zombie</text>
+</g>
+<!-- kernel&#45;&#45;zombie -->
+<g class="edge" id="edge5"><title>kernel--zombie</title>
+<path fill="none" stroke="black" d="M 164.301 -180.43 C 171.304 -183.572 178.872 -186.967 185.946 -190.141" />
+</g>
+<!-- sleep -->
+<g class="node" id="node6"><title>sleep</title>
+<ellipse fill="none" stroke="black" cx="173.585" cy="-103.364" rx="30.7558" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="173.585" y="-99.1636">sleep</text>
+</g>
+<!-- kernel&#45;&#45;sleep -->
+<g class="edge" id="edge6"><title>kernel--sleep</title>
+<path fill="none" stroke="black" d="M 147.138 -150.962 C 152.322 -141.633 158.689 -130.174 163.877 -120.837" />
+</g>
+<!-- runmem -->
+<g class="node" id="node7"><title>runmem</title>
+<ellipse fill="none" stroke="black" cx="101.069" cy="-96.8474" rx="43.4396" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="101.069" y="-92.6474">runmem</text>
+</g>
+<!-- kernel&#45;&#45;runmem -->
+<g class="edge" id="edge7"><title>kernel--runmem</title>
+<path fill="none" stroke="black" d="M 128.462 -150.703 C 122.906 -139.78 115.797 -125.803 110.213 -114.825" />
+</g>
+<!-- sleep&#45;&#45;runmem -->
+<g class="edge" id="edge13"><title>sleep--runmem</title>
+<path fill="none" stroke="black" d="M 142.832 -100.6 C 142.678 -100.586 142.523 -100.572 142.368 -100.559" />
+</g>
+<!-- swap -->
+<g class="node" id="node8"><title>swap</title>
+<ellipse fill="none" stroke="black" cx="187.713" cy="-26.6571" rx="30.7577" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="187.713" y="-22.4571">swap</text>
+</g>
+<!-- sleep&#45;&#45;swap -->
+<g class="edge" id="edge8"><title>sleep--swap</title>
+<path fill="none" stroke="black" d="M 176.933 -85.1853 C 179.185 -72.9576 182.142 -56.9053 184.389 -44.705" />
+</g>
+<!-- runswap -->
+<g class="node" id="node9"><title>runswap</title>
+<ellipse fill="none" stroke="black" cx="112.506" cy="-18" rx="43.5022" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="112.506" y="-13.8">runswap</text>
+</g>
+<!-- swap&#45;&#45;runswap -->
+<g class="edge" id="edge9"><title>swap--runswap</title>
+<path fill="none" stroke="black" d="M 157.123 -23.1359 C 156.31 -23.0423 155.492 -22.9481 154.671 -22.8537" />
+</g>
+<!-- runswap&#45;&#45;runmem -->
+<g class="edge" id="edge11"><title>runswap--runmem</title>
+<path fill="none" stroke="black" d="M 109.853 -36.2874 C 108.006 -49.0254 105.552 -65.943 103.707 -78.6592" />
+</g>
+<!-- new -->
+<g class="node" id="node10"><title>new</title>
+<ellipse fill="none" stroke="black" cx="48.1721" cy="-42.732" rx="27.2467" ry="18" />
+<text font-family="Times,serif" font-size="14" text-anchor="middle" x="48.1721" y="-38.532">new</text>
+</g>
+<!-- runswap&#45;&#45;new -->
+<g class="edge" id="edge10"><title>runswap--new</title>
+<path fill="none" stroke="black" d="M 80.3388 -30.366 C 77.4488 -31.477 74.5589 -32.588 71.7622 -33.6632" />
+</g>
+<!-- new&#45;&#45;runmem -->
+<g class="edge" id="edge12"><title>new--runmem</title>
+<path fill="none" stroke="black" d="M 63.1888 -58.0946 C 69.9086 -64.9691 77.8475 -73.0908 84.7171 -80.1187" />
+</g>
+</g>
+</svg>
