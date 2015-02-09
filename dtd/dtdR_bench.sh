@@ -25,13 +25,13 @@ echo "\nR6_START\n"
 java -jar nez_dtd_validator.jar --bench dtdattr_R6.dtd dtdattr_E6.xml > $BENCHDIR/dtdattr_R6.txt
 echo "\nR6_END\n"
 
-echo "\nR7_START\n"
-java -jar nez_dtd_validator.jar --bench dtdattr_R7.dtd dtdattr_E7.xml > $BENCHDIR/dtdattr_R7.txt
-echo "\nR7_END\n"
+#echo "\nR7_START\n"
+#java -jar nez_dtd_validator.jar --bench dtdattr_R7.dtd dtdattr_E7.xml > $BENCHDIR/dtdattr_R7.txt
+#echo "\nR7_END\n"
 
-echo "\nR8_START\n"
-java -jar nez_dtd_validator.jar --bench dtdattr_R8.dtd dtdattr_E8.xml > $BENCHDIR/dtdattr_R8.txt
-echo "\nR8_END\n"
+#echo "\nR8_START\n"
+#java -jar nez_dtd_validator.jar --bench dtdattr_R8.dtd dtdattr_E8.xml > $BENCHDIR/dtdattr_R8.txt
+#echo "\nR8_END\n"
 
 #echo "\nR9_START\n"
 #java -jar nez_dtd_validator.jar --bench dtdattr_R9.dtd dtdattr_E9.xml > $BENCHDIR/dtdattr_R9.txt
