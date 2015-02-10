@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="chrome=1">
+<link rel="stylesheet" type="text/css" href="../../css/samples.css">
+<script type="text/javascript">
+function onFileSelected() {
+  var files = document.getElementById("file").files;
+  filesSelected(files);
+}
+function filesSelected(files) {
+  for (var i = 0; i < files.length; i++) {
+    alert("名前:" + files[i].name + " サイズ:" + files[i].size + " タイプ:" + files[i].type);
+  }
+}
+function onFileOver(e) {
+  e.preventDefault();
+}
+function onFileDrop(e) {
+  filesSelected(e.dataTransfer.files);
+  e.preventDefault();
+  e.stopPropagation();
+}
+</script>
+</head>
+<body>
+<div class="header">
+  <a target="ayuta" href="http://ayuta.co.jp">株式会社あゆた</a>
+  </div>
+  <h1>File APIのサンプル</h1>
+  ファイルを指定してください（複数指定可） :<input id="file" name="file" type="file" multiple onchange="onFileSelected()">
+  <hr>
+  <div
+	style="width: 500px; height: 200px; border: 1px solid gray;"
+	ondragover="onFileOver(event)"
+	ondrop="onFileDrop(event)">
+	もしくは、ここにファイルをドラッグ＆ドロップしてください。
+  </div>
+</form>
+		<!-- Google Analytics Setting -->
+		<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-10177692-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+
+</body>
+</html>
