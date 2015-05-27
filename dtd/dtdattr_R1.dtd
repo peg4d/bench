@@ -1,3 +1,0 @@
-<!ELEMENT d(e*)>
-<!ELEMENT e EMPTY>
-<!ATTLIST e a CDATA #REQUIRED>
