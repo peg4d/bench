@@ -1,0 +1,32 @@
+<?xml encoding="UTF-8"?>
+
+<!ELEMENT targetset (targetsetinfo,sitemap)>
+<!ATTLIST targetset
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT targetsetinfo (#PCDATA)>
+<!ATTLIST targetsetinfo
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT sitemap (dir)>
+<!ATTLIST sitemap
+  xmlns CDATA #FIXED ''>
+
+<!ELEMENT dir (dir|document)*>
+<!ATTLIST dir
+  xmlns CDATA #FIXED ''
+  name NMTOKEN #REQUIRED>
+
+<!ELEMENT document (xi:include)>
+<!ATTLIST document
+  xmlns CDATA #FIXED ''
+  targetdoc NMTOKEN #REQUIRED>
+
+<!ELEMENT xi:include (xi:fallback)>
+<!ATTLIST xi:include
+  xmlns:xi CDATA #FIXED 'http://www.w3.org/2001/XInclude'
+  href CDATA #REQUIRED>
+
+<!ELEMENT xi:fallback EMPTY>
+<!ATTLIST xi:fallback
+  xmlns:xi CDATA #FIXED 'http://www.w3.org/2001/XInclude'>
