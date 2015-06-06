@@ -1,0 +1,76 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT cycle_1_total_number_of_fire_safety_deficiencies ( #PCDATA ) >
+
+<!ELEMENT cycle_1_total_number_of_health_deficiencies ( #PCDATA ) >
+
+<!ELEMENT cycle_2_total_number_of_fire_safety_deficiencies ( #PCDATA ) >
+
+<!ELEMENT cycle_2_total_number_of_health_deficiencies ( #PCDATA ) >
+
+<!ELEMENT cycle_3_total_number_of_fire_safety_deficiencies ( #PCDATA ) >
+
+<!ELEMENT cycle_3_total_number_of_health_deficiencies ( #PCDATA ) >
+
+<!ELEMENT fine_amount_in_dollars ( #PCDATA ) >
+
+<!ELEMENT number_of_fines ( #PCDATA ) >
+
+<!ELEMENT percent_of_high_risk_long_stay_residents_with_pressure_ulcers ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_assessed_and_appropriately_given_the_seasonal_influenza_vaccine ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_experiencing_one_or_more_falls_with_major_injury ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_who_have_depressive_symptoms ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_who_lose_too_much_weight ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_who_received_an_antipsychotic_medication ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_who_self_report_moderate_to_severe_pain ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_who_were_physically_restrained ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_whose_need_for_help_with_adls_has_increased ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_with_a_catheter_inserted_and_left_in_their_bladder ( #PCDATA ) >
+
+<!ELEMENT percent_of_long_stay_residents_with_a_urinary_tract_infection ( #PCDATA ) >
+
+<!ELEMENT percent_of_low_risk_long_stay_residents_who_lose_control_of_their_bowel_or_bladder ( #PCDATA ) >
+
+<!ELEMENT percent_of_short_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine ( #PCDATA ) >
+
+<!ELEMENT percent_of_short_stay_residents_who_newly_received_an_antipsychotic_medication ( #PCDATA ) >
+
+<!ELEMENT percent_of_short_stay_residents_who_self_report_moderate_to_severe_pain ( #PCDATA ) >
+
+<!ELEMENT percent_of_short_stay_residents_who_were_assessed_and_appropriately_given_the_seasonal_influenza_vaccine ( #PCDATA ) >
+
+<!ELEMENT percent_of_short_stay_residents_with_pressure_ulcers_that_are_new_or_worsened ( #PCDATA ) >
+
+<!ELEMENT processing_date ( #PCDATA ) >
+
+<!ELEMENT reported_cna_staffing_hours_per_resident_per_day ( #PCDATA ) >
+
+<!ELEMENT reported_licensed_staffing_hours_per_resident_per_day ( #PCDATA ) >
+
+<!ELEMENT reported_lpn_staffing_hours_per_resident_per_day ( #PCDATA ) >
+
+<!ELEMENT reported_physical_therapist_staffing_hours_per_resident_per_day ( #PCDATA ) >
+
+<!ELEMENT reported_rn_staffing_hours_per_resident_per_day ( #PCDATA ) >
+
+<!ELEMENT reported_total_nurse_staffing_hours_per_resident_per_day ( #PCDATA ) >
+
+<!ELEMENT row ( cycle_1_total_number_of_fire_safety_deficiencies | cycle_1_total_number_of_health_deficiencies | cycle_2_total_number_of_fire_safety_deficiencies | cycle_2_total_number_of_health_deficiencies | cycle_3_total_number_of_fire_safety_deficiencies | cycle_3_total_number_of_health_deficiencies | fine_amount_in_dollars | number_of_fines | percent_of_high_risk_long_stay_residents_with_pressure_ulcers | percent_of_long_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine | percent_of_long_stay_residents_assessed_and_appropriately_given_the_seasonal_influenza_vaccine | percent_of_long_stay_residents_experiencing_one_or_more_falls_with_major_injury | percent_of_long_stay_residents_who_have_depressive_symptoms | percent_of_long_stay_residents_who_lose_too_much_weight | percent_of_long_stay_residents_who_received_an_antipsychotic_medication | percent_of_long_stay_residents_who_self_report_moderate_to_severe_pain | percent_of_long_stay_residents_who_were_physically_restrained | percent_of_long_stay_residents_whose_need_for_help_with_adls_has_increased | percent_of_long_stay_residents_with_a_catheter_inserted_and_left_in_their_bladder | percent_of_long_stay_residents_with_a_urinary_tract_infection | percent_of_low_risk_long_stay_residents_who_lose_control_of_their_bowel_or_bladder | percent_of_short_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine | percent_of_short_stay_residents_who_newly_received_an_antipsychotic_medication | percent_of_short_stay_residents_who_self_report_moderate_to_severe_pain | percent_of_short_stay_residents_who_were_assessed_and_appropriately_given_the_seasonal_influenza_vaccine | percent_of_short_stay_residents_with_pressure_ulcers_that_are_new_or_worsened | processing_date | reported_cna_staffing_hours_per_resident_per_day | reported_licensed_staffing_hours_per_resident_per_day | reported_lpn_staffing_hours_per_resident_per_day | reported_physical_therapist_staffing_hours_per_resident_per_day | reported_rn_staffing_hours_per_resident_per_day | reported_total_nurse_staffing_hours_per_resident_per_day | row | state_or_nation )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT state_or_nation ( #PCDATA ) >
+

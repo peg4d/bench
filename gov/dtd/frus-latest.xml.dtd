@@ -1,0 +1,28 @@
+<!ELEMENT feed ( title, subtitle, link, id, updated, author, entry+ ) >
+<!ATTLIST feed xmlns CDATA #REQUIRED >
+
+<!ELEMENT author ( name ) >
+
+<!ELEMENT entry ( title, id, link, author, published, updated, rights, summary ) >
+
+<!ELEMENT id ( #PCDATA ) >
+
+<!ELEMENT link EMPTY >
+<!ATTLIST link href CDATA #REQUIRED 
+rel NMTOKEN #IMPLIED 
+type CDATA #IMPLIED >
+
+<!ELEMENT name ( #PCDATA ) >
+
+<!ELEMENT published ( #PCDATA ) >
+
+<!ELEMENT rights ( #PCDATA ) >
+
+<!ELEMENT subtitle ( #PCDATA ) >
+
+<!ELEMENT summary ( #PCDATA ) >
+
+<!ELEMENT title ( #PCDATA ) >
+
+<!ELEMENT updated ( #PCDATA ) >
+

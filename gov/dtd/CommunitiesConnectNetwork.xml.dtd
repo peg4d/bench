@@ -1,0 +1,68 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT about_our_center ( #PCDATA ) >
+
+<!ELEMENT assistive_technology ( #PCDATA ) >
+
+<!ELEMENT assistive_technology_other ( #PCDATA ) >
+
+<!ELEMENT blog_url ( #PCDATA ) >
+
+<!ELEMENT center_email_address ( #PCDATA ) >
+
+<!ELEMENT contact_name ( #PCDATA ) >
+
+<!ELEMENT contact_title ( #PCDATA ) >
+
+<!ELEMENT country ( #PCDATA ) >
+
+<!ELEMENT county ( #PCDATA ) >
+
+<!ELEMENT facebook_page_url ( #PCDATA ) >
+
+<!ELEMENT languages ( #PCDATA ) >
+
+<!ELEMENT languages_other ( #PCDATA ) >
+
+<!ELEMENT location EMPTY >
+<!ATTLIST location human_address CDATA #REQUIRED
+          latitude CDATA #IMPLIED 
+          longitude CDATA #IMPLIED
+          needs_recoding ( false | true ) #REQUIRED >
+
+<!ELEMENT number_of_computers ( #PCDATA ) >
+
+<!ELEMENT open_to_public ( #PCDATA ) >
+
+<!ELEMENT organization_type ( #PCDATA ) >
+
+<!ELEMENT other_technology ( #PCDATA ) >
+
+<!ELEMENT parent_organization ( #PCDATA ) >
+
+<!ELEMENT phone_ext ( #PCDATA ) >
+
+<!ELEMENT phone_number ( #PCDATA ) >
+
+<!ELEMENT postal_code ( #PCDATA ) >
+
+<!ELEMENT row ( about_our_center | assistive_technology | assistive_technology_other | blog_url | center_email_address | contact_name | contact_title | country | county | facebook_page_url | languages | languages_other | location | number_of_computers | open_to_public | organization_type | other_technology | parent_organization | phone_ext | phone_number | postal_code | row | target_audience | target_audience_other | title | twitter_url | website_url | wi_fi_available | windows_mac_os )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT target_audience ( #PCDATA ) >
+
+<!ELEMENT target_audience_other ( #PCDATA ) >
+
+<!ELEMENT title ( #PCDATA ) >
+
+<!ELEMENT twitter_url ( #PCDATA ) >
+
+<!ELEMENT website_url ( #PCDATA ) >
+
+<!ELEMENT wi_fi_available ( #PCDATA ) >
+
+<!ELEMENT windows_mac_os ( #PCDATA ) >
+

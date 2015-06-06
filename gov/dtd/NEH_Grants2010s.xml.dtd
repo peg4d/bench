@@ -1,0 +1,69 @@
+<!ELEMENT Grants ( Grant+ ) >
+<!ATTLIST Grants xmlns:xsi CDATA #REQUIRED 
+xsi:noNamespaceSchemaLocation CDATA #REQUIRED >
+
+<!ELEMENT ApplicantType ( #PCDATA ) >
+
+<!ELEMENT ApprovedMatching ( #PCDATA ) >
+
+<!ELEMENT ApprovedOutright ( #PCDATA ) >
+
+<!ELEMENT AwardMatching ( #PCDATA ) >
+
+<!ELEMENT AwardOutright ( #PCDATA ) >
+
+<!ELEMENT BeginGrant ( #PCDATA ) >
+
+<!ELEMENT Category ( #PCDATA ) >
+
+<!ELEMENT CouncilDate ( #PCDATA ) >
+
+<!ELEMENT Division ( #PCDATA ) >
+
+<!ELEMENT EndGrant ( #PCDATA ) >
+
+<!ELEMENT Firstname ( #PCDATA ) >
+
+<!ELEMENT Grant ( ApplicantType | ApprovedMatching | ApprovedOutright | AwardMatching | AwardOutright | BeginGrant | Category | CouncilDate | Division | EndGrant | Firstname | InstCity | InstCountry | InstPostalCode | InstState | Institution | Lastname | Middlename | NameSuffix | OriginalAmount | Program | ProjectDesc | ProjectTitle | SuppCount | Supplement | SupplementAmount | ToSupport | YearAwarded )* >
+<!ATTLIST Grant AppNumber CDATA #REQUIRED >
+
+<!ELEMENT InstCity ( #PCDATA ) >
+
+<!ELEMENT InstCountry ( #PCDATA ) >
+
+<!ELEMENT InstPostalCode ( #PCDATA ) >
+
+<!ELEMENT InstState ( #PCDATA ) >
+
+<!ELEMENT Institution ( #PCDATA ) >
+
+<!ELEMENT Lastname ( #PCDATA ) >
+
+<!ELEMENT MatchAmount ( #PCDATA ) >
+
+<!ELEMENT Middlename ( #PCDATA ) >
+
+<!ELEMENT NameSuffix ( #PCDATA ) >
+
+<!ELEMENT OriginalAmount ( #PCDATA ) >
+
+<!ELEMENT OutrightAmount ( #PCDATA ) >
+
+<!ELEMENT Program ( #PCDATA ) >
+
+<!ELEMENT ProjectDesc ( #PCDATA ) >
+
+<!ELEMENT ProjectTitle ( #PCDATA ) >
+
+<!ELEMENT SuppCount ( #PCDATA ) >
+
+<!ELEMENT Supplement ( SupplementDate, OutrightAmount, MatchAmount ) >
+
+<!ELEMENT SupplementAmount ( #PCDATA ) >
+
+<!ELEMENT SupplementDate ( #PCDATA ) >
+
+<!ELEMENT ToSupport ( #PCDATA ) >
+
+<!ELEMENT YearAwarded ( #PCDATA ) >
+

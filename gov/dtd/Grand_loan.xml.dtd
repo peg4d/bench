@@ -1,0 +1,45 @@
+<!ELEMENT grant_loans ( grant_loan+ ) >
+<!ATTLIST grant_loans count CDATA #REQUIRED >
+
+<!ELEMENT grant_loan ( agency, description, gov_type, industry, is_contractor, is_development, is_disabled, is_disaster, is_exporting, is_general_purpose, is_green, is_military, is_minority, is_rural, is_woman, loan_type, state_name, title, url ) >
+
+<!ELEMENT agency ( #PCDATA ) >
+
+<!ELEMENT description ( #PCDATA ) >
+
+<!ELEMENT gov_type ( #PCDATA ) >
+
+<!ELEMENT industry ( #PCDATA ) >
+<!ATTLIST industry nil ( true ) #IMPLIED >
+
+<!ELEMENT is_contractor ( #PCDATA ) >
+
+<!ELEMENT is_development ( #PCDATA ) >
+
+<!ELEMENT is_disabled ( #PCDATA ) >
+
+<!ELEMENT is_disaster ( #PCDATA ) >
+
+<!ELEMENT is_exporting ( #PCDATA ) >
+
+<!ELEMENT is_general_purpose ( #PCDATA ) >
+
+<!ELEMENT is_green ( #PCDATA ) >
+
+<!ELEMENT is_military ( #PCDATA ) >
+
+<!ELEMENT is_minority ( #PCDATA ) >
+
+<!ELEMENT is_rural ( #PCDATA ) >
+
+<!ELEMENT is_woman ( #PCDATA ) >
+
+<!ELEMENT loan_type ( #PCDATA ) >
+
+<!ELEMENT state_name ( #PCDATA ) >
+<!ATTLIST state_name nil ( true ) #IMPLIED >
+
+<!ELEMENT title ( #PCDATA ) >
+
+<!ELEMENT url ( #PCDATA ) >
+

@@ -1,0 +1,25 @@
+<!ELEMENT rss ( channel ) >
+<!ATTLIST rss version CDATA #REQUIRED 
+xmlns:media CDATA #REQUIRED >
+
+<!ELEMENT author ( #PCDATA ) >
+
+<!ELEMENT channel ( title, description, link, item+ ) >
+
+<!ELEMENT description ( #PCDATA ) >
+
+<!ELEMENT guid ( #PCDATA ) >
+
+<!ELEMENT item ( title, description, pubDate, author, link, guid, media:content+ ) >
+
+<!ELEMENT link ( #PCDATA ) >
+
+<!ELEMENT media:content EMPTY >
+<!ATTLIST media:content type CDATA #FIXED "image/jpeg" 
+url CDATA #REQUIRED 
+width CDATA #FIXED "600" >
+
+<!ELEMENT pubDate ( #PCDATA ) >
+
+<!ELEMENT title ( #PCDATA ) >
+

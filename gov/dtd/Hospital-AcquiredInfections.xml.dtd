@@ -1,0 +1,37 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT comparison_results ( #PCDATA ) >
+
+<!ELEMENT denominator ( #PCDATA ) >
+
+<!ELEMENT hospital_name ( #PCDATA ) >
+
+<!ELEMENT indicator_lower_confidence_limit ( #PCDATA ) >
+
+<!ELEMENT indicator_name ( #PCDATA ) >
+
+<!ELEMENT indicator_units ( #PCDATA ) >
+
+<!ELEMENT indicator_upper_confidence_limit ( #PCDATA ) >
+
+<!ELEMENT indicator_value ( #PCDATA ) >
+
+<!ELEMENT infections_observed ( #PCDATA ) >
+
+<!ELEMENT infections_predicted ( #PCDATA ) >
+
+<!ELEMENT location_1 EMPTY >
+<!ATTLIST location_1 latitude CDATA #REQUIRED 
+longitude CDATA #REQUIRED 
+needs_recoding CDATA #FIXED "false" >
+
+<!ELEMENT pfi ( #PCDATA ) >
+
+<!ELEMENT row ( comparison_results | denominator | hospital_name | indicator_lower_confidence_limit | indicator_name | indicator_units | indicator_upper_confidence_limit | indicator_value | infections_observed | infections_predicted | location_1 | pfi | row | year )* >
+<!ATTLIST row _address CDATA #IMPLIED
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT year ( #PCDATA ) >
+

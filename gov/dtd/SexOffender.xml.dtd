@@ -1,0 +1,28 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT age ( #PCDATA ) >
+
+<!ELEMENT birth_date ( #PCDATA ) >
+
+<!ELEMENT block ( #PCDATA ) >
+
+<!ELEMENT first ( #PCDATA ) >
+
+<!ELEMENT gender ( #PCDATA ) >
+
+<!ELEMENT height ( #PCDATA ) >
+
+<!ELEMENT last ( #PCDATA ) >
+
+<!ELEMENT race ( #PCDATA ) >
+
+<!ELEMENT row ( age | birth_date | block | first | gender | height | last | race | row | victim_minor | weight )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT victim_minor ( #PCDATA ) >
+
+<!ELEMENT weight ( #PCDATA ) >
+

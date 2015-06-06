@@ -1,0 +1,61 @@
+<!ELEMENT VHA_Medical_Center_Staffing ( row+ ) >
+<!ELEMENT Acute_Mental_Health_LPNs ( #PCDATA ) >
+
+<!ELEMENT Acute_Mental_Health_Nursing_Assistants ( #PCDATA ) >
+
+<!ELEMENT Acute_Mental_Health_RNs ( #PCDATA ) >
+
+<!ELEMENT CLCs_LPNs ( #PCDATA ) >
+
+<!ELEMENT CLCs_Nursing_Assistants ( #PCDATA ) >
+
+<!ELEMENT CLCs_Registered_Nurses ( #PCDATA ) >
+
+<!ELEMENT City ( #PCDATA ) >
+
+<!ELEMENT Critical_Care_Units_LPNs ( #PCDATA ) >
+
+<!ELEMENT Critical_Care_Units_Nursing_Assistants ( #PCDATA ) >
+
+<!ELEMENT Critical_Care_Units_Registered_Nurses ( #PCDATA ) >
+
+<!ELEMENT Facility_Name ( #PCDATA ) >
+
+<!ELEMENT Medical_Units_Nursing_Assistants ( #PCDATA ) >
+
+<!ELEMENT Medical_Units_Registered_Nurses ( #PCDATA ) >
+
+<!ELEMENT Mixed_Med_Surg_LPNs ( #PCDATA ) >
+
+<!ELEMENT Mixed_Med_Surg_Nursing_x0020_Assistants ( #PCDATA ) >
+
+<!ELEMENT Mixed_Med_Surg_Registered_Nurses ( #PCDATA ) >
+
+<!ELEMENT Physician_FTEE ( #PCDATA ) >
+
+<!ELEMENT Physician_Fulltime_FTEE ( #PCDATA ) >
+
+<!ELEMENT Physician_Parttime_FTEE ( #PCDATA ) >
+
+<!ELEMENT SCID_Units_LPNs ( #PCDATA ) >
+
+<!ELEMENT SCID_Units_Nursing_Assistants ( #PCDATA ) >
+
+<!ELEMENT State ( #PCDATA ) >
+
+<!ELEMENT Surgical_Units_LPNs ( #PCDATA ) >
+
+<!ELEMENT Surgical_Units_Nursing_Assistants ( #PCDATA ) >
+
+<!ELEMENT Surgical_Units_Registered_Nurses ( #PCDATA ) >
+
+<!ELEMENT Turnover_LPNs ( #PCDATA ) >
+
+<!ELEMENT Turnover_Nursing_Assistants ( #PCDATA ) >
+
+<!ELEMENT Turnover_Registered_Nurses ( #PCDATA ) >
+
+<!ELEMENT VISN ( #PCDATA ) >
+
+<!ELEMENT row ( VISN, Facility_Name, City, State, Physician_Fulltime_FTEE, Physician_Parttime_FTEE, Physician_FTEE, Critical_Care_Units_Registered_Nurses, Critical_Care_Units_LPNs, Critical_Care_Units_Nursing_Assistants, Medical_Units_Registered_Nurses, Medical_Units_Nursing_Assistants, Surgical_Units_Registered_Nurses, Surgical_Units_LPNs, Surgical_Units_Nursing_Assistants, Mixed_Med_Surg_Registered_Nurses, Mixed_Med_Surg_LPNs, Mixed_Med_Surg_Nursing_x0020_Assistants, Acute_Mental_Health_RNs, Acute_Mental_Health_LPNs, Acute_Mental_Health_Nursing_Assistants, SCID_Units_LPNs, SCID_Units_Nursing_Assistants, CLCs_Registered_Nurses, CLCs_LPNs, CLCs_Nursing_Assistants, Turnover_Registered_Nurses, Turnover_LPNs, Turnover_Nursing_Assistants ) >
+

@@ -1,0 +1,32 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT average_of_female_months_longevity_in_current_classification ( #PCDATA ) >
+
+<!ELEMENT average_of_male_months_longevity_in_current_classification ( #PCDATA ) >
+
+<!ELEMENT female_avg_hrly_rate ( #PCDATA ) >
+
+<!ELEMENT jobtitle ( #PCDATA ) >
+
+<!ELEMENT male_avg_hrly_rate ( #PCDATA ) >
+
+<!ELEMENT no_female_empl ( #PCDATA ) >
+
+<!ELEMENT no_male_empl ( #PCDATA ) >
+
+<!ELEMENT notes ( #PCDATA ) >
+
+<!ELEMENT ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage ( #PCDATA ) >
+
+<!ELEMENT row ( average_of_female_months_longevity_in_current_classification | average_of_male_months_longevity_in_current_classification | female_avg_hrly_rate | jobtitle | male_avg_hrly_rate | no_female_empl | no_male_empl | notes | ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage | row | total_average_of_months_longevity_in_current_classification | total_avg_hrly_rate | total_no_empl )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+          _id CDATA #IMPLIED 
+          _position CDATA #IMPLIED 
+          _uuid CDATA #IMPLIED >
+
+<!ELEMENT total_average_of_months_longevity_in_current_classification ( #PCDATA ) >
+
+<!ELEMENT total_avg_hrly_rate ( #PCDATA ) >
+
+<!ELEMENT total_no_empl ( #PCDATA ) >
+

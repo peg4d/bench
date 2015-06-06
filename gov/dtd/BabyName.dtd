@@ -1,0 +1,18 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT count ( #PCDATA ) >
+
+<!ELEMENT county ( #PCDATA ) >
+
+<!ELEMENT first_name ( #PCDATA ) >
+
+<!ELEMENT row ( count | county | first_name | row | sex | year )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+              _id CDATA #IMPLIED 
+              _position CDATA #IMPLIED
+              _uuid CDATA #IMPLIED >
+
+<!ELEMENT sex ( #PCDATA ) >
+
+<!ELEMENT year ( #PCDATA ) >
+

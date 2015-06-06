@@ -1,0 +1,32 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT end_date ( #PCDATA ) >
+
+<!ELEMENT expected ( #PCDATA ) >
+
+<!ELEMENT footnote ( #PCDATA ) >
+
+<!ELEMENT hospital_name ( #PCDATA ) >
+
+<!ELEMENT measure_id ( #PCDATA ) >
+
+<!ELEMENT number_of_discharges ( #PCDATA ) >
+
+<!ELEMENT number_of_readmissions ( #PCDATA ) >
+
+<!ELEMENT predicted ( #PCDATA ) >
+
+<!ELEMENT provider_id ( #PCDATA ) >
+
+<!ELEMENT readm_ratio ( #PCDATA ) >
+
+<!ELEMENT row ( end_date | expected | footnote | hospital_name | measure_id | number_of_discharges | number_of_readmissions | predicted | provider_id | readm_ratio | row | start_date | state )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT start_date ( #PCDATA ) >
+
+<!ELEMENT state ( #PCDATA ) >
+

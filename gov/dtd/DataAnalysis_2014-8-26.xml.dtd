@@ -1,0 +1,33 @@
+<!ELEMENT dataroot ( DataAnalysis_2014-8-26+ ) >
+<!ATTLIST dataroot generated CDATA #REQUIRED 
+ xmlns:od CDATA #REQUIRED 
+xmlns:xsi CDATA #REQUIRED 
+xsi:noNamespaceSchemaLocation NMTOKEN #REQUIRED >
+
+<!ELEMENT Country ( #PCDATA ) >
+
+<!ELEMENT DataAnalysis_2014-8-26 ( Country | Description | End_x0020_Year | Implementing_x0020_Partner | Non-USG_x0020_Investment | Partnership_x0020_Name | Region | Resource_x0020_and_x0020_Other_x0020_Partners | Sector | Start_x0020_Year | Total_x0020_Lifetime_x0020_Investment | USG_x0020_Investment )* >
+
+<!ELEMENT Description ( #PCDATA ) >
+
+<!ELEMENT End_x0020_Year ( #PCDATA ) >
+
+<!ELEMENT Implementing_x0020_Partner ( #PCDATA ) >
+
+<!ELEMENT Non-USG_x0020_Investment ( #PCDATA ) >
+
+<!ELEMENT Partnership_x0020_Name ( #PCDATA ) >
+
+<!ELEMENT Region ( #PCDATA ) >
+
+<!ELEMENT Resource_x0020_and_x0020_Other_x0020_Partners ( #PCDATA ) >
+
+<!ELEMENT Sector ( #PCDATA ) >
+
+<!ELEMENT Start_x0020_Year ( #PCDATA ) >
+
+<!ELEMENT Total_x0020_Lifetime_x0020_Investment ( #PCDATA ) >
+
+<!ELEMENT USG_x0020_Investment ( #PCDATA ) >
+
+

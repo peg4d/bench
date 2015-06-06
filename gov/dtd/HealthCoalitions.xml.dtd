@@ -1,0 +1,41 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT address ( #PCDATA ) >
+
+<!ELEMENT address_2 ( #PCDATA ) >
+
+<!ELEMENT city ( #PCDATA ) >
+
+<!ELEMENT coalition_name ( #PCDATA ) >
+
+<!ELEMENT contact ( #PCDATA ) >
+
+<!ELEMENT email ( #PCDATA ) >
+
+<!ELEMENT fax ( #PCDATA ) >
+
+<!ELEMENT location_1 EMPTY >
+<!ATTLIST location_1 human_address CDATA #REQUIRED 
+latitude CDATA #REQUIRED 
+longitude CDATA #REQUIRED 
+needs_recoding CDATA #FIXED "false" >
+
+<!ELEMENT nysdoh_funding_program ( #PCDATA ) >
+
+<!ELEMENT phone ( #PCDATA ) >
+
+<!ELEMENT row ( address | address_2 | city | coalition_name | contact | email | fax | location_1 | nysdoh_funding_program | phone | row | service_area_s | state | web_page | zip_code )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT service_area_s ( #PCDATA ) >
+
+<!ELEMENT state ( #PCDATA ) >
+
+<!ELEMENT web_page EMPTY >
+<!ATTLIST web_page url CDATA #REQUIRED >
+
+<!ELEMENT zip_code ( #PCDATA ) >
+

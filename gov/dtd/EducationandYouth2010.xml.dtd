@@ -1,0 +1,42 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT aastud0910 ( #PCDATA ) >
+
+<!ELEMENT caelem0910 ( #PCDATA ) >
+
+<!ELEMENT cahigh0910 ( #PCDATA ) >
+
+<!ELEMENT camid0910 ( #PCDATA ) >
+
+<!ELEMENT compl0910 ( #PCDATA ) >
+
+<!ELEMENT csa2010 ( #PCDATA ) >
+
+<!ELEMENT drop0910 ( #PCDATA ) >
+
+<!ELEMENT eenr0910 ( #PCDATA ) >
+
+<!ELEMENT farms0910 ( #PCDATA ) >
+
+<!ELEMENT henr0910 ( #PCDATA ) >
+
+<!ELEMENT hstud0910 ( #PCDATA ) >
+
+<!ELEMENT menr0910 ( #PCDATA ) >
+
+<!ELEMENT row ( aastud0910 | caelem0910 | cahigh0910 | camid0910 | compl0910 | csa2010 | drop0910 | eenr0910 | farms0910 | henr0910 | hstud0910 | menr0910 | row | susp0910 | wstud0910 | yempl10 | yvoted10 | yvotereg10 )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT susp0910 ( #PCDATA ) >
+
+<!ELEMENT wstud0910 ( #PCDATA ) >
+
+<!ELEMENT yempl10 ( #PCDATA ) >
+
+<!ELEMENT yvoted10 ( #PCDATA ) >
+
+<!ELEMENT yvotereg10 ( #PCDATA ) >
+

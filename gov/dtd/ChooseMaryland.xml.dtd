@@ -1,0 +1,28 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT annual_number_of_public_high_school_graduates ( #PCDATA ) >
+
+<!ELEMENT bachelors_degree_attainment ( #PCDATA ) >
+
+<!ELEMENT county ( #PCDATA ) >
+
+<!ELEMENT enrollment_2yr_college ( #PCDATA ) >
+
+<!ELEMENT enrollment_4yr_college_university ( #PCDATA ) >
+
+<!ELEMENT high_school_attainment ( #PCDATA ) >
+
+<!ELEMENT number_2yr_colleges ( #PCDATA ) >
+
+<!ELEMENT number_4yr_colleges_universities ( #PCDATA ) >
+
+<!ELEMENT public_school_expenditures_per_pupil ( #PCDATA ) >
+
+<!ELEMENT public_student_teacher_ratio ( #PCDATA ) >
+
+<!ELEMENT row ( annual_number_of_public_high_school_graduates | bachelors_degree_attainment | county | enrollment_2yr_college | enrollment_4yr_college_university | high_school_attainment | number_2yr_colleges | number_4yr_colleges_universities | public_school_expenditures_per_pupil | public_student_teacher_ratio | row )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+

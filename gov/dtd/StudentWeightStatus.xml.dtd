@@ -1,0 +1,48 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT area_name ( #PCDATA ) >
+
+<!ELEMENT area_type ( #PCDATA ) >
+
+<!ELEMENT city ( #PCDATA ) >
+
+<!ELEMENT county ( #PCDATA ) >
+
+<!ELEMENT grade_category ( #PCDATA ) >
+
+<!ELEMENT location_1 EMPTY >
+<!ATTLIST location_1 human_address CDATA #IMPLIED 
+latitude  CDATA #REQUIRED 
+longitude  CDATA #REQUIRED 
+needs_recoding CDATA #FIXED "false" >
+
+<!ELEMENT location_code ( #PCDATA ) >
+
+<!ELEMENT obese_1 ( #PCDATA ) >
+
+<!ELEMENT obese_2 ( #PCDATA ) >
+
+<!ELEMENT overweight_1 ( #PCDATA ) >
+
+<!ELEMENT overweight_2 ( #PCDATA ) >
+
+<!ELEMENT overweight_or_obese_1 ( #PCDATA ) >
+
+<!ELEMENT overweight_or_obese_2 ( #PCDATA ) >
+
+<!ELEMENT region ( #PCDATA ) >
+
+<!ELEMENT row ( area_name | area_type | city | county | grade_category | location_1 | location_code | obese_1 | obese_2 | overweight_1 | overweight_2 | overweight_or_obese_1 | overweight_or_obese_2 | region | row | school_years | state | street_address | zip_code )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT school_years ( #PCDATA ) >
+
+<!ELEMENT state ( #PCDATA ) >
+
+<!ELEMENT street_address ( #PCDATA ) >
+
+<!ELEMENT zip_code ( #PCDATA ) >
+

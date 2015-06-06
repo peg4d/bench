@@ -1,0 +1,26 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT address ( #PCDATA ) >
+
+<!ELEMENT dateupdated ( #PCDATA ) >
+
+<!ELEMENT effectivedate ( #PCDATA ) >
+
+<!ELEMENT licensenum ( #PCDATA ) >
+
+<!ELEMENT licensetype ( #PCDATA ) >
+
+<!ELEMENT physicianname ( #PCDATA ) >
+
+<!ELEMENT row ( address | dateupdated | effectivedate | licensenum | licensetype | physicianname | row | webaction | webnotes | yearofbirth )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA#IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT webaction ( #PCDATA ) >
+
+<!ELEMENT webnotes ( #PCDATA ) >
+
+<!ELEMENT yearofbirth ( #PCDATA ) >
+

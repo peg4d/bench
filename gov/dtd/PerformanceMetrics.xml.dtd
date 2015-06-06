@@ -1,0 +1,54 @@
+<!ELEMENT response ( row ) >
+
+<!ELEMENT abandoned_11_00pm_7_00am_ ( #PCDATA ) >
+
+<!ELEMENT abandoned_3_00pm_11_00pm_ ( #PCDATA ) >
+
+<!ELEMENT abandoned_7_00am_3_00pm_ ( #PCDATA ) >
+
+<!ELEMENT average_number_of_operators_mon_fri_11_00pm_7_00am_ ( #PCDATA ) >
+
+<!ELEMENT average_number_of_operators_mon_fri_3_00pm_11_00pm_ ( #PCDATA ) >
+
+<!ELEMENT average_number_of_operators_mon_fri_7_00am_3_00pm_ ( #PCDATA ) >
+
+<!ELEMENT average_number_of_operators_sat_sun_11_00pm_7_00am_ ( #PCDATA ) >
+
+<!ELEMENT average_number_of_operators_sat_sun_3_00pm_11_00pm_ ( #PCDATA ) >
+
+<!ELEMENT average_number_of_operators_sat_sun_7_00am_3_00pm_ ( #PCDATA ) >
+
+<!ELEMENT average_wait_time_seconds_11_00pm_7_00am ( #PCDATA ) >
+
+<!ELEMENT average_wait_time_seconds_3_00pm_11_00pm ( #PCDATA ) >
+
+<!ELEMENT average_wait_time_seconds_7_00am_3_00pm ( #PCDATA ) >
+
+<!ELEMENT call_volume_11_00pm_7_00am_ ( #PCDATA ) >
+
+<!ELEMENT call_volume_3_00pm_11_00pm_ ( #PCDATA ) >
+
+<!ELEMENT call_volume_7_00am_3_00pm_ ( #PCDATA ) >
+
+<!ELEMENT dates ( #PCDATA ) >
+
+<!ELEMENT efficiency_11_00pm_7_00am_ ( #PCDATA ) >
+
+<!ELEMENT efficiency_3_00pm_11_00pm_ ( #PCDATA ) >
+
+<!ELEMENT efficiency_7_00am_3_00pm_ ( #PCDATA ) >
+
+<!ELEMENT row ( abandoned_11_00pm_7_00am_ | abandoned_3_00pm_11_00pm_ | abandoned_7_00am_3_00pm_ | average_number_of_operators_mon_fri_11_00pm_7_00am_ | average_number_of_operators_mon_fri_3_00pm_11_00pm_ | average_number_of_operators_mon_fri_7_00am_3_00pm_ | average_number_of_operators_sat_sun_11_00pm_7_00am_ | average_number_of_operators_sat_sun_3_00pm_11_00pm_ | average_number_of_operators_sat_sun_7_00am_3_00pm_ | average_wait_time_seconds_11_00pm_7_00am | average_wait_time_seconds_3_00pm_11_00pm | average_wait_time_seconds_7_00am_3_00pm | call_volume_11_00pm_7_00am_ | call_volume_3_00pm_11_00pm_ | call_volume_7_00am_3_00pm_ | dates | efficiency_11_00pm_7_00am_ | efficiency_3_00pm_11_00pm_ | efficiency_7_00am_3_00pm_ | row | sort | utilization_11_00pm_7_00am_ | utilization_3_00pm_11_00pm_ | utilization_7_00am_3_00pm_ )* >
+<!ATTLIST row _address CDATA #IMPLIED 
+_id CDATA #IMPLIED 
+_position CDATA #IMPLIED 
+_uuid CDATA #IMPLIED >
+
+<!ELEMENT sort ( #PCDATA ) >
+
+<!ELEMENT utilization_11_00pm_7_00am_ ( #PCDATA ) >
+
+<!ELEMENT utilization_3_00pm_11_00pm_ ( #PCDATA ) >
+
+<!ELEMENT utilization_7_00am_3_00pm_ ( #PCDATA ) >
+

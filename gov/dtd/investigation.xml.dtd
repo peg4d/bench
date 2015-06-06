@@ -1,0 +1,21 @@
+<!ELEMENT results ( investigations ) >
+
+<!ELEMENT docketNumber ( #PCDATA ) >
+
+<!ELEMENT documentListUri ( #PCDATA ) >
+
+<!ELEMENT investigation ( investigationNumber, investigationPhase, investigationStatus, investigationTitle, investigationType, docketNumber, documentListUri ) >
+
+<!ELEMENT investigationNumber ( #PCDATA ) >
+
+<!ELEMENT investigationPhase ( #PCDATA ) >
+
+<!ELEMENT investigationStatus ( #PCDATA ) >
+
+<!ELEMENT investigationTitle ( #PCDATA ) >
+
+<!ELEMENT investigationType ( #PCDATA ) >
+
+<!ELEMENT investigations ( investigation+ ) >
+
+

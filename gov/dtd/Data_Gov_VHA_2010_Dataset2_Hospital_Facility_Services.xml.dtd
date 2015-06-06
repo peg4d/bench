@@ -1,0 +1,42 @@
+<!ELEMENT VHA_Hospital_Facility_Services ( row+ ) >
+
+<!ELEMENT BedDays_of_Care ( #PCDATA ) >
+
+<!ELEMENT Bronchoscopy ( #PCDATA ) >
+
+<!ELEMENT City ( #PCDATA ) >
+
+<!ELEMENT Colonoscopy ( #PCDATA ) >
+
+<!ELEMENT ENT_Endoscopy ( #PCDATA ) >
+
+<!ELEMENT Facility_Name ( #PCDATA ) >
+
+<!ELEMENT Facility_Unique_Patients ( #PCDATA ) >
+
+<!ELEMENT Med_Surg_Hospital_Discharge2 ( #PCDATA ) >
+
+<!ELEMENT Med_Surg_Hospital_Discharges ( #PCDATA ) >
+
+<!ELEMENT Med_Surg_LengthOfStay ( #PCDATA ) >
+
+<!ELEMENT Mental_Health_Bed_Days_of_Care ( #PCDATA ) >
+
+<!ELEMENT Mental_Health_Hospital_Discharges ( #PCDATA ) >
+
+<!ELEMENT Mental_Health_LengthOfStay ( #PCDATA ) >
+
+<!ELEMENT Sigmoidoscopy ( #PCDATA ) >
+
+<!ELEMENT State ( #PCDATA ) >
+
+<!ELEMENT Total_Outpatient_Visits ( #PCDATA ) >
+
+<!ELEMENT Unique_Mental_Health_Hospital_Discharges ( #PCDATA ) >
+
+<!ELEMENT Upper_GI ( #PCDATA ) >
+
+<!ELEMENT VISN ( #PCDATA ) >
+
+<!ELEMENT row ( VISN, Facility_Name, City, State, Facility_Unique_Patients, Med_Surg_Hospital_Discharges, Med_Surg_Hospital_Discharge2, Med_Surg_LengthOfStay, BedDays_of_Care, Mental_Health_Hospital_Discharges, Unique_Mental_Health_Hospital_Discharges, Mental_Health_LengthOfStay, Mental_Health_Bed_Days_of_Care, Upper_GI, Colonoscopy, Sigmoidoscopy, Bronchoscopy, ENT_Endoscopy, Total_Outpatient_Visits ) >
+
