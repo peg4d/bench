@@ -1,0 +1,411 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([\--.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_site
+Element_site
+   = '<site' S* ('/>' / '>' S* Content0 S* '</site>') S*
+Content0
+   = Element_regions Element_categories Element_catgraph Element_people Element_open_auctions Element_closed_auctions
+Element_regions
+   = '<regions' S* ('/>' / '>' S* Content13 S* '</regions>') S*
+Content13
+   = Element_africa Element_asia Element_australia Element_europe Element_namerica Element_samerica
+Element_africa
+   = '<africa' S* ('/>' / '>' S* Content14 S* '</africa>') S*
+Content14
+   = Element_item*
+Element_item
+   = '<item' S* Attribute20 S* ('/>' / '>' S* Content20 S* '</item>') S*
+Attribute20
+   = AttChoice20* AttDef20_0 AttChoice20* ENDTAG
+AttChoice20
+   = AttDef20_1
+AttDef20_1
+   = 'featured' S* '=' S* STRING S*
+AttDef20_0
+   = 'id' S* '=' S* '"' IDTOKEN '"' S*
+IDTOKEN
+   = [\--.0-:A-Z_a-z] ([\--.0-:A-Z_a-z])*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content20
+   = Element_location Element_quantity Element_name Element_payment Element_description Element_shipping Element_incategory+ Element_mailbox
+Element_location
+   = '<location' S* ('/>' / '>' S* Content21 S* '</location>') S*
+Content21
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_quantity
+   = '<quantity' S* ('/>' / '>' S* Content22 S* '</quantity>') S*
+Content22
+   = PCDATA*
+Element_name
+   = '<name' S* ('/>' / '>' S* Content3 S* '</name>') S*
+Content3
+   = PCDATA*
+Element_payment
+   = '<payment' S* ('/>' / '>' S* Content23 S* '</payment>') S*
+Content23
+   = PCDATA*
+Element_description
+   = '<description' S* ('/>' / '>' S* Content4 S* '</description>') S*
+Content4
+   = Element_text
+   / Element_parlist
+Element_text
+   = '<text' S* ('/>' / '>' S* Content5 S* '</text>') S*
+Content5
+   = (PCDATA / Element_bold / Element_keyword / Element_emph)*
+Element_bold
+   = '<bold' S* ('/>' / '>' S* Content6 S* '</bold>') S*
+Content6
+   = (PCDATA / Element_bold / Element_keyword / Element_emph)*
+Element_keyword
+   = '<keyword' S* ('/>' / '>' S* Content7 S* '</keyword>') S*
+Content7
+   = (PCDATA / Element_bold / Element_keyword / Element_emph)*
+Element_emph
+   = '<emph' S* ('/>' / '>' S* Content8 S* '</emph>') S*
+Content8
+   = (PCDATA / Element_bold / Element_keyword / Element_emph)*
+Element_parlist
+   = '<parlist' S* ('/>' / '>' S* Content9 S* '</parlist>') S*
+Content9
+   = Element_listitem*
+Element_listitem
+   = '<listitem' S* ('/>' / '>' S* Content10 S* '</listitem>') S*
+Content10
+   = (Element_text / Element_parlist)*
+Element_shipping
+   = '<shipping' S* ('/>' / '>' S* Content24 S* '</shipping>') S*
+Content24
+   = PCDATA*
+Element_incategory
+   = '<incategory' S* Attribute26 S* ('/>' / '>' S* Content26 S* '</incategory>') S*
+Attribute26
+   = AttDef26_0 S* ENDTAG
+AttDef26_0
+   = 'category' S* '=' S* '"' IDTOKEN '"' S*
+Content26
+   = EMPTY
+EMPTY
+   = S*
+Element_mailbox
+   = '<mailbox' S* ('/>' / '>' S* Content27 S* '</mailbox>') S*
+Content27
+   = Element_mail*
+Element_mail
+   = '<mail' S* ('/>' / '>' S* Content28 S* '</mail>') S*
+Content28
+   = Element_from Element_to Element_date Element_text
+Element_from
+   = '<from' S* ('/>' / '>' S* Content29 S* '</from>') S*
+Content29
+   = PCDATA*
+Element_to
+   = '<to' S* ('/>' / '>' S* Content30 S* '</to>') S*
+Content30
+   = PCDATA*
+Element_date
+   = '<date' S* ('/>' / '>' S* Content31 S* '</date>') S*
+Content31
+   = PCDATA*
+Element_asia
+   = '<asia' S* ('/>' / '>' S* Content15 S* '</asia>') S*
+Content15
+   = Element_item*
+Element_australia
+   = '<australia' S* ('/>' / '>' S* Content16 S* '</australia>') S*
+Content16
+   = Element_item*
+Element_europe
+   = '<europe' S* ('/>' / '>' S* Content19 S* '</europe>') S*
+Content19
+   = Element_item*
+Element_namerica
+   = '<namerica' S* ('/>' / '>' S* Content17 S* '</namerica>') S*
+Content17
+   = Element_item*
+Element_samerica
+   = '<samerica' S* ('/>' / '>' S* Content18 S* '</samerica>') S*
+Content18
+   = Element_item*
+Element_categories
+   = '<categories' S* ('/>' / '>' S* Content1 S* '</categories>') S*
+Content1
+   = Element_category+
+Element_category
+   = '<category' S* Attribute2 S* ('/>' / '>' S* Content2 S* '</category>') S*
+Attribute2
+   = AttDef2_0 S* ENDTAG
+AttDef2_0
+   = 'id' S* '=' S* '"' IDTOKEN '"' S*
+Content2
+   = Element_name Element_description
+Element_catgraph
+   = '<catgraph' S* ('/>' / '>' S* Content11 S* '</catgraph>') S*
+Content11
+   = Element_edge*
+Element_edge
+   = '<edge' S* Attribute12 S* ('/>' / '>' S* Content12 S* '</edge>') S*
+Attribute12
+   = AttDef12_0 AttDef12_1 ENDTAG
+   / AttDef12_1 AttDef12_0 ENDTAG
+AttDef12_0
+   = 'from' S* '=' S* '"' IDTOKEN '"' S*
+AttDef12_1
+   = 'to' S* '=' S* '"' IDTOKEN '"' S*
+Content12
+   = EMPTY
+Element_people
+   = '<people' S* ('/>' / '>' S* Content34 S* '</people>') S*
+Content34
+   = Element_person*
+Element_person
+   = '<person' S* Attribute35 S* ('/>' / '>' S* Content35 S* '</person>') S*
+Attribute35
+   = AttDef35_0 S* ENDTAG
+AttDef35_0
+   = 'id' S* '=' S* '"' IDTOKEN '"' S*
+Content35
+   = Element_name Element_emailaddress Element_phone? Element_address? Element_homepage? Element_creditcard? Element_profile? Element_watches?
+Element_emailaddress
+   = '<emailaddress' S* ('/>' / '>' S* Content36 S* '</emailaddress>') S*
+Content36
+   = PCDATA*
+Element_phone
+   = '<phone' S* ('/>' / '>' S* Content37 S* '</phone>') S*
+Content37
+   = PCDATA*
+Element_address
+   = '<address' S* ('/>' / '>' S* Content38 S* '</address>') S*
+Content38
+   = Element_street Element_city Element_country Element_province? Element_zipcode
+Element_street
+   = '<street' S* ('/>' / '>' S* Content39 S* '</street>') S*
+Content39
+   = PCDATA*
+Element_city
+   = '<city' S* ('/>' / '>' S* Content40 S* '</city>') S*
+Content40
+   = PCDATA*
+Element_country
+   = '<country' S* ('/>' / '>' S* Content43 S* '</country>') S*
+Content43
+   = PCDATA*
+Element_province
+   = '<province' S* ('/>' / '>' S* Content41 S* '</province>') S*
+Content41
+   = PCDATA*
+Element_zipcode
+   = '<zipcode' S* ('/>' / '>' S* Content42 S* '</zipcode>') S*
+Content42
+   = PCDATA*
+Element_homepage
+   = '<homepage' S* ('/>' / '>' S* Content44 S* '</homepage>') S*
+Content44
+   = PCDATA*
+Element_creditcard
+   = '<creditcard' S* ('/>' / '>' S* Content45 S* '</creditcard>') S*
+Content45
+   = PCDATA*
+Element_profile
+   = '<profile' S* Attribute46 S* ('/>' / '>' S* Content46 S* '</profile>') S*
+Attribute46
+   = AttChoice46* S* ENDTAG
+AttChoice46
+   = AttDef46_0
+AttDef46_0
+   = 'income' S* '=' S* STRING S*
+Content46
+   = Element_interest* Element_education? Element_gender? Element_business Element_age?
+Element_interest
+   = '<interest' S* Attribute47 S* ('/>' / '>' S* Content47 S* '</interest>') S*
+Attribute47
+   = AttDef47_0 S* ENDTAG
+AttDef47_0
+   = 'category' S* '=' S* '"' IDTOKEN '"' S*
+Content47
+   = EMPTY
+Element_education
+   = '<education' S* ('/>' / '>' S* Content48 S* '</education>') S*
+Content48
+   = PCDATA*
+Element_gender
+   = '<gender' S* ('/>' / '>' S* Content50 S* '</gender>') S*
+Content50
+   = PCDATA*
+Element_business
+   = '<business' S* ('/>' / '>' S* Content51 S* '</business>') S*
+Content51
+   = PCDATA*
+Element_age
+   = '<age' S* ('/>' / '>' S* Content52 S* '</age>') S*
+Content52
+   = PCDATA*
+Element_watches
+   = '<watches' S* ('/>' / '>' S* Content53 S* '</watches>') S*
+Content53
+   = Element_watch*
+Element_watch
+   = '<watch' S* Attribute54 S* ('/>' / '>' S* Content54 S* '</watch>') S*
+Attribute54
+   = AttDef54_0 S* ENDTAG
+AttDef54_0
+   = 'open_auction' S* '=' S* '"' IDTOKEN '"' S*
+Content54
+   = EMPTY
+Element_open_auctions
+   = '<open_auctions' S* ('/>' / '>' S* Content55 S* '</open_auctions>') S*
+Content55
+   = Element_open_auction*
+Element_open_auction
+   = '<open_auction' S* Attribute56 S* ('/>' / '>' S* Content56 S* '</open_auction>') S*
+Attribute56
+   = AttDef56_0 S* ENDTAG
+AttDef56_0
+   = 'id' S* '=' S* '"' IDTOKEN '"' S*
+Content56
+   = Element_initial Element_reserve? Element_bidder* Element_current Element_privacy? Element_itemref Element_seller Element_annotation Element_quantity Element_type Element_interval
+Element_initial
+   = '<initial' S* ('/>' / '>' S* Content58 S* '</initial>') S*
+Content58
+   = PCDATA*
+Element_reserve
+   = '<reserve' S* ('/>' / '>' S* Content25 S* '</reserve>') S*
+Content25
+   = PCDATA*
+Element_bidder
+   = '<bidder' S* ('/>' / '>' S* Content59 S* '</bidder>') S*
+Content59
+   = Element_date Element_time Element_personref Element_increase
+Element_time
+   = '<time' S* ('/>' / '>' S* Content67 S* '</time>') S*
+Content67
+   = PCDATA*
+Element_personref
+   = '<personref' S* Attribute33 S* ('/>' / '>' S* Content33 S* '</personref>') S*
+Attribute33
+   = AttDef33_0 S* ENDTAG
+AttDef33_0
+   = 'person' S* '=' S* '"' IDTOKEN '"' S*
+Content33
+   = EMPTY
+Element_increase
+   = '<increase' S* ('/>' / '>' S* Content62 S* '</increase>') S*
+Content62
+   = PCDATA*
+Element_current
+   = '<current' S* ('/>' / '>' S* Content61 S* '</current>') S*
+Content61
+   = PCDATA*
+Element_privacy
+   = '<privacy' S* ('/>' / '>' S* Content57 S* '</privacy>') S*
+Content57
+   = PCDATA*
+Element_itemref
+   = '<itemref' S* Attribute32 S* ('/>' / '>' S* Content32 S* '</itemref>') S*
+Attribute32
+   = AttDef32_0 S* ENDTAG
+AttDef32_0
+   = 'item' S* '=' S* '"' IDTOKEN '"' S*
+Content32
+   = EMPTY
+Element_seller
+   = '<seller' S* Attribute60 S* ('/>' / '>' S* Content60 S* '</seller>') S*
+Attribute60
+   = AttDef60_0 S* ENDTAG
+AttDef60_0
+   = 'person' S* '=' S* '"' IDTOKEN '"' S*
+Content60
+   = EMPTY
+Element_annotation
+   = '<annotation' S* ('/>' / '>' S* Content74 S* '</annotation>') S*
+Content74
+   = Element_author Element_description? Element_happiness
+Element_author
+   = '<author' S* Attribute75 S* ('/>' / '>' S* Content75 S* '</author>') S*
+Attribute75
+   = AttDef75_0 S* ENDTAG
+AttDef75_0
+   = 'person' S* '=' S* '"' IDTOKEN '"' S*
+Content75
+   = EMPTY
+Element_happiness
+   = '<happiness' S* ('/>' / '>' S* Content76 S* '</happiness>') S*
+Content76
+   = PCDATA*
+Element_type
+   = '<type' S* ('/>' / '>' S* Content63 S* '</type>') S*
+Content63
+   = PCDATA*
+Element_interval
+   = '<interval' S* ('/>' / '>' S* Content64 S* '</interval>') S*
+Content64
+   = Element_start Element_end
+Element_start
+   = '<start' S* ('/>' / '>' S* Content65 S* '</start>') S*
+Content65
+   = PCDATA*
+Element_end
+   = '<end' S* ('/>' / '>' S* Content66 S* '</end>') S*
+Content66
+   = PCDATA*
+Element_closed_auctions
+   = '<closed_auctions' S* ('/>' / '>' S* Content70 S* '</closed_auctions>') S*
+Content70
+   = Element_closed_auction*
+Element_closed_auction
+   = '<closed_auction' S* ('/>' / '>' S* Content71 S* '</closed_auction>') S*
+Content71
+   = Element_seller Element_buyer Element_itemref Element_price Element_date Element_quantity Element_type Element_annotation?
+Element_buyer
+   = '<buyer' S* Attribute72 S* ('/>' / '>' S* Content72 S* '</buyer>') S*
+Attribute72
+   = AttDef72_0 S* ENDTAG
+AttDef72_0
+   = 'person' S* '=' S* '"' IDTOKEN '"' S*
+Content72
+   = EMPTY
+Element_price
+   = '<price' S* ('/>' / '>' S* Content73 S* '</price>') S*
+Content73
+   = PCDATA*
