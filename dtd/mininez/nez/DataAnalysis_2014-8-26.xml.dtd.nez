@@ -1,0 +1,136 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_dataroot
+Element_dataroot
+   = '<dataroot' S* Attribute0 S* ('/>' / '>' S* Content0 S* '</dataroot>') S*
+Attribute0
+   = AttDef0_0 AttDef0_1 AttDef0_2 AttDef0_3 ENDTAG
+   / AttDef0_0 AttDef0_1 AttDef0_3 AttDef0_2 ENDTAG
+   / AttDef0_0 AttDef0_2 AttDef0_1 AttDef0_3 ENDTAG
+   / AttDef0_0 AttDef0_2 AttDef0_3 AttDef0_1 ENDTAG
+   / AttDef0_0 AttDef0_3 AttDef0_1 AttDef0_2 ENDTAG
+   / AttDef0_0 AttDef0_3 AttDef0_2 AttDef0_1 ENDTAG
+   / AttDef0_1 AttDef0_0 AttDef0_2 AttDef0_3 ENDTAG
+   / AttDef0_1 AttDef0_0 AttDef0_3 AttDef0_2 ENDTAG
+   / AttDef0_1 AttDef0_2 AttDef0_0 AttDef0_3 ENDTAG
+   / AttDef0_1 AttDef0_2 AttDef0_3 AttDef0_0 ENDTAG
+   / AttDef0_1 AttDef0_3 AttDef0_0 AttDef0_2 ENDTAG
+   / AttDef0_1 AttDef0_3 AttDef0_2 AttDef0_0 ENDTAG
+   / AttDef0_2 AttDef0_0 AttDef0_1 AttDef0_3 ENDTAG
+   / AttDef0_2 AttDef0_0 AttDef0_3 AttDef0_1 ENDTAG
+   / AttDef0_2 AttDef0_1 AttDef0_0 AttDef0_3 ENDTAG
+   / AttDef0_2 AttDef0_1 AttDef0_3 AttDef0_0 ENDTAG
+   / AttDef0_2 AttDef0_3 AttDef0_0 AttDef0_1 ENDTAG
+   / AttDef0_2 AttDef0_3 AttDef0_1 AttDef0_0 ENDTAG
+   / AttDef0_3 AttDef0_0 AttDef0_1 AttDef0_2 ENDTAG
+   / AttDef0_3 AttDef0_0 AttDef0_2 AttDef0_1 ENDTAG
+   / AttDef0_3 AttDef0_1 AttDef0_0 AttDef0_2 ENDTAG
+   / AttDef0_3 AttDef0_1 AttDef0_2 AttDef0_0 ENDTAG
+   / AttDef0_3 AttDef0_2 AttDef0_0 AttDef0_1 ENDTAG
+   / AttDef0_3 AttDef0_2 AttDef0_1 AttDef0_0 ENDTAG
+AttDef0_0
+   = 'generated' S* '=' S* STRING S*
+AttDef0_1
+   = 'xmlns:od' S* '=' S* STRING S*
+AttDef0_2
+   = 'xmlns:xsi' S* '=' S* STRING S*
+AttDef0_3
+   = 'xsi:noNamespaceSchemaLocation' S* '=' S* NMTOKEN S*
+NMTOKEN
+   = '"' NAME '"'
+ENDTAG
+   = &('>')
+   / &('/>')
+Content0
+   = Element_DataAnalysis_2014-8-26+
+Element_DataAnalysis_2014-8-26
+   = '<DataAnalysis_2014-8-26' S* ('/>' / '>' S* Content2 S* '</DataAnalysis_2014-8-26>') S*
+Content2
+   = (Element_Country / Element_Description / Element_End_x0020_Year / Element_Implementing_x0020_Partner / Element_Non-USG_x0020_Investment / Element_Partnership_x0020_Name / Element_Region / Element_Resource_x0020_and_x0020_Other_x0020_Partners / Element_Sector / Element_Start_x0020_Year / Element_Total_x0020_Lifetime_x0020_Investment / Element_USG_x0020_Investment)*
+Element_Country
+   = '<Country' S* ('/>' / '>' S* Content1 S* '</Country>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_Description
+   = '<Description' S* ('/>' / '>' S* Content3 S* '</Description>') S*
+Content3
+   = PCDATA*
+Element_End_x0020_Year
+   = '<End_x0020_Year' S* ('/>' / '>' S* Content4 S* '</End_x0020_Year>') S*
+Content4
+   = PCDATA*
+Element_Implementing_x0020_Partner
+   = '<Implementing_x0020_Partner' S* ('/>' / '>' S* Content5 S* '</Implementing_x0020_Partner>') S*
+Content5
+   = PCDATA*
+Element_Non-USG_x0020_Investment
+   = '<Non-USG_x0020_Investment' S* ('/>' / '>' S* Content6 S* '</Non-USG_x0020_Investment>') S*
+Content6
+   = PCDATA*
+Element_Partnership_x0020_Name
+   = '<Partnership_x0020_Name' S* ('/>' / '>' S* Content7 S* '</Partnership_x0020_Name>') S*
+Content7
+   = PCDATA*
+Element_Region
+   = '<Region' S* ('/>' / '>' S* Content8 S* '</Region>') S*
+Content8
+   = PCDATA*
+Element_Resource_x0020_and_x0020_Other_x0020_Partners
+   = '<Resource_x0020_and_x0020_Other_x0020_Partners' S* ('/>' / '>' S* Content9 S* '</Resource_x0020_and_x0020_Other_x0020_Partners>') S*
+Content9
+   = PCDATA*
+Element_Sector
+   = '<Sector' S* ('/>' / '>' S* Content10 S* '</Sector>') S*
+Content10
+   = PCDATA*
+Element_Start_x0020_Year
+   = '<Start_x0020_Year' S* ('/>' / '>' S* Content11 S* '</Start_x0020_Year>') S*
+Content11
+   = PCDATA*
+Element_Total_x0020_Lifetime_x0020_Investment
+   = '<Total_x0020_Lifetime_x0020_Investment' S* ('/>' / '>' S* Content12 S* '</Total_x0020_Lifetime_x0020_Investment>') S*
+Content12
+   = PCDATA*
+Element_USG_x0020_Investment
+   = '<USG_x0020_Investment' S* ('/>' / '>' S* Content13 S* '</USG_x0020_Investment>') S*
+Content13
+   = PCDATA*

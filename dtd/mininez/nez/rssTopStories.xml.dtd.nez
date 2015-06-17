@@ -1,0 +1,105 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_rss
+Element_rss
+   = '<rss' S* Attribute0 S* ('/>' / '>' S* Content0 S* '</rss>') S*
+Attribute0
+   = AttDef0_0 AttDef0_1 ENDTAG
+   / AttDef0_1 AttDef0_0 ENDTAG
+AttDef0_0
+   = 'version' S* '=' S* STRING S*
+AttDef0_1
+   = 'xmlns:media' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content0
+   = Element_channel
+Element_channel
+   = '<channel' S* ('/>' / '>' S* Content2 S* '</channel>') S*
+Content2
+   = Element_title Element_description Element_link Element_item+
+Element_title
+   = '<title' S* ('/>' / '>' S* Content9 S* '</title>') S*
+Content9
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_description
+   = '<description' S* ('/>' / '>' S* Content3 S* '</description>') S*
+Content3
+   = PCDATA*
+Element_link
+   = '<link' S* ('/>' / '>' S* Content6 S* '</link>') S*
+Content6
+   = PCDATA*
+Element_item
+   = '<item' S* ('/>' / '>' S* Content5 S* '</item>') S*
+Content5
+   = Element_title Element_description Element_pubDate Element_author Element_link Element_guid Element_media:content+
+Element_pubDate
+   = '<pubDate' S* ('/>' / '>' S* Content8 S* '</pubDate>') S*
+Content8
+   = PCDATA*
+Element_author
+   = '<author' S* ('/>' / '>' S* Content1 S* '</author>') S*
+Content1
+   = PCDATA*
+Element_guid
+   = '<guid' S* ('/>' / '>' S* Content4 S* '</guid>') S*
+Content4
+   = PCDATA*
+Element_media:content
+   = '<media:content' S* Attribute7 S* ('/>' / '>' S* Content7 S* '</media:content>') S*
+Attribute7
+   = AttChoice7* AttDef7_1 AttChoice7* ENDTAG
+AttChoice7
+   = AttDef7_0
+   / AttDef7_2
+AttDef7_0
+   = 'type' S* '=' S* '"image/jpeg"' S*
+AttDef7_2
+   = 'width' S* '=' S* '"600"' S*
+AttDef7_1
+   = 'url' S* '=' S* STRING S*
+Content7
+   = EMPTY
+EMPTY
+   = S*

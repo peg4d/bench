@@ -1,0 +1,116 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute11 S* ('/>' / '>' S* Content11 S* '</row>') S*
+Attribute11
+   = AttChoice11* S* ENDTAG
+AttChoice11
+   = AttDef11_0
+   / AttDef11_1
+   / AttDef11_2
+   / AttDef11_3
+AttDef11_0
+   = '_address' S* '=' S* STRING S*
+AttDef11_1
+   = '_id' S* '=' S* STRING S*
+AttDef11_2
+   = '_position' S* '=' S* STRING S*
+AttDef11_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content11
+   = (Element_end_date / Element_expected / Element_footnote / Element_hospital_name / Element_measure_id / Element_number_of_discharges / Element_number_of_readmissions / Element_predicted / Element_provider_id / Element_readm_ratio / Element_row / Element_start_date / Element_state)*
+Element_end_date
+   = '<end_date' S* ('/>' / '>' S* Content1 S* '</end_date>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_expected
+   = '<expected' S* ('/>' / '>' S* Content2 S* '</expected>') S*
+Content2
+   = PCDATA*
+Element_footnote
+   = '<footnote' S* ('/>' / '>' S* Content3 S* '</footnote>') S*
+Content3
+   = PCDATA*
+Element_hospital_name
+   = '<hospital_name' S* ('/>' / '>' S* Content4 S* '</hospital_name>') S*
+Content4
+   = PCDATA*
+Element_measure_id
+   = '<measure_id' S* ('/>' / '>' S* Content5 S* '</measure_id>') S*
+Content5
+   = PCDATA*
+Element_number_of_discharges
+   = '<number_of_discharges' S* ('/>' / '>' S* Content6 S* '</number_of_discharges>') S*
+Content6
+   = PCDATA*
+Element_number_of_readmissions
+   = '<number_of_readmissions' S* ('/>' / '>' S* Content7 S* '</number_of_readmissions>') S*
+Content7
+   = PCDATA*
+Element_predicted
+   = '<predicted' S* ('/>' / '>' S* Content8 S* '</predicted>') S*
+Content8
+   = PCDATA*
+Element_provider_id
+   = '<provider_id' S* ('/>' / '>' S* Content9 S* '</provider_id>') S*
+Content9
+   = PCDATA*
+Element_readm_ratio
+   = '<readm_ratio' S* ('/>' / '>' S* Content10 S* '</readm_ratio>') S*
+Content10
+   = PCDATA*
+Element_start_date
+   = '<start_date' S* ('/>' / '>' S* Content12 S* '</start_date>') S*
+Content12
+   = PCDATA*
+Element_state
+   = '<state' S* ('/>' / '>' S* Content13 S* '</state>') S*
+Content13
+   = PCDATA*

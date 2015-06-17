@@ -1,0 +1,188 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_Grants
+Element_Grants
+   = '<Grants' S* Attribute0 S* ('/>' / '>' S* Content0 S* '</Grants>') S*
+Attribute0
+   = AttDef0_0 AttDef0_1 ENDTAG
+   / AttDef0_1 AttDef0_0 ENDTAG
+AttDef0_0
+   = 'xmlns:xsi' S* '=' S* STRING S*
+AttDef0_1
+   = 'xsi:noNamespaceSchemaLocation' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content0
+   = Element_Grant+
+Element_Grant
+   = '<Grant' S* Attribute12 S* ('/>' / '>' S* Content12 S* '</Grant>') S*
+Attribute12
+   = AttDef12_0 S* ENDTAG
+AttDef12_0
+   = 'AppNumber' S* '=' S* STRING S*
+Content12
+   = (Element_ApplicantType / Element_ApprovedMatching / Element_ApprovedOutright / Element_AwardMatching / Element_AwardOutright / Element_BeginGrant / Element_Category / Element_CouncilDate / Element_Division / Element_EndGrant / Element_Firstname / Element_InstCity / Element_InstCountry / Element_InstPostalCode / Element_InstState / Element_Institution / Element_Lastname / Element_Middlename / Element_NameSuffix / Element_OriginalAmount / Element_Program / Element_ProjectDesc / Element_ProjectTitle / Element_SuppCount / Element_Supplement / Element_SupplementAmount / Element_ToSupport / Element_YearAwarded)*
+Element_ApplicantType
+   = '<ApplicantType' S* ('/>' / '>' S* Content1 S* '</ApplicantType>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_ApprovedMatching
+   = '<ApprovedMatching' S* ('/>' / '>' S* Content2 S* '</ApprovedMatching>') S*
+Content2
+   = PCDATA*
+Element_ApprovedOutright
+   = '<ApprovedOutright' S* ('/>' / '>' S* Content3 S* '</ApprovedOutright>') S*
+Content3
+   = PCDATA*
+Element_AwardMatching
+   = '<AwardMatching' S* ('/>' / '>' S* Content4 S* '</AwardMatching>') S*
+Content4
+   = PCDATA*
+Element_AwardOutright
+   = '<AwardOutright' S* ('/>' / '>' S* Content5 S* '</AwardOutright>') S*
+Content5
+   = PCDATA*
+Element_BeginGrant
+   = '<BeginGrant' S* ('/>' / '>' S* Content6 S* '</BeginGrant>') S*
+Content6
+   = PCDATA*
+Element_Category
+   = '<Category' S* ('/>' / '>' S* Content7 S* '</Category>') S*
+Content7
+   = PCDATA*
+Element_CouncilDate
+   = '<CouncilDate' S* ('/>' / '>' S* Content8 S* '</CouncilDate>') S*
+Content8
+   = PCDATA*
+Element_Division
+   = '<Division' S* ('/>' / '>' S* Content9 S* '</Division>') S*
+Content9
+   = PCDATA*
+Element_EndGrant
+   = '<EndGrant' S* ('/>' / '>' S* Content10 S* '</EndGrant>') S*
+Content10
+   = PCDATA*
+Element_Firstname
+   = '<Firstname' S* ('/>' / '>' S* Content11 S* '</Firstname>') S*
+Content11
+   = PCDATA*
+Element_InstCity
+   = '<InstCity' S* ('/>' / '>' S* Content13 S* '</InstCity>') S*
+Content13
+   = PCDATA*
+Element_InstCountry
+   = '<InstCountry' S* ('/>' / '>' S* Content14 S* '</InstCountry>') S*
+Content14
+   = PCDATA*
+Element_InstPostalCode
+   = '<InstPostalCode' S* ('/>' / '>' S* Content15 S* '</InstPostalCode>') S*
+Content15
+   = PCDATA*
+Element_InstState
+   = '<InstState' S* ('/>' / '>' S* Content16 S* '</InstState>') S*
+Content16
+   = PCDATA*
+Element_Institution
+   = '<Institution' S* ('/>' / '>' S* Content17 S* '</Institution>') S*
+Content17
+   = PCDATA*
+Element_Lastname
+   = '<Lastname' S* ('/>' / '>' S* Content18 S* '</Lastname>') S*
+Content18
+   = PCDATA*
+Element_Middlename
+   = '<Middlename' S* ('/>' / '>' S* Content20 S* '</Middlename>') S*
+Content20
+   = PCDATA*
+Element_NameSuffix
+   = '<NameSuffix' S* ('/>' / '>' S* Content21 S* '</NameSuffix>') S*
+Content21
+   = PCDATA*
+Element_OriginalAmount
+   = '<OriginalAmount' S* ('/>' / '>' S* Content22 S* '</OriginalAmount>') S*
+Content22
+   = PCDATA*
+Element_Program
+   = '<Program' S* ('/>' / '>' S* Content24 S* '</Program>') S*
+Content24
+   = PCDATA*
+Element_ProjectDesc
+   = '<ProjectDesc' S* ('/>' / '>' S* Content25 S* '</ProjectDesc>') S*
+Content25
+   = PCDATA*
+Element_ProjectTitle
+   = '<ProjectTitle' S* ('/>' / '>' S* Content26 S* '</ProjectTitle>') S*
+Content26
+   = PCDATA*
+Element_SuppCount
+   = '<SuppCount' S* ('/>' / '>' S* Content27 S* '</SuppCount>') S*
+Content27
+   = PCDATA*
+Element_Supplement
+   = '<Supplement' S* ('/>' / '>' S* Content28 S* '</Supplement>') S*
+Content28
+   = Element_SupplementDate Element_OutrightAmount Element_MatchAmount
+Element_SupplementDate
+   = '<SupplementDate' S* ('/>' / '>' S* Content30 S* '</SupplementDate>') S*
+Content30
+   = PCDATA*
+Element_OutrightAmount
+   = '<OutrightAmount' S* ('/>' / '>' S* Content23 S* '</OutrightAmount>') S*
+Content23
+   = PCDATA*
+Element_MatchAmount
+   = '<MatchAmount' S* ('/>' / '>' S* Content19 S* '</MatchAmount>') S*
+Content19
+   = PCDATA*
+Element_SupplementAmount
+   = '<SupplementAmount' S* ('/>' / '>' S* Content29 S* '</SupplementAmount>') S*
+Content29
+   = PCDATA*
+Element_ToSupport
+   = '<ToSupport' S* ('/>' / '>' S* Content31 S* '</ToSupport>') S*
+Content31
+   = PCDATA*
+Element_YearAwarded
+   = '<YearAwarded' S* ('/>' / '>' S* Content32 S* '</YearAwarded>') S*
+Content32
+   = PCDATA*

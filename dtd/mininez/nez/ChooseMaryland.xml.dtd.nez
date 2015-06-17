@@ -1,0 +1,108 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute11 S* ('/>' / '>' S* Content11 S* '</row>') S*
+Attribute11
+   = AttChoice11* S* ENDTAG
+AttChoice11
+   = AttDef11_0
+   / AttDef11_1
+   / AttDef11_2
+   / AttDef11_3
+AttDef11_0
+   = '_address' S* '=' S* STRING S*
+AttDef11_1
+   = '_id' S* '=' S* STRING S*
+AttDef11_2
+   = '_position' S* '=' S* STRING S*
+AttDef11_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content11
+   = (Element_annual_number_of_public_high_school_graduates / Element_bachelors_degree_attainment / Element_county / Element_enrollment_2yr_college / Element_enrollment_4yr_college_university / Element_high_school_attainment / Element_number_2yr_colleges / Element_number_4yr_colleges_universities / Element_public_school_expenditures_per_pupil / Element_public_student_teacher_ratio / Element_row)*
+Element_annual_number_of_public_high_school_graduates
+   = '<annual_number_of_public_high_school_graduates' S* ('/>' / '>' S* Content1 S* '</annual_number_of_public_high_school_graduates>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_bachelors_degree_attainment
+   = '<bachelors_degree_attainment' S* ('/>' / '>' S* Content2 S* '</bachelors_degree_attainment>') S*
+Content2
+   = PCDATA*
+Element_county
+   = '<county' S* ('/>' / '>' S* Content3 S* '</county>') S*
+Content3
+   = PCDATA*
+Element_enrollment_2yr_college
+   = '<enrollment_2yr_college' S* ('/>' / '>' S* Content4 S* '</enrollment_2yr_college>') S*
+Content4
+   = PCDATA*
+Element_enrollment_4yr_college_university
+   = '<enrollment_4yr_college_university' S* ('/>' / '>' S* Content5 S* '</enrollment_4yr_college_university>') S*
+Content5
+   = PCDATA*
+Element_high_school_attainment
+   = '<high_school_attainment' S* ('/>' / '>' S* Content6 S* '</high_school_attainment>') S*
+Content6
+   = PCDATA*
+Element_number_2yr_colleges
+   = '<number_2yr_colleges' S* ('/>' / '>' S* Content7 S* '</number_2yr_colleges>') S*
+Content7
+   = PCDATA*
+Element_number_4yr_colleges_universities
+   = '<number_4yr_colleges_universities' S* ('/>' / '>' S* Content8 S* '</number_4yr_colleges_universities>') S*
+Content8
+   = PCDATA*
+Element_public_school_expenditures_per_pupil
+   = '<public_school_expenditures_per_pupil' S* ('/>' / '>' S* Content9 S* '</public_school_expenditures_per_pupil>') S*
+Content9
+   = PCDATA*
+Element_public_student_teacher_ratio
+   = '<public_student_teacher_ratio' S* ('/>' / '>' S* Content10 S* '</public_student_teacher_ratio>') S*
+Content10
+   = PCDATA*

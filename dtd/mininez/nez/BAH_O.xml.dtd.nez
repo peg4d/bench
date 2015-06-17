@@ -1,0 +1,77 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_DBI
+Element_DBI
+   = '<DBI' S* Attribute0 S* ('/>' / '>' S* Content0 S* '</DBI>') S*
+Attribute0
+   = AttDef0_0 S* ENDTAG
+AttDef0_0
+   = 'driver' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content0
+   = Element_RESULTSET
+Element_RESULTSET
+   = '<RESULTSET' S* ('/>' / '>' S* Content4 S* '</RESULTSET>') S*
+Content4
+   = Element_ROW+
+Element_ROW
+   = '<ROW' S* ('/>' / '>' S* Content5 S* '</ROW>') S*
+Content5
+   = Element_LOCALGAGETIME Element_UPSTREAM_ELEV Element_DOWNSTREAM_ELEV Element_AVG_HOURLY_DISCHARGE
+Element_LOCALGAGETIME
+   = '<LOCALGAGETIME' S* ('/>' / '>' S* Content3 S* '</LOCALGAGETIME>') S*
+Content3
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_UPSTREAM_ELEV
+   = '<UPSTREAM_ELEV' S* ('/>' / '>' S* Content6 S* '</UPSTREAM_ELEV>') S*
+Content6
+   = PCDATA*
+Element_DOWNSTREAM_ELEV
+   = '<DOWNSTREAM_ELEV' S* ('/>' / '>' S* Content2 S* '</DOWNSTREAM_ELEV>') S*
+Content2
+   = PCDATA*
+Element_AVG_HOURLY_DISCHARGE
+   = '<AVG_HOURLY_DISCHARGE' S* ('/>' / '>' S* Content1 S* '</AVG_HOURLY_DISCHARGE>') S*
+Content1
+   = PCDATA*

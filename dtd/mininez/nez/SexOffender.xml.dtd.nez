@@ -1,0 +1,108 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute9 S* ('/>' / '>' S* Content9 S* '</row>') S*
+Attribute9
+   = AttChoice9* S* ENDTAG
+AttChoice9
+   = AttDef9_0
+   / AttDef9_1
+   / AttDef9_2
+   / AttDef9_3
+AttDef9_0
+   = '_address' S* '=' S* STRING S*
+AttDef9_1
+   = '_id' S* '=' S* STRING S*
+AttDef9_2
+   = '_position' S* '=' S* STRING S*
+AttDef9_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content9
+   = (Element_age / Element_birth_date / Element_block / Element_first / Element_gender / Element_height / Element_last / Element_race / Element_row / Element_victim_minor / Element_weight)*
+Element_age
+   = '<age' S* ('/>' / '>' S* Content1 S* '</age>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_birth_date
+   = '<birth_date' S* ('/>' / '>' S* Content2 S* '</birth_date>') S*
+Content2
+   = PCDATA*
+Element_block
+   = '<block' S* ('/>' / '>' S* Content3 S* '</block>') S*
+Content3
+   = PCDATA*
+Element_first
+   = '<first' S* ('/>' / '>' S* Content4 S* '</first>') S*
+Content4
+   = PCDATA*
+Element_gender
+   = '<gender' S* ('/>' / '>' S* Content5 S* '</gender>') S*
+Content5
+   = PCDATA*
+Element_height
+   = '<height' S* ('/>' / '>' S* Content6 S* '</height>') S*
+Content6
+   = PCDATA*
+Element_last
+   = '<last' S* ('/>' / '>' S* Content7 S* '</last>') S*
+Content7
+   = PCDATA*
+Element_race
+   = '<race' S* ('/>' / '>' S* Content8 S* '</race>') S*
+Content8
+   = PCDATA*
+Element_victim_minor
+   = '<victim_minor' S* ('/>' / '>' S* Content10 S* '</victim_minor>') S*
+Content10
+   = PCDATA*
+Element_weight
+   = '<weight' S* ('/>' / '>' S* Content11 S* '</weight>') S*
+Content11
+   = PCDATA*

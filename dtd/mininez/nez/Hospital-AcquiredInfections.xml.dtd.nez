@@ -1,0 +1,133 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute13 S* ('/>' / '>' S* Content13 S* '</row>') S*
+Attribute13
+   = AttChoice13* S* ENDTAG
+AttChoice13
+   = AttDef13_0
+   / AttDef13_1
+   / AttDef13_2
+   / AttDef13_3
+AttDef13_0
+   = '_address' S* '=' S* STRING S*
+AttDef13_1
+   = '_id' S* '=' S* STRING S*
+AttDef13_2
+   = '_position' S* '=' S* STRING S*
+AttDef13_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content13
+   = (Element_comparison_results / Element_denominator / Element_hospital_name / Element_indicator_lower_confidence_limit / Element_indicator_name / Element_indicator_units / Element_indicator_upper_confidence_limit / Element_indicator_value / Element_infections_observed / Element_infections_predicted / Element_location_1 / Element_pfi / Element_row / Element_year)*
+Element_comparison_results
+   = '<comparison_results' S* ('/>' / '>' S* Content1 S* '</comparison_results>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_denominator
+   = '<denominator' S* ('/>' / '>' S* Content2 S* '</denominator>') S*
+Content2
+   = PCDATA*
+Element_hospital_name
+   = '<hospital_name' S* ('/>' / '>' S* Content3 S* '</hospital_name>') S*
+Content3
+   = PCDATA*
+Element_indicator_lower_confidence_limit
+   = '<indicator_lower_confidence_limit' S* ('/>' / '>' S* Content4 S* '</indicator_lower_confidence_limit>') S*
+Content4
+   = PCDATA*
+Element_indicator_name
+   = '<indicator_name' S* ('/>' / '>' S* Content5 S* '</indicator_name>') S*
+Content5
+   = PCDATA*
+Element_indicator_units
+   = '<indicator_units' S* ('/>' / '>' S* Content6 S* '</indicator_units>') S*
+Content6
+   = PCDATA*
+Element_indicator_upper_confidence_limit
+   = '<indicator_upper_confidence_limit' S* ('/>' / '>' S* Content7 S* '</indicator_upper_confidence_limit>') S*
+Content7
+   = PCDATA*
+Element_indicator_value
+   = '<indicator_value' S* ('/>' / '>' S* Content8 S* '</indicator_value>') S*
+Content8
+   = PCDATA*
+Element_infections_observed
+   = '<infections_observed' S* ('/>' / '>' S* Content9 S* '</infections_observed>') S*
+Content9
+   = PCDATA*
+Element_infections_predicted
+   = '<infections_predicted' S* ('/>' / '>' S* Content10 S* '</infections_predicted>') S*
+Content10
+   = PCDATA*
+Element_location_1
+   = '<location_1' S* Attribute11 S* ('/>' / '>' S* Content11 S* '</location_1>') S*
+Attribute11
+   = AttChoice11* AttDef11_0 AttChoice11* AttDef11_1 AttChoice11* ENDTAG
+   / AttChoice11* AttDef11_1 AttChoice11* AttDef11_0 AttChoice11* ENDTAG
+AttChoice11
+   = AttDef11_2
+AttDef11_2
+   = 'needs_recoding' S* '=' S* '"false"' S*
+AttDef11_0
+   = 'latitude' S* '=' S* STRING S*
+AttDef11_1
+   = 'longitude' S* '=' S* STRING S*
+Content11
+   = EMPTY
+EMPTY
+   = S*
+Element_pfi
+   = '<pfi' S* ('/>' / '>' S* Content12 S* '</pfi>') S*
+Content12
+   = PCDATA*
+Element_year
+   = '<year' S* ('/>' / '>' S* Content14 S* '</year>') S*
+Content14
+   = PCDATA*

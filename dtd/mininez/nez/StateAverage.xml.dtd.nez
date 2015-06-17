@@ -1,0 +1,204 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute34 S* ('/>' / '>' S* Content34 S* '</row>') S*
+Attribute34
+   = AttChoice34* S* ENDTAG
+AttChoice34
+   = AttDef34_0
+   / AttDef34_1
+   / AttDef34_2
+   / AttDef34_3
+AttDef34_0
+   = '_address' S* '=' S* STRING S*
+AttDef34_1
+   = '_id' S* '=' S* STRING S*
+AttDef34_2
+   = '_position' S* '=' S* STRING S*
+AttDef34_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content34
+   = (Element_cycle_1_total_number_of_fire_safety_deficiencies / Element_cycle_1_total_number_of_health_deficiencies / Element_cycle_2_total_number_of_fire_safety_deficiencies / Element_cycle_2_total_number_of_health_deficiencies / Element_cycle_3_total_number_of_fire_safety_deficiencies / Element_cycle_3_total_number_of_health_deficiencies / Element_fine_amount_in_dollars / Element_number_of_fines / Element_percent_of_high_risk_long_stay_residents_with_pressure_ulcers / Element_percent_of_long_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine / Element_percent_of_long_stay_residents_assessed_and_appropriately_given_the_seasonal_influenza_vaccine / Element_percent_of_long_stay_residents_experiencing_one_or_more_falls_with_major_injury / Element_percent_of_long_stay_residents_who_have_depressive_symptoms / Element_percent_of_long_stay_residents_who_lose_too_much_weight / Element_percent_of_long_stay_residents_who_received_an_antipsychotic_medication / Element_percent_of_long_stay_residents_who_self_report_moderate_to_severe_pain / Element_percent_of_long_stay_residents_who_were_physically_restrained / Element_percent_of_long_stay_residents_whose_need_for_help_with_adls_has_increased / Element_percent_of_long_stay_residents_with_a_catheter_inserted_and_left_in_their_bladder / Element_percent_of_long_stay_residents_with_a_urinary_tract_infection / Element_percent_of_low_risk_long_stay_residents_who_lose_control_of_their_bowel_or_bladder / Element_percent_of_short_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine / Element_percent_of_short_stay_residents_who_newly_received_an_antipsychotic_medication / Element_percent_of_short_stay_residents_who_self_report_moderate_to_severe_pain / Element_percent_of_short_stay_residents_who_were_assessed_and_appropriately_given_the_seasonal_influenza_vaccine / Element_percent_of_short_stay_residents_with_pressure_ulcers_that_are_new_or_worsened / Element_processing_date / Element_reported_cna_staffing_hours_per_resident_per_day / Element_reported_licensed_staffing_hours_per_resident_per_day / Element_reported_lpn_staffing_hours_per_resident_per_day / Element_reported_physical_therapist_staffing_hours_per_resident_per_day / Element_reported_rn_staffing_hours_per_resident_per_day / Element_reported_total_nurse_staffing_hours_per_resident_per_day / Element_row / Element_state_or_nation)*
+Element_cycle_1_total_number_of_fire_safety_deficiencies
+   = '<cycle_1_total_number_of_fire_safety_deficiencies' S* ('/>' / '>' S* Content1 S* '</cycle_1_total_number_of_fire_safety_deficiencies>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_cycle_1_total_number_of_health_deficiencies
+   = '<cycle_1_total_number_of_health_deficiencies' S* ('/>' / '>' S* Content2 S* '</cycle_1_total_number_of_health_deficiencies>') S*
+Content2
+   = PCDATA*
+Element_cycle_2_total_number_of_fire_safety_deficiencies
+   = '<cycle_2_total_number_of_fire_safety_deficiencies' S* ('/>' / '>' S* Content3 S* '</cycle_2_total_number_of_fire_safety_deficiencies>') S*
+Content3
+   = PCDATA*
+Element_cycle_2_total_number_of_health_deficiencies
+   = '<cycle_2_total_number_of_health_deficiencies' S* ('/>' / '>' S* Content4 S* '</cycle_2_total_number_of_health_deficiencies>') S*
+Content4
+   = PCDATA*
+Element_cycle_3_total_number_of_fire_safety_deficiencies
+   = '<cycle_3_total_number_of_fire_safety_deficiencies' S* ('/>' / '>' S* Content5 S* '</cycle_3_total_number_of_fire_safety_deficiencies>') S*
+Content5
+   = PCDATA*
+Element_cycle_3_total_number_of_health_deficiencies
+   = '<cycle_3_total_number_of_health_deficiencies' S* ('/>' / '>' S* Content6 S* '</cycle_3_total_number_of_health_deficiencies>') S*
+Content6
+   = PCDATA*
+Element_fine_amount_in_dollars
+   = '<fine_amount_in_dollars' S* ('/>' / '>' S* Content7 S* '</fine_amount_in_dollars>') S*
+Content7
+   = PCDATA*
+Element_number_of_fines
+   = '<number_of_fines' S* ('/>' / '>' S* Content8 S* '</number_of_fines>') S*
+Content8
+   = PCDATA*
+Element_percent_of_high_risk_long_stay_residents_with_pressure_ulcers
+   = '<percent_of_high_risk_long_stay_residents_with_pressure_ulcers' S* ('/>' / '>' S* Content9 S* '</percent_of_high_risk_long_stay_residents_with_pressure_ulcers>') S*
+Content9
+   = PCDATA*
+Element_percent_of_long_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine
+   = '<percent_of_long_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine' S* ('/>' / '>' S* Content10 S* '</percent_of_long_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine>') S*
+Content10
+   = PCDATA*
+Element_percent_of_long_stay_residents_assessed_and_appropriately_given_the_seasonal_influenza_vaccine
+   = '<percent_of_long_stay_residents_assessed_and_appropriately_given_the_seasonal_influenza_vaccine' S* ('/>' / '>' S* Content11 S* '</percent_of_long_stay_residents_assessed_and_appropriately_given_the_seasonal_influenza_vaccine>') S*
+Content11
+   = PCDATA*
+Element_percent_of_long_stay_residents_experiencing_one_or_more_falls_with_major_injury
+   = '<percent_of_long_stay_residents_experiencing_one_or_more_falls_with_major_injury' S* ('/>' / '>' S* Content12 S* '</percent_of_long_stay_residents_experiencing_one_or_more_falls_with_major_injury>') S*
+Content12
+   = PCDATA*
+Element_percent_of_long_stay_residents_who_have_depressive_symptoms
+   = '<percent_of_long_stay_residents_who_have_depressive_symptoms' S* ('/>' / '>' S* Content13 S* '</percent_of_long_stay_residents_who_have_depressive_symptoms>') S*
+Content13
+   = PCDATA*
+Element_percent_of_long_stay_residents_who_lose_too_much_weight
+   = '<percent_of_long_stay_residents_who_lose_too_much_weight' S* ('/>' / '>' S* Content14 S* '</percent_of_long_stay_residents_who_lose_too_much_weight>') S*
+Content14
+   = PCDATA*
+Element_percent_of_long_stay_residents_who_received_an_antipsychotic_medication
+   = '<percent_of_long_stay_residents_who_received_an_antipsychotic_medication' S* ('/>' / '>' S* Content15 S* '</percent_of_long_stay_residents_who_received_an_antipsychotic_medication>') S*
+Content15
+   = PCDATA*
+Element_percent_of_long_stay_residents_who_self_report_moderate_to_severe_pain
+   = '<percent_of_long_stay_residents_who_self_report_moderate_to_severe_pain' S* ('/>' / '>' S* Content16 S* '</percent_of_long_stay_residents_who_self_report_moderate_to_severe_pain>') S*
+Content16
+   = PCDATA*
+Element_percent_of_long_stay_residents_who_were_physically_restrained
+   = '<percent_of_long_stay_residents_who_were_physically_restrained' S* ('/>' / '>' S* Content17 S* '</percent_of_long_stay_residents_who_were_physically_restrained>') S*
+Content17
+   = PCDATA*
+Element_percent_of_long_stay_residents_whose_need_for_help_with_adls_has_increased
+   = '<percent_of_long_stay_residents_whose_need_for_help_with_adls_has_increased' S* ('/>' / '>' S* Content18 S* '</percent_of_long_stay_residents_whose_need_for_help_with_adls_has_increased>') S*
+Content18
+   = PCDATA*
+Element_percent_of_long_stay_residents_with_a_catheter_inserted_and_left_in_their_bladder
+   = '<percent_of_long_stay_residents_with_a_catheter_inserted_and_left_in_their_bladder' S* ('/>' / '>' S* Content19 S* '</percent_of_long_stay_residents_with_a_catheter_inserted_and_left_in_their_bladder>') S*
+Content19
+   = PCDATA*
+Element_percent_of_long_stay_residents_with_a_urinary_tract_infection
+   = '<percent_of_long_stay_residents_with_a_urinary_tract_infection' S* ('/>' / '>' S* Content20 S* '</percent_of_long_stay_residents_with_a_urinary_tract_infection>') S*
+Content20
+   = PCDATA*
+Element_percent_of_low_risk_long_stay_residents_who_lose_control_of_their_bowel_or_bladder
+   = '<percent_of_low_risk_long_stay_residents_who_lose_control_of_their_bowel_or_bladder' S* ('/>' / '>' S* Content21 S* '</percent_of_low_risk_long_stay_residents_who_lose_control_of_their_bowel_or_bladder>') S*
+Content21
+   = PCDATA*
+Element_percent_of_short_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine
+   = '<percent_of_short_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine' S* ('/>' / '>' S* Content22 S* '</percent_of_short_stay_residents_assessed_and_appropriately_given_the_pneumococcal_vaccine>') S*
+Content22
+   = PCDATA*
+Element_percent_of_short_stay_residents_who_newly_received_an_antipsychotic_medication
+   = '<percent_of_short_stay_residents_who_newly_received_an_antipsychotic_medication' S* ('/>' / '>' S* Content23 S* '</percent_of_short_stay_residents_who_newly_received_an_antipsychotic_medication>') S*
+Content23
+   = PCDATA*
+Element_percent_of_short_stay_residents_who_self_report_moderate_to_severe_pain
+   = '<percent_of_short_stay_residents_who_self_report_moderate_to_severe_pain' S* ('/>' / '>' S* Content24 S* '</percent_of_short_stay_residents_who_self_report_moderate_to_severe_pain>') S*
+Content24
+   = PCDATA*
+Element_percent_of_short_stay_residents_who_were_assessed_and_appropriately_given_the_seasonal_influenza_vaccine
+   = '<percent_of_short_stay_residents_who_were_assessed_and_appropriately_given_the_seasonal_influenza_vaccine' S* ('/>' / '>' S* Content25 S* '</percent_of_short_stay_residents_who_were_assessed_and_appropriately_given_the_seasonal_influenza_vaccine>') S*
+Content25
+   = PCDATA*
+Element_percent_of_short_stay_residents_with_pressure_ulcers_that_are_new_or_worsened
+   = '<percent_of_short_stay_residents_with_pressure_ulcers_that_are_new_or_worsened' S* ('/>' / '>' S* Content26 S* '</percent_of_short_stay_residents_with_pressure_ulcers_that_are_new_or_worsened>') S*
+Content26
+   = PCDATA*
+Element_processing_date
+   = '<processing_date' S* ('/>' / '>' S* Content27 S* '</processing_date>') S*
+Content27
+   = PCDATA*
+Element_reported_cna_staffing_hours_per_resident_per_day
+   = '<reported_cna_staffing_hours_per_resident_per_day' S* ('/>' / '>' S* Content28 S* '</reported_cna_staffing_hours_per_resident_per_day>') S*
+Content28
+   = PCDATA*
+Element_reported_licensed_staffing_hours_per_resident_per_day
+   = '<reported_licensed_staffing_hours_per_resident_per_day' S* ('/>' / '>' S* Content29 S* '</reported_licensed_staffing_hours_per_resident_per_day>') S*
+Content29
+   = PCDATA*
+Element_reported_lpn_staffing_hours_per_resident_per_day
+   = '<reported_lpn_staffing_hours_per_resident_per_day' S* ('/>' / '>' S* Content30 S* '</reported_lpn_staffing_hours_per_resident_per_day>') S*
+Content30
+   = PCDATA*
+Element_reported_physical_therapist_staffing_hours_per_resident_per_day
+   = '<reported_physical_therapist_staffing_hours_per_resident_per_day' S* ('/>' / '>' S* Content31 S* '</reported_physical_therapist_staffing_hours_per_resident_per_day>') S*
+Content31
+   = PCDATA*
+Element_reported_rn_staffing_hours_per_resident_per_day
+   = '<reported_rn_staffing_hours_per_resident_per_day' S* ('/>' / '>' S* Content32 S* '</reported_rn_staffing_hours_per_resident_per_day>') S*
+Content32
+   = PCDATA*
+Element_reported_total_nurse_staffing_hours_per_resident_per_day
+   = '<reported_total_nurse_staffing_hours_per_resident_per_day' S* ('/>' / '>' S* Content33 S* '</reported_total_nurse_staffing_hours_per_resident_per_day>') S*
+Content33
+   = PCDATA*
+Element_state_or_nation
+   = '<state_or_nation' S* ('/>' / '>' S* Content35 S* '</state_or_nation>') S*
+Content35
+   = PCDATA*

@@ -1,0 +1,88 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute4 S* ('/>' / '>' S* Content4 S* '</row>') S*
+Attribute4
+   = AttChoice4* S* ENDTAG
+AttChoice4
+   = AttDef4_0
+   / AttDef4_1
+   / AttDef4_2
+   / AttDef4_3
+AttDef4_0
+   = '_address' S* '=' S* STRING S*
+AttDef4_1
+   = '_id' S* '=' S* STRING S*
+AttDef4_2
+   = '_position' S* '=' S* STRING S*
+AttDef4_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content4
+   = (Element_count / Element_county / Element_first_name / Element_row / Element_sex / Element_year)*
+Element_count
+   = '<count' S* ('/>' / '>' S* Content1 S* '</count>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_county
+   = '<county' S* ('/>' / '>' S* Content2 S* '</county>') S*
+Content2
+   = PCDATA*
+Element_first_name
+   = '<first_name' S* ('/>' / '>' S* Content3 S* '</first_name>') S*
+Content3
+   = PCDATA*
+Element_sex
+   = '<sex' S* ('/>' / '>' S* Content5 S* '</sex>') S*
+Content5
+   = PCDATA*
+Element_year
+   = '<year' S* ('/>' / '>' S* Content6 S* '</year>') S*
+Content6
+   = PCDATA*

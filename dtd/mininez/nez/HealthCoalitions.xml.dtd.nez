@@ -1,0 +1,147 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute11 S* ('/>' / '>' S* Content11 S* '</row>') S*
+Attribute11
+   = AttChoice11* S* ENDTAG
+AttChoice11
+   = AttDef11_0
+   / AttDef11_1
+   / AttDef11_2
+   / AttDef11_3
+AttDef11_0
+   = '_address' S* '=' S* STRING S*
+AttDef11_1
+   = '_id' S* '=' S* STRING S*
+AttDef11_2
+   = '_position' S* '=' S* STRING S*
+AttDef11_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content11
+   = (Element_address / Element_address_2 / Element_city / Element_coalition_name / Element_contact / Element_email / Element_fax / Element_location_1 / Element_nysdoh_funding_program / Element_phone / Element_row / Element_service_area_s / Element_state / Element_web_page / Element_zip_code)*
+Element_address
+   = '<address' S* ('/>' / '>' S* Content1 S* '</address>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_address_2
+   = '<address_2' S* ('/>' / '>' S* Content2 S* '</address_2>') S*
+Content2
+   = PCDATA*
+Element_city
+   = '<city' S* ('/>' / '>' S* Content3 S* '</city>') S*
+Content3
+   = PCDATA*
+Element_coalition_name
+   = '<coalition_name' S* ('/>' / '>' S* Content4 S* '</coalition_name>') S*
+Content4
+   = PCDATA*
+Element_contact
+   = '<contact' S* ('/>' / '>' S* Content5 S* '</contact>') S*
+Content5
+   = PCDATA*
+Element_email
+   = '<email' S* ('/>' / '>' S* Content6 S* '</email>') S*
+Content6
+   = PCDATA*
+Element_fax
+   = '<fax' S* ('/>' / '>' S* Content7 S* '</fax>') S*
+Content7
+   = PCDATA*
+Element_location_1
+   = '<location_1' S* Attribute8 S* ('/>' / '>' S* Content8 S* '</location_1>') S*
+Attribute8
+   = AttChoice8* AttDef8_0 AttChoice8* AttDef8_1 AttChoice8* AttDef8_2 AttChoice8* ENDTAG
+   / AttChoice8* AttDef8_0 AttChoice8* AttDef8_2 AttChoice8* AttDef8_1 AttChoice8* ENDTAG
+   / AttChoice8* AttDef8_1 AttChoice8* AttDef8_0 AttChoice8* AttDef8_2 AttChoice8* ENDTAG
+   / AttChoice8* AttDef8_1 AttChoice8* AttDef8_2 AttChoice8* AttDef8_0 AttChoice8* ENDTAG
+   / AttChoice8* AttDef8_2 AttChoice8* AttDef8_0 AttChoice8* AttDef8_1 AttChoice8* ENDTAG
+   / AttChoice8* AttDef8_2 AttChoice8* AttDef8_1 AttChoice8* AttDef8_0 AttChoice8* ENDTAG
+AttChoice8
+   = AttDef8_3
+AttDef8_3
+   = 'needs_recoding' S* '=' S* '"false"' S*
+AttDef8_0
+   = 'human_address' S* '=' S* STRING S*
+AttDef8_1
+   = 'latitude' S* '=' S* STRING S*
+AttDef8_2
+   = 'longitude' S* '=' S* STRING S*
+Content8
+   = EMPTY
+EMPTY
+   = S*
+Element_nysdoh_funding_program
+   = '<nysdoh_funding_program' S* ('/>' / '>' S* Content9 S* '</nysdoh_funding_program>') S*
+Content9
+   = PCDATA*
+Element_phone
+   = '<phone' S* ('/>' / '>' S* Content10 S* '</phone>') S*
+Content10
+   = PCDATA*
+Element_service_area_s
+   = '<service_area_s' S* ('/>' / '>' S* Content12 S* '</service_area_s>') S*
+Content12
+   = PCDATA*
+Element_state
+   = '<state' S* ('/>' / '>' S* Content13 S* '</state>') S*
+Content13
+   = PCDATA*
+Element_web_page
+   = '<web_page' S* Attribute14 S* ('/>' / '>' S* Content14 S* '</web_page>') S*
+Attribute14
+   = AttDef14_0 S* ENDTAG
+AttDef14_0
+   = 'url' S* '=' S* STRING S*
+Content14
+   = EMPTY
+Element_zip_code
+   = '<zip_code' S* ('/>' / '>' S* Content15 S* '</zip_code>') S*
+Content15
+   = PCDATA*

@@ -1,0 +1,116 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute10 S* ('/>' / '>' S* Content10 S* '</row>') S*
+Attribute10
+   = AttChoice10* S* ENDTAG
+AttChoice10
+   = AttDef10_0
+   / AttDef10_1
+   / AttDef10_2
+   / AttDef10_3
+AttDef10_0
+   = '_address' S* '=' S* STRING S*
+AttDef10_1
+   = '_id' S* '=' S* STRING S*
+AttDef10_2
+   = '_position' S* '=' S* STRING S*
+AttDef10_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content10
+   = (Element_average_of_female_months_longevity_in_current_classification / Element_average_of_male_months_longevity_in_current_classification / Element_female_avg_hrly_rate / Element_jobtitle / Element_male_avg_hrly_rate / Element_no_female_empl / Element_no_male_empl / Element_notes / Element_ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage / Element_row / Element_total_average_of_months_longevity_in_current_classification / Element_total_avg_hrly_rate / Element_total_no_empl)*
+Element_average_of_female_months_longevity_in_current_classification
+   = '<average_of_female_months_longevity_in_current_classification' S* ('/>' / '>' S* Content1 S* '</average_of_female_months_longevity_in_current_classification>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_average_of_male_months_longevity_in_current_classification
+   = '<average_of_male_months_longevity_in_current_classification' S* ('/>' / '>' S* Content2 S* '</average_of_male_months_longevity_in_current_classification>') S*
+Content2
+   = PCDATA*
+Element_female_avg_hrly_rate
+   = '<female_avg_hrly_rate' S* ('/>' / '>' S* Content3 S* '</female_avg_hrly_rate>') S*
+Content3
+   = PCDATA*
+Element_jobtitle
+   = '<jobtitle' S* ('/>' / '>' S* Content4 S* '</jobtitle>') S*
+Content4
+   = PCDATA*
+Element_male_avg_hrly_rate
+   = '<male_avg_hrly_rate' S* ('/>' / '>' S* Content5 S* '</male_avg_hrly_rate>') S*
+Content5
+   = PCDATA*
+Element_no_female_empl
+   = '<no_female_empl' S* ('/>' / '>' S* Content6 S* '</no_female_empl>') S*
+Content6
+   = PCDATA*
+Element_no_male_empl
+   = '<no_male_empl' S* ('/>' / '>' S* Content7 S* '</no_male_empl>') S*
+Content7
+   = PCDATA*
+Element_notes
+   = '<notes' S* ('/>' / '>' S* Content8 S* '</notes>') S*
+Content8
+   = PCDATA*
+Element_ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage
+   = '<ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage' S* ('/>' / '>' S* Content9 S* '</ratio_of_women_s_hourly_rate_to_men_s_hourly_rate_percentage>') S*
+Content9
+   = PCDATA*
+Element_total_average_of_months_longevity_in_current_classification
+   = '<total_average_of_months_longevity_in_current_classification' S* ('/>' / '>' S* Content11 S* '</total_average_of_months_longevity_in_current_classification>') S*
+Content11
+   = PCDATA*
+Element_total_avg_hrly_rate
+   = '<total_avg_hrly_rate' S* ('/>' / '>' S* Content12 S* '</total_avg_hrly_rate>') S*
+Content12
+   = PCDATA*
+Element_total_no_empl
+   = '<total_no_empl' S* ('/>' / '>' S* Content13 S* '</total_no_empl>') S*
+Content13
+   = PCDATA*

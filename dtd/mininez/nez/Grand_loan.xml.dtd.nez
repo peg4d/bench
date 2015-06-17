@@ -1,0 +1,145 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_grant_loans
+Element_grant_loans
+   = '<grant_loans' S* Attribute0 S* ('/>' / '>' S* Content0 S* '</grant_loans>') S*
+Attribute0
+   = AttDef0_0 S* ENDTAG
+AttDef0_0
+   = 'count' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content0
+   = Element_grant_loan+
+Element_grant_loan
+   = '<grant_loan' S* ('/>' / '>' S* Content1 S* '</grant_loan>') S*
+Content1
+   = Element_agency Element_description Element_gov_type Element_industry Element_is_contractor Element_is_development Element_is_disabled Element_is_disaster Element_is_exporting Element_is_general_purpose Element_is_green Element_is_military Element_is_minority Element_is_rural Element_is_woman Element_loan_type Element_state_name Element_title Element_url
+Element_agency
+   = '<agency' S* ('/>' / '>' S* Content2 S* '</agency>') S*
+Content2
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_description
+   = '<description' S* ('/>' / '>' S* Content3 S* '</description>') S*
+Content3
+   = PCDATA*
+Element_gov_type
+   = '<gov_type' S* ('/>' / '>' S* Content4 S* '</gov_type>') S*
+Content4
+   = PCDATA*
+Element_industry
+   = '<industry' S* Attribute5 S* ('/>' / '>' S* Content5 S* '</industry>') S*
+Attribute5
+   = AttChoice5* S* ENDTAG
+AttChoice5
+   = AttDef5_0
+AttDef5_0
+   = 'nil' S* '=' S* '"true"' S*
+Content5
+   = PCDATA*
+Element_is_contractor
+   = '<is_contractor' S* ('/>' / '>' S* Content6 S* '</is_contractor>') S*
+Content6
+   = PCDATA*
+Element_is_development
+   = '<is_development' S* ('/>' / '>' S* Content7 S* '</is_development>') S*
+Content7
+   = PCDATA*
+Element_is_disabled
+   = '<is_disabled' S* ('/>' / '>' S* Content8 S* '</is_disabled>') S*
+Content8
+   = PCDATA*
+Element_is_disaster
+   = '<is_disaster' S* ('/>' / '>' S* Content9 S* '</is_disaster>') S*
+Content9
+   = PCDATA*
+Element_is_exporting
+   = '<is_exporting' S* ('/>' / '>' S* Content10 S* '</is_exporting>') S*
+Content10
+   = PCDATA*
+Element_is_general_purpose
+   = '<is_general_purpose' S* ('/>' / '>' S* Content11 S* '</is_general_purpose>') S*
+Content11
+   = PCDATA*
+Element_is_green
+   = '<is_green' S* ('/>' / '>' S* Content12 S* '</is_green>') S*
+Content12
+   = PCDATA*
+Element_is_military
+   = '<is_military' S* ('/>' / '>' S* Content13 S* '</is_military>') S*
+Content13
+   = PCDATA*
+Element_is_minority
+   = '<is_minority' S* ('/>' / '>' S* Content14 S* '</is_minority>') S*
+Content14
+   = PCDATA*
+Element_is_rural
+   = '<is_rural' S* ('/>' / '>' S* Content15 S* '</is_rural>') S*
+Content15
+   = PCDATA*
+Element_is_woman
+   = '<is_woman' S* ('/>' / '>' S* Content16 S* '</is_woman>') S*
+Content16
+   = PCDATA*
+Element_loan_type
+   = '<loan_type' S* ('/>' / '>' S* Content17 S* '</loan_type>') S*
+Content17
+   = PCDATA*
+Element_state_name
+   = '<state_name' S* Attribute18 S* ('/>' / '>' S* Content18 S* '</state_name>') S*
+Attribute18
+   = AttChoice18* S* ENDTAG
+AttChoice18
+   = AttDef18_0
+AttDef18_0
+   = 'nil' S* '=' S* '"true"' S*
+Content18
+   = PCDATA*
+Element_title
+   = '<title' S* ('/>' / '>' S* Content19 S* '</title>') S*
+Content19
+   = PCDATA*
+Element_url
+   = '<url' S* ('/>' / '>' S* Content20 S* '</url>') S*
+Content20
+   = PCDATA*

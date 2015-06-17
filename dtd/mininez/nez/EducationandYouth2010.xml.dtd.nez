@@ -1,0 +1,136 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute13 S* ('/>' / '>' S* Content13 S* '</row>') S*
+Attribute13
+   = AttChoice13* S* ENDTAG
+AttChoice13
+   = AttDef13_0
+   / AttDef13_1
+   / AttDef13_2
+   / AttDef13_3
+AttDef13_0
+   = '_address' S* '=' S* STRING S*
+AttDef13_1
+   = '_id' S* '=' S* STRING S*
+AttDef13_2
+   = '_position' S* '=' S* STRING S*
+AttDef13_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content13
+   = (Element_aastud0910 / Element_caelem0910 / Element_cahigh0910 / Element_camid0910 / Element_compl0910 / Element_csa2010 / Element_drop0910 / Element_eenr0910 / Element_farms0910 / Element_henr0910 / Element_hstud0910 / Element_menr0910 / Element_row / Element_susp0910 / Element_wstud0910 / Element_yempl10 / Element_yvoted10 / Element_yvotereg10)*
+Element_aastud0910
+   = '<aastud0910' S* ('/>' / '>' S* Content1 S* '</aastud0910>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_caelem0910
+   = '<caelem0910' S* ('/>' / '>' S* Content2 S* '</caelem0910>') S*
+Content2
+   = PCDATA*
+Element_cahigh0910
+   = '<cahigh0910' S* ('/>' / '>' S* Content3 S* '</cahigh0910>') S*
+Content3
+   = PCDATA*
+Element_camid0910
+   = '<camid0910' S* ('/>' / '>' S* Content4 S* '</camid0910>') S*
+Content4
+   = PCDATA*
+Element_compl0910
+   = '<compl0910' S* ('/>' / '>' S* Content5 S* '</compl0910>') S*
+Content5
+   = PCDATA*
+Element_csa2010
+   = '<csa2010' S* ('/>' / '>' S* Content6 S* '</csa2010>') S*
+Content6
+   = PCDATA*
+Element_drop0910
+   = '<drop0910' S* ('/>' / '>' S* Content7 S* '</drop0910>') S*
+Content7
+   = PCDATA*
+Element_eenr0910
+   = '<eenr0910' S* ('/>' / '>' S* Content8 S* '</eenr0910>') S*
+Content8
+   = PCDATA*
+Element_farms0910
+   = '<farms0910' S* ('/>' / '>' S* Content9 S* '</farms0910>') S*
+Content9
+   = PCDATA*
+Element_henr0910
+   = '<henr0910' S* ('/>' / '>' S* Content10 S* '</henr0910>') S*
+Content10
+   = PCDATA*
+Element_hstud0910
+   = '<hstud0910' S* ('/>' / '>' S* Content11 S* '</hstud0910>') S*
+Content11
+   = PCDATA*
+Element_menr0910
+   = '<menr0910' S* ('/>' / '>' S* Content12 S* '</menr0910>') S*
+Content12
+   = PCDATA*
+Element_susp0910
+   = '<susp0910' S* ('/>' / '>' S* Content14 S* '</susp0910>') S*
+Content14
+   = PCDATA*
+Element_wstud0910
+   = '<wstud0910' S* ('/>' / '>' S* Content15 S* '</wstud0910>') S*
+Content15
+   = PCDATA*
+Element_yempl10
+   = '<yempl10' S* ('/>' / '>' S* Content16 S* '</yempl10>') S*
+Content16
+   = PCDATA*
+Element_yvoted10
+   = '<yvoted10' S* ('/>' / '>' S* Content17 S* '</yvoted10>') S*
+Content17
+   = PCDATA*
+Element_yvotereg10
+   = '<yvotereg10' S* ('/>' / '>' S* Content18 S* '</yvotereg10>') S*
+Content18
+   = PCDATA*

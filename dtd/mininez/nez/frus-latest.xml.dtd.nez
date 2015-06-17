@@ -1,0 +1,112 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_feed
+Element_feed
+   = '<feed' S* Attribute0 S* ('/>' / '>' S* Content0 S* '</feed>') S*
+Attribute0
+   = AttDef0_0 S* ENDTAG
+AttDef0_0
+   = 'xmlns' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content0
+   = Element_title Element_subtitle Element_link Element_id Element_updated Element_author Element_entry+
+Element_title
+   = '<title' S* ('/>' / '>' S* Content10 S* '</title>') S*
+Content10
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_subtitle
+   = '<subtitle' S* ('/>' / '>' S* Content8 S* '</subtitle>') S*
+Content8
+   = PCDATA*
+Element_link
+   = '<link' S* Attribute4 S* ('/>' / '>' S* Content4 S* '</link>') S*
+Attribute4
+   = AttChoice4* AttDef4_0 AttChoice4* ENDTAG
+AttChoice4
+   = AttDef4_1
+   / AttDef4_2
+AttDef4_1
+   = 'rel' S* '=' S* NMTOKEN S*
+NMTOKEN
+   = '"' NAME '"'
+AttDef4_2
+   = 'type' S* '=' S* STRING S*
+AttDef4_0
+   = 'href' S* '=' S* STRING S*
+Content4
+   = EMPTY
+EMPTY
+   = S*
+Element_id
+   = '<id' S* ('/>' / '>' S* Content3 S* '</id>') S*
+Content3
+   = PCDATA*
+Element_updated
+   = '<updated' S* ('/>' / '>' S* Content11 S* '</updated>') S*
+Content11
+   = PCDATA*
+Element_author
+   = '<author' S* ('/>' / '>' S* Content1 S* '</author>') S*
+Content1
+   = Element_name
+Element_name
+   = '<name' S* ('/>' / '>' S* Content5 S* '</name>') S*
+Content5
+   = PCDATA*
+Element_entry
+   = '<entry' S* ('/>' / '>' S* Content2 S* '</entry>') S*
+Content2
+   = Element_title Element_id Element_link Element_author Element_published Element_updated Element_rights Element_summary
+Element_published
+   = '<published' S* ('/>' / '>' S* Content6 S* '</published>') S*
+Content6
+   = PCDATA*
+Element_rights
+   = '<rights' S* ('/>' / '>' S* Content7 S* '</rights>') S*
+Content7
+   = PCDATA*
+Element_summary
+   = '<summary' S* ('/>' / '>' S* Content9 S* '</summary>') S*
+Content9
+   = PCDATA*

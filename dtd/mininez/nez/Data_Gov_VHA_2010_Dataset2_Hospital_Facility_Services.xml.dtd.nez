@@ -1,0 +1,126 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_VHA_Hospital_Facility_Services
+Element_VHA_Hospital_Facility_Services
+   = '<VHA_Hospital_Facility_Services' S* ('/>' / '>' S* Content0 S* '</VHA_Hospital_Facility_Services>') S*
+Content0
+   = Element_row+
+Element_row
+   = '<row' S* ('/>' / '>' S* Content20 S* '</row>') S*
+Content20
+   = Element_VISN Element_Facility_Name Element_City Element_State Element_Facility_Unique_Patients Element_Med_Surg_Hospital_Discharges Element_Med_Surg_Hospital_Discharge2 Element_Med_Surg_LengthOfStay Element_BedDays_of_Care Element_Mental_Health_Hospital_Discharges Element_Unique_Mental_Health_Hospital_Discharges Element_Mental_Health_LengthOfStay Element_Mental_Health_Bed_Days_of_Care Element_Upper_GI Element_Colonoscopy Element_Sigmoidoscopy Element_Bronchoscopy Element_ENT_Endoscopy Element_Total_Outpatient_Visits
+Element_VISN
+   = '<VISN' S* ('/>' / '>' S* Content19 S* '</VISN>') S*
+Content19
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_Facility_Name
+   = '<Facility_Name' S* ('/>' / '>' S* Content6 S* '</Facility_Name>') S*
+Content6
+   = PCDATA*
+Element_City
+   = '<City' S* ('/>' / '>' S* Content3 S* '</City>') S*
+Content3
+   = PCDATA*
+Element_State
+   = '<State' S* ('/>' / '>' S* Content15 S* '</State>') S*
+Content15
+   = PCDATA*
+Element_Facility_Unique_Patients
+   = '<Facility_Unique_Patients' S* ('/>' / '>' S* Content7 S* '</Facility_Unique_Patients>') S*
+Content7
+   = PCDATA*
+Element_Med_Surg_Hospital_Discharges
+   = '<Med_Surg_Hospital_Discharges' S* ('/>' / '>' S* Content9 S* '</Med_Surg_Hospital_Discharges>') S*
+Content9
+   = PCDATA*
+Element_Med_Surg_Hospital_Discharge2
+   = '<Med_Surg_Hospital_Discharge2' S* ('/>' / '>' S* Content8 S* '</Med_Surg_Hospital_Discharge2>') S*
+Content8
+   = PCDATA*
+Element_Med_Surg_LengthOfStay
+   = '<Med_Surg_LengthOfStay' S* ('/>' / '>' S* Content10 S* '</Med_Surg_LengthOfStay>') S*
+Content10
+   = PCDATA*
+Element_BedDays_of_Care
+   = '<BedDays_of_Care' S* ('/>' / '>' S* Content1 S* '</BedDays_of_Care>') S*
+Content1
+   = PCDATA*
+Element_Mental_Health_Hospital_Discharges
+   = '<Mental_Health_Hospital_Discharges' S* ('/>' / '>' S* Content12 S* '</Mental_Health_Hospital_Discharges>') S*
+Content12
+   = PCDATA*
+Element_Unique_Mental_Health_Hospital_Discharges
+   = '<Unique_Mental_Health_Hospital_Discharges' S* ('/>' / '>' S* Content17 S* '</Unique_Mental_Health_Hospital_Discharges>') S*
+Content17
+   = PCDATA*
+Element_Mental_Health_LengthOfStay
+   = '<Mental_Health_LengthOfStay' S* ('/>' / '>' S* Content13 S* '</Mental_Health_LengthOfStay>') S*
+Content13
+   = PCDATA*
+Element_Mental_Health_Bed_Days_of_Care
+   = '<Mental_Health_Bed_Days_of_Care' S* ('/>' / '>' S* Content11 S* '</Mental_Health_Bed_Days_of_Care>') S*
+Content11
+   = PCDATA*
+Element_Upper_GI
+   = '<Upper_GI' S* ('/>' / '>' S* Content18 S* '</Upper_GI>') S*
+Content18
+   = PCDATA*
+Element_Colonoscopy
+   = '<Colonoscopy' S* ('/>' / '>' S* Content4 S* '</Colonoscopy>') S*
+Content4
+   = PCDATA*
+Element_Sigmoidoscopy
+   = '<Sigmoidoscopy' S* ('/>' / '>' S* Content14 S* '</Sigmoidoscopy>') S*
+Content14
+   = PCDATA*
+Element_Bronchoscopy
+   = '<Bronchoscopy' S* ('/>' / '>' S* Content2 S* '</Bronchoscopy>') S*
+Content2
+   = PCDATA*
+Element_ENT_Endoscopy
+   = '<ENT_Endoscopy' S* ('/>' / '>' S* Content5 S* '</ENT_Endoscopy>') S*
+Content5
+   = PCDATA*
+Element_Total_Outpatient_Visits
+   = '<Total_Outpatient_Visits' S* ('/>' / '>' S* Content16 S* '</Total_Outpatient_Visits>') S*
+Content16
+   = PCDATA*

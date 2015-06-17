@@ -1,0 +1,156 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute15 S* ('/>' / '>' S* Content15 S* '</row>') S*
+Attribute15
+   = AttChoice15* S* ENDTAG
+AttChoice15
+   = AttDef15_0
+   / AttDef15_1
+   / AttDef15_2
+   / AttDef15_3
+AttDef15_0
+   = '_address' S* '=' S* STRING S*
+AttDef15_1
+   = '_id' S* '=' S* STRING S*
+AttDef15_2
+   = '_position' S* '=' S* STRING S*
+AttDef15_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content15
+   = (Element_area_name / Element_area_type / Element_city / Element_county / Element_grade_category / Element_location_1 / Element_location_code / Element_obese_1 / Element_obese_2 / Element_overweight_1 / Element_overweight_2 / Element_overweight_or_obese_1 / Element_overweight_or_obese_2 / Element_region / Element_row / Element_school_years / Element_state / Element_street_address / Element_zip_code)*
+Element_area_name
+   = '<area_name' S* ('/>' / '>' S* Content1 S* '</area_name>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_area_type
+   = '<area_type' S* ('/>' / '>' S* Content2 S* '</area_type>') S*
+Content2
+   = PCDATA*
+Element_city
+   = '<city' S* ('/>' / '>' S* Content3 S* '</city>') S*
+Content3
+   = PCDATA*
+Element_county
+   = '<county' S* ('/>' / '>' S* Content4 S* '</county>') S*
+Content4
+   = PCDATA*
+Element_grade_category
+   = '<grade_category' S* ('/>' / '>' S* Content5 S* '</grade_category>') S*
+Content5
+   = PCDATA*
+Element_location_1
+   = '<location_1' S* Attribute6 S* ('/>' / '>' S* Content6 S* '</location_1>') S*
+Attribute6
+   = AttChoice6* AttDef6_1 AttChoice6* AttDef6_2 AttChoice6* ENDTAG
+   / AttChoice6* AttDef6_2 AttChoice6* AttDef6_1 AttChoice6* ENDTAG
+AttChoice6
+   = AttDef6_0
+   / AttDef6_3
+AttDef6_0
+   = 'human_address' S* '=' S* STRING S*
+AttDef6_3
+   = 'needs_recoding' S* '=' S* '"false"' S*
+AttDef6_1
+   = 'latitude' S* '=' S* STRING S*
+AttDef6_2
+   = 'longitude' S* '=' S* STRING S*
+Content6
+   = EMPTY
+EMPTY
+   = S*
+Element_location_code
+   = '<location_code' S* ('/>' / '>' S* Content7 S* '</location_code>') S*
+Content7
+   = PCDATA*
+Element_obese_1
+   = '<obese_1' S* ('/>' / '>' S* Content8 S* '</obese_1>') S*
+Content8
+   = PCDATA*
+Element_obese_2
+   = '<obese_2' S* ('/>' / '>' S* Content9 S* '</obese_2>') S*
+Content9
+   = PCDATA*
+Element_overweight_1
+   = '<overweight_1' S* ('/>' / '>' S* Content10 S* '</overweight_1>') S*
+Content10
+   = PCDATA*
+Element_overweight_2
+   = '<overweight_2' S* ('/>' / '>' S* Content11 S* '</overweight_2>') S*
+Content11
+   = PCDATA*
+Element_overweight_or_obese_1
+   = '<overweight_or_obese_1' S* ('/>' / '>' S* Content12 S* '</overweight_or_obese_1>') S*
+Content12
+   = PCDATA*
+Element_overweight_or_obese_2
+   = '<overweight_or_obese_2' S* ('/>' / '>' S* Content13 S* '</overweight_or_obese_2>') S*
+Content13
+   = PCDATA*
+Element_region
+   = '<region' S* ('/>' / '>' S* Content14 S* '</region>') S*
+Content14
+   = PCDATA*
+Element_school_years
+   = '<school_years' S* ('/>' / '>' S* Content16 S* '</school_years>') S*
+Content16
+   = PCDATA*
+Element_state
+   = '<state' S* ('/>' / '>' S* Content17 S* '</state>') S*
+Content17
+   = PCDATA*
+Element_street_address
+   = '<street_address' S* ('/>' / '>' S* Content18 S* '</street_address>') S*
+Content18
+   = PCDATA*
+Element_zip_code
+   = '<zip_code' S* ('/>' / '>' S* Content19 S* '</zip_code>') S*
+Content19
+   = PCDATA*

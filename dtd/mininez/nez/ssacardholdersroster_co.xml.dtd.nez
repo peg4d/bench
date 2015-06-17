@@ -1,0 +1,86 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_SSA_CARDHOLDERS_ROSTER
+Element_SSA_CARDHOLDERS_ROSTER
+   = '<SSA_CARDHOLDERS_ROSTER' S* ('/>' / '>' S* Content0 S* '</SSA_CARDHOLDERS_ROSTER>') S*
+Content0
+   = Element_DESCRIPTION Element_LISTING_DATE Element_CARDHOLDER+
+Element_DESCRIPTION
+   = '<DESCRIPTION' S* ('/>' / '>' S* Content4 S* '</DESCRIPTION>') S*
+Content4
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_LISTING_DATE
+   = '<LISTING_DATE' S* ('/>' / '>' S* Content8 S* '</LISTING_DATE>') S*
+Content8
+   = PCDATA*
+Element_CARDHOLDER
+   = '<CARDHOLDER' S* ('/>' / '>' S* Content2 S* '</CARDHOLDER>') S*
+Content2
+   = Element_LAST_NAME Element_FIRST_NAME Element_ADDRESS Element_CITY Element_STATE Element_ZIP_CODE Element_EMAIL
+Element_LAST_NAME
+   = '<LAST_NAME' S* ('/>' / '>' S* Content7 S* '</LAST_NAME>') S*
+Content7
+   = PCDATA*
+Element_FIRST_NAME
+   = '<FIRST_NAME' S* ('/>' / '>' S* Content6 S* '</FIRST_NAME>') S*
+Content6
+   = PCDATA*
+Element_ADDRESS
+   = '<ADDRESS' S* ('/>' / '>' S* Content1 S* '</ADDRESS>') S*
+Content1
+   = PCDATA*
+Element_CITY
+   = '<CITY' S* ('/>' / '>' S* Content3 S* '</CITY>') S*
+Content3
+   = PCDATA*
+Element_STATE
+   = '<STATE' S* ('/>' / '>' S* Content9 S* '</STATE>') S*
+Content9
+   = PCDATA*
+Element_ZIP_CODE
+   = '<ZIP_CODE' S* ('/>' / '>' S* Content10 S* '</ZIP_CODE>') S*
+Content10
+   = PCDATA*
+Element_EMAIL
+   = '<EMAIL' S* ('/>' / '>' S* Content5 S* '</EMAIL>') S*
+Content5
+   = PCDATA*

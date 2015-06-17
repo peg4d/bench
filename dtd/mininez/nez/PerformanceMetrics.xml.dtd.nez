@@ -1,0 +1,160 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute20 S* ('/>' / '>' S* Content20 S* '</row>') S*
+Attribute20
+   = AttChoice20* S* ENDTAG
+AttChoice20
+   = AttDef20_0
+   / AttDef20_1
+   / AttDef20_2
+   / AttDef20_3
+AttDef20_0
+   = '_address' S* '=' S* STRING S*
+AttDef20_1
+   = '_id' S* '=' S* STRING S*
+AttDef20_2
+   = '_position' S* '=' S* STRING S*
+AttDef20_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content20
+   = (Element_abandoned_11_00pm_7_00am_ / Element_abandoned_3_00pm_11_00pm_ / Element_abandoned_7_00am_3_00pm_ / Element_average_number_of_operators_mon_fri_11_00pm_7_00am_ / Element_average_number_of_operators_mon_fri_3_00pm_11_00pm_ / Element_average_number_of_operators_mon_fri_7_00am_3_00pm_ / Element_average_number_of_operators_sat_sun_11_00pm_7_00am_ / Element_average_number_of_operators_sat_sun_3_00pm_11_00pm_ / Element_average_number_of_operators_sat_sun_7_00am_3_00pm_ / Element_average_wait_time_seconds_11_00pm_7_00am / Element_average_wait_time_seconds_3_00pm_11_00pm / Element_average_wait_time_seconds_7_00am_3_00pm / Element_call_volume_11_00pm_7_00am_ / Element_call_volume_3_00pm_11_00pm_ / Element_call_volume_7_00am_3_00pm_ / Element_dates / Element_efficiency_11_00pm_7_00am_ / Element_efficiency_3_00pm_11_00pm_ / Element_efficiency_7_00am_3_00pm_ / Element_row / Element_sort / Element_utilization_11_00pm_7_00am_ / Element_utilization_3_00pm_11_00pm_ / Element_utilization_7_00am_3_00pm_)*
+Element_abandoned_11_00pm_7_00am_
+   = '<abandoned_11_00pm_7_00am_' S* ('/>' / '>' S* Content1 S* '</abandoned_11_00pm_7_00am_>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_abandoned_3_00pm_11_00pm_
+   = '<abandoned_3_00pm_11_00pm_' S* ('/>' / '>' S* Content2 S* '</abandoned_3_00pm_11_00pm_>') S*
+Content2
+   = PCDATA*
+Element_abandoned_7_00am_3_00pm_
+   = '<abandoned_7_00am_3_00pm_' S* ('/>' / '>' S* Content3 S* '</abandoned_7_00am_3_00pm_>') S*
+Content3
+   = PCDATA*
+Element_average_number_of_operators_mon_fri_11_00pm_7_00am_
+   = '<average_number_of_operators_mon_fri_11_00pm_7_00am_' S* ('/>' / '>' S* Content4 S* '</average_number_of_operators_mon_fri_11_00pm_7_00am_>') S*
+Content4
+   = PCDATA*
+Element_average_number_of_operators_mon_fri_3_00pm_11_00pm_
+   = '<average_number_of_operators_mon_fri_3_00pm_11_00pm_' S* ('/>' / '>' S* Content5 S* '</average_number_of_operators_mon_fri_3_00pm_11_00pm_>') S*
+Content5
+   = PCDATA*
+Element_average_number_of_operators_mon_fri_7_00am_3_00pm_
+   = '<average_number_of_operators_mon_fri_7_00am_3_00pm_' S* ('/>' / '>' S* Content6 S* '</average_number_of_operators_mon_fri_7_00am_3_00pm_>') S*
+Content6
+   = PCDATA*
+Element_average_number_of_operators_sat_sun_11_00pm_7_00am_
+   = '<average_number_of_operators_sat_sun_11_00pm_7_00am_' S* ('/>' / '>' S* Content7 S* '</average_number_of_operators_sat_sun_11_00pm_7_00am_>') S*
+Content7
+   = PCDATA*
+Element_average_number_of_operators_sat_sun_3_00pm_11_00pm_
+   = '<average_number_of_operators_sat_sun_3_00pm_11_00pm_' S* ('/>' / '>' S* Content8 S* '</average_number_of_operators_sat_sun_3_00pm_11_00pm_>') S*
+Content8
+   = PCDATA*
+Element_average_number_of_operators_sat_sun_7_00am_3_00pm_
+   = '<average_number_of_operators_sat_sun_7_00am_3_00pm_' S* ('/>' / '>' S* Content9 S* '</average_number_of_operators_sat_sun_7_00am_3_00pm_>') S*
+Content9
+   = PCDATA*
+Element_average_wait_time_seconds_11_00pm_7_00am
+   = '<average_wait_time_seconds_11_00pm_7_00am' S* ('/>' / '>' S* Content10 S* '</average_wait_time_seconds_11_00pm_7_00am>') S*
+Content10
+   = PCDATA*
+Element_average_wait_time_seconds_3_00pm_11_00pm
+   = '<average_wait_time_seconds_3_00pm_11_00pm' S* ('/>' / '>' S* Content11 S* '</average_wait_time_seconds_3_00pm_11_00pm>') S*
+Content11
+   = PCDATA*
+Element_average_wait_time_seconds_7_00am_3_00pm
+   = '<average_wait_time_seconds_7_00am_3_00pm' S* ('/>' / '>' S* Content12 S* '</average_wait_time_seconds_7_00am_3_00pm>') S*
+Content12
+   = PCDATA*
+Element_call_volume_11_00pm_7_00am_
+   = '<call_volume_11_00pm_7_00am_' S* ('/>' / '>' S* Content13 S* '</call_volume_11_00pm_7_00am_>') S*
+Content13
+   = PCDATA*
+Element_call_volume_3_00pm_11_00pm_
+   = '<call_volume_3_00pm_11_00pm_' S* ('/>' / '>' S* Content14 S* '</call_volume_3_00pm_11_00pm_>') S*
+Content14
+   = PCDATA*
+Element_call_volume_7_00am_3_00pm_
+   = '<call_volume_7_00am_3_00pm_' S* ('/>' / '>' S* Content15 S* '</call_volume_7_00am_3_00pm_>') S*
+Content15
+   = PCDATA*
+Element_dates
+   = '<dates' S* ('/>' / '>' S* Content16 S* '</dates>') S*
+Content16
+   = PCDATA*
+Element_efficiency_11_00pm_7_00am_
+   = '<efficiency_11_00pm_7_00am_' S* ('/>' / '>' S* Content17 S* '</efficiency_11_00pm_7_00am_>') S*
+Content17
+   = PCDATA*
+Element_efficiency_3_00pm_11_00pm_
+   = '<efficiency_3_00pm_11_00pm_' S* ('/>' / '>' S* Content18 S* '</efficiency_3_00pm_11_00pm_>') S*
+Content18
+   = PCDATA*
+Element_efficiency_7_00am_3_00pm_
+   = '<efficiency_7_00am_3_00pm_' S* ('/>' / '>' S* Content19 S* '</efficiency_7_00am_3_00pm_>') S*
+Content19
+   = PCDATA*
+Element_sort
+   = '<sort' S* ('/>' / '>' S* Content21 S* '</sort>') S*
+Content21
+   = PCDATA*
+Element_utilization_11_00pm_7_00am_
+   = '<utilization_11_00pm_7_00am_' S* ('/>' / '>' S* Content22 S* '</utilization_11_00pm_7_00am_>') S*
+Content22
+   = PCDATA*
+Element_utilization_3_00pm_11_00pm_
+   = '<utilization_3_00pm_11_00pm_' S* ('/>' / '>' S* Content23 S* '</utilization_3_00pm_11_00pm_>') S*
+Content23
+   = PCDATA*
+Element_utilization_7_00am_3_00pm_
+   = '<utilization_7_00am_3_00pm_' S* ('/>' / '>' S* Content24 S* '</utilization_7_00am_3_00pm_>') S*
+Content24
+   = PCDATA*

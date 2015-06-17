@@ -1,0 +1,82 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_results
+Element_results
+   = '<results' S* ('/>' / '>' S* Content0 S* '</results>') S*
+Content0
+   = Element_investigations
+Element_investigations
+   = '<investigations' S* ('/>' / '>' S* Content9 S* '</investigations>') S*
+Content9
+   = Element_investigation+
+Element_investigation
+   = '<investigation' S* ('/>' / '>' S* Content3 S* '</investigation>') S*
+Content3
+   = Element_investigationNumber Element_investigationPhase Element_investigationStatus Element_investigationTitle Element_investigationType Element_docketNumber Element_documentListUri
+Element_investigationNumber
+   = '<investigationNumber' S* ('/>' / '>' S* Content4 S* '</investigationNumber>') S*
+Content4
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_investigationPhase
+   = '<investigationPhase' S* ('/>' / '>' S* Content5 S* '</investigationPhase>') S*
+Content5
+   = PCDATA*
+Element_investigationStatus
+   = '<investigationStatus' S* ('/>' / '>' S* Content6 S* '</investigationStatus>') S*
+Content6
+   = PCDATA*
+Element_investigationTitle
+   = '<investigationTitle' S* ('/>' / '>' S* Content7 S* '</investigationTitle>') S*
+Content7
+   = PCDATA*
+Element_investigationType
+   = '<investigationType' S* ('/>' / '>' S* Content8 S* '</investigationType>') S*
+Content8
+   = PCDATA*
+Element_docketNumber
+   = '<docketNumber' S* ('/>' / '>' S* Content1 S* '</docketNumber>') S*
+Content1
+   = PCDATA*
+Element_documentListUri
+   = '<documentListUri' S* ('/>' / '>' S* Content2 S* '</documentListUri>') S*
+Content2
+   = PCDATA*

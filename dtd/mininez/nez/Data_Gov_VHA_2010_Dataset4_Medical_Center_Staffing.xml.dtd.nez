@@ -1,0 +1,166 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_VHA_Medical_Center_Staffing
+Element_VHA_Medical_Center_Staffing
+   = '<VHA_Medical_Center_Staffing' S* ('/>' / '>' S* Content0 S* '</VHA_Medical_Center_Staffing>') S*
+Content0
+   = Element_row+
+Element_row
+   = '<row' S* ('/>' / '>' S* Content30 S* '</row>') S*
+Content30
+   = Element_VISN Element_Facility_Name Element_City Element_State Element_Physician_Fulltime_FTEE Element_Physician_Parttime_FTEE Element_Physician_FTEE Element_Critical_Care_Units_Registered_Nurses Element_Critical_Care_Units_LPNs Element_Critical_Care_Units_Nursing_Assistants Element_Medical_Units_Registered_Nurses Element_Medical_Units_Nursing_Assistants Element_Surgical_Units_Registered_Nurses Element_Surgical_Units_LPNs Element_Surgical_Units_Nursing_Assistants Element_Mixed_Med_Surg_Registered_Nurses Element_Mixed_Med_Surg_LPNs Element_Mixed_Med_Surg_Nursing_x0020_Assistants Element_Acute_Mental_Health_RNs Element_Acute_Mental_Health_LPNs Element_Acute_Mental_Health_Nursing_Assistants Element_SCID_Units_LPNs Element_SCID_Units_Nursing_Assistants Element_CLCs_Registered_Nurses Element_CLCs_LPNs Element_CLCs_Nursing_Assistants Element_Turnover_Registered_Nurses Element_Turnover_LPNs Element_Turnover_Nursing_Assistants
+Element_VISN
+   = '<VISN' S* ('/>' / '>' S* Content29 S* '</VISN>') S*
+Content29
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_Facility_Name
+   = '<Facility_Name' S* ('/>' / '>' S* Content11 S* '</Facility_Name>') S*
+Content11
+   = PCDATA*
+Element_City
+   = '<City' S* ('/>' / '>' S* Content7 S* '</City>') S*
+Content7
+   = PCDATA*
+Element_State
+   = '<State' S* ('/>' / '>' S* Content22 S* '</State>') S*
+Content22
+   = PCDATA*
+Element_Physician_Fulltime_FTEE
+   = '<Physician_Fulltime_FTEE' S* ('/>' / '>' S* Content18 S* '</Physician_Fulltime_FTEE>') S*
+Content18
+   = PCDATA*
+Element_Physician_Parttime_FTEE
+   = '<Physician_Parttime_FTEE' S* ('/>' / '>' S* Content19 S* '</Physician_Parttime_FTEE>') S*
+Content19
+   = PCDATA*
+Element_Physician_FTEE
+   = '<Physician_FTEE' S* ('/>' / '>' S* Content17 S* '</Physician_FTEE>') S*
+Content17
+   = PCDATA*
+Element_Critical_Care_Units_Registered_Nurses
+   = '<Critical_Care_Units_Registered_Nurses' S* ('/>' / '>' S* Content10 S* '</Critical_Care_Units_Registered_Nurses>') S*
+Content10
+   = PCDATA*
+Element_Critical_Care_Units_LPNs
+   = '<Critical_Care_Units_LPNs' S* ('/>' / '>' S* Content8 S* '</Critical_Care_Units_LPNs>') S*
+Content8
+   = PCDATA*
+Element_Critical_Care_Units_Nursing_Assistants
+   = '<Critical_Care_Units_Nursing_Assistants' S* ('/>' / '>' S* Content9 S* '</Critical_Care_Units_Nursing_Assistants>') S*
+Content9
+   = PCDATA*
+Element_Medical_Units_Registered_Nurses
+   = '<Medical_Units_Registered_Nurses' S* ('/>' / '>' S* Content13 S* '</Medical_Units_Registered_Nurses>') S*
+Content13
+   = PCDATA*
+Element_Medical_Units_Nursing_Assistants
+   = '<Medical_Units_Nursing_Assistants' S* ('/>' / '>' S* Content12 S* '</Medical_Units_Nursing_Assistants>') S*
+Content12
+   = PCDATA*
+Element_Surgical_Units_Registered_Nurses
+   = '<Surgical_Units_Registered_Nurses' S* ('/>' / '>' S* Content25 S* '</Surgical_Units_Registered_Nurses>') S*
+Content25
+   = PCDATA*
+Element_Surgical_Units_LPNs
+   = '<Surgical_Units_LPNs' S* ('/>' / '>' S* Content23 S* '</Surgical_Units_LPNs>') S*
+Content23
+   = PCDATA*
+Element_Surgical_Units_Nursing_Assistants
+   = '<Surgical_Units_Nursing_Assistants' S* ('/>' / '>' S* Content24 S* '</Surgical_Units_Nursing_Assistants>') S*
+Content24
+   = PCDATA*
+Element_Mixed_Med_Surg_Registered_Nurses
+   = '<Mixed_Med_Surg_Registered_Nurses' S* ('/>' / '>' S* Content16 S* '</Mixed_Med_Surg_Registered_Nurses>') S*
+Content16
+   = PCDATA*
+Element_Mixed_Med_Surg_LPNs
+   = '<Mixed_Med_Surg_LPNs' S* ('/>' / '>' S* Content14 S* '</Mixed_Med_Surg_LPNs>') S*
+Content14
+   = PCDATA*
+Element_Mixed_Med_Surg_Nursing_x0020_Assistants
+   = '<Mixed_Med_Surg_Nursing_x0020_Assistants' S* ('/>' / '>' S* Content15 S* '</Mixed_Med_Surg_Nursing_x0020_Assistants>') S*
+Content15
+   = PCDATA*
+Element_Acute_Mental_Health_RNs
+   = '<Acute_Mental_Health_RNs' S* ('/>' / '>' S* Content3 S* '</Acute_Mental_Health_RNs>') S*
+Content3
+   = PCDATA*
+Element_Acute_Mental_Health_LPNs
+   = '<Acute_Mental_Health_LPNs' S* ('/>' / '>' S* Content1 S* '</Acute_Mental_Health_LPNs>') S*
+Content1
+   = PCDATA*
+Element_Acute_Mental_Health_Nursing_Assistants
+   = '<Acute_Mental_Health_Nursing_Assistants' S* ('/>' / '>' S* Content2 S* '</Acute_Mental_Health_Nursing_Assistants>') S*
+Content2
+   = PCDATA*
+Element_SCID_Units_LPNs
+   = '<SCID_Units_LPNs' S* ('/>' / '>' S* Content20 S* '</SCID_Units_LPNs>') S*
+Content20
+   = PCDATA*
+Element_SCID_Units_Nursing_Assistants
+   = '<SCID_Units_Nursing_Assistants' S* ('/>' / '>' S* Content21 S* '</SCID_Units_Nursing_Assistants>') S*
+Content21
+   = PCDATA*
+Element_CLCs_Registered_Nurses
+   = '<CLCs_Registered_Nurses' S* ('/>' / '>' S* Content6 S* '</CLCs_Registered_Nurses>') S*
+Content6
+   = PCDATA*
+Element_CLCs_LPNs
+   = '<CLCs_LPNs' S* ('/>' / '>' S* Content4 S* '</CLCs_LPNs>') S*
+Content4
+   = PCDATA*
+Element_CLCs_Nursing_Assistants
+   = '<CLCs_Nursing_Assistants' S* ('/>' / '>' S* Content5 S* '</CLCs_Nursing_Assistants>') S*
+Content5
+   = PCDATA*
+Element_Turnover_Registered_Nurses
+   = '<Turnover_Registered_Nurses' S* ('/>' / '>' S* Content28 S* '</Turnover_Registered_Nurses>') S*
+Content28
+   = PCDATA*
+Element_Turnover_LPNs
+   = '<Turnover_LPNs' S* ('/>' / '>' S* Content26 S* '</Turnover_LPNs>') S*
+Content26
+   = PCDATA*
+Element_Turnover_Nursing_Assistants
+   = '<Turnover_Nursing_Assistants' S* ('/>' / '>' S* Content27 S* '</Turnover_Nursing_Assistants>') S*
+Content27
+   = PCDATA*

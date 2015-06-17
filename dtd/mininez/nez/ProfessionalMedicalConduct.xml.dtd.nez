@@ -1,0 +1,104 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute7 S* ('/>' / '>' S* Content7 S* '</row>') S*
+Attribute7
+   = AttChoice7* S* ENDTAG
+AttChoice7
+   = AttDef7_0
+   / AttDef7_1
+   / AttDef7_2
+   / AttDef7_3
+AttDef7_0
+   = '_address' S* '=' S* STRING S*
+AttDef7_1
+   = '_id' S* '=' S* STRING S*
+AttDef7_2
+   = '_position' S* '=' S* STRING S*
+AttDef7_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content7
+   = (Element_address / Element_dateupdated / Element_effectivedate / Element_licensenum / Element_licensetype / Element_physicianname / Element_row / Element_webaction / Element_webnotes / Element_yearofbirth)*
+Element_address
+   = '<address' S* ('/>' / '>' S* Content1 S* '</address>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_dateupdated
+   = '<dateupdated' S* ('/>' / '>' S* Content2 S* '</dateupdated>') S*
+Content2
+   = PCDATA*
+Element_effectivedate
+   = '<effectivedate' S* ('/>' / '>' S* Content3 S* '</effectivedate>') S*
+Content3
+   = PCDATA*
+Element_licensenum
+   = '<licensenum' S* ('/>' / '>' S* Content4 S* '</licensenum>') S*
+Content4
+   = PCDATA*
+Element_licensetype
+   = '<licensetype' S* ('/>' / '>' S* Content5 S* '</licensetype>') S*
+Content5
+   = PCDATA*
+Element_physicianname
+   = '<physicianname' S* ('/>' / '>' S* Content6 S* '</physicianname>') S*
+Content6
+   = PCDATA*
+Element_webaction
+   = '<webaction' S* ('/>' / '>' S* Content8 S* '</webaction>') S*
+Content8
+   = PCDATA*
+Element_webnotes
+   = '<webnotes' S* ('/>' / '>' S* Content9 S* '</webnotes>') S*
+Content9
+   = PCDATA*
+Element_yearofbirth
+   = '<yearofbirth' S* ('/>' / '>' S* Content10 S* '</yearofbirth>') S*
+Content10
+   = PCDATA*

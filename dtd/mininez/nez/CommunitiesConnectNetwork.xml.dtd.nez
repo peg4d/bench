@@ -1,0 +1,196 @@
+
+// Parsing Expression Grammars for Nez
+// 
+File
+   = Document
+Document
+   = PROLOG? MISC* DOCTYPE? MISC* Content MISC*
+PROLOG
+   = '<?xml' S* ATTRIBUTE* S* '?>'
+S
+   = [\t-\n\r ]
+ATTRIBUTE
+   = NAME S* '=' S* STRING S*
+NAME
+   = [:A-Z_a-z] ([.0-:A-Z_a-z])*
+STRING
+   = '"' (!('"') .)* '"'
+MISC
+   = S
+   / COMMENT
+COMMENT
+   = '<!--' (!('-->') .)* '-->' S*
+DOCTYPE
+   = '<!DOCTYPE' S* NAME* S* ('SYSTEM')? S* STRING S* '>'
+Content
+   = (RootElement / COMMENT)+
+RootElement
+   = Element_response
+Element_response
+   = '<response' S* ('/>' / '>' S* Content0 S* '</response>') S*
+Content0
+   = Element_row
+Element_row
+   = '<row' S* Attribute22 S* ('/>' / '>' S* Content22 S* '</row>') S*
+Attribute22
+   = AttChoice22* S* ENDTAG
+AttChoice22
+   = AttDef22_0
+   / AttDef22_1
+   / AttDef22_2
+   / AttDef22_3
+AttDef22_0
+   = '_address' S* '=' S* STRING S*
+AttDef22_1
+   = '_id' S* '=' S* STRING S*
+AttDef22_2
+   = '_position' S* '=' S* STRING S*
+AttDef22_3
+   = '_uuid' S* '=' S* STRING S*
+ENDTAG
+   = &('>')
+   / &('/>')
+Content22
+   = (Element_about_our_center / Element_assistive_technology / Element_assistive_technology_other / Element_blog_url / Element_center_email_address / Element_contact_name / Element_contact_title / Element_country / Element_county / Element_facebook_page_url / Element_languages / Element_languages_other / Element_location / Element_number_of_computers / Element_open_to_public / Element_organization_type / Element_other_technology / Element_parent_organization / Element_phone_ext / Element_phone_number / Element_postal_code / Element_row / Element_target_audience / Element_target_audience_other / Element_title / Element_twitter_url / Element_website_url / Element_wi_fi_available / Element_windows_mac_os)*
+Element_about_our_center
+   = '<about_our_center' S* ('/>' / '>' S* Content1 S* '</about_our_center>') S*
+Content1
+   = PCDATA*
+PCDATA
+   = TEXT
+   / '&' (PreEntity / Entity) ';'
+TEXT
+   = (!([&<]) .)+
+PreEntity
+   = 'lt'
+   / 'gt'
+   / 'amp'
+   / 'apos'
+   / 'quot'
+   / ([#0-9A-Za-z])+
+Entity
+   = !''
+Element_assistive_technology
+   = '<assistive_technology' S* ('/>' / '>' S* Content2 S* '</assistive_technology>') S*
+Content2
+   = PCDATA*
+Element_assistive_technology_other
+   = '<assistive_technology_other' S* ('/>' / '>' S* Content3 S* '</assistive_technology_other>') S*
+Content3
+   = PCDATA*
+Element_blog_url
+   = '<blog_url' S* ('/>' / '>' S* Content4 S* '</blog_url>') S*
+Content4
+   = PCDATA*
+Element_center_email_address
+   = '<center_email_address' S* ('/>' / '>' S* Content5 S* '</center_email_address>') S*
+Content5
+   = PCDATA*
+Element_contact_name
+   = '<contact_name' S* ('/>' / '>' S* Content6 S* '</contact_name>') S*
+Content6
+   = PCDATA*
+Element_contact_title
+   = '<contact_title' S* ('/>' / '>' S* Content7 S* '</contact_title>') S*
+Content7
+   = PCDATA*
+Element_country
+   = '<country' S* ('/>' / '>' S* Content8 S* '</country>') S*
+Content8
+   = PCDATA*
+Element_county
+   = '<county' S* ('/>' / '>' S* Content9 S* '</county>') S*
+Content9
+   = PCDATA*
+Element_facebook_page_url
+   = '<facebook_page_url' S* ('/>' / '>' S* Content10 S* '</facebook_page_url>') S*
+Content10
+   = PCDATA*
+Element_languages
+   = '<languages' S* ('/>' / '>' S* Content11 S* '</languages>') S*
+Content11
+   = PCDATA*
+Element_languages_other
+   = '<languages_other' S* ('/>' / '>' S* Content12 S* '</languages_other>') S*
+Content12
+   = PCDATA*
+Element_location
+   = '<location' S* Attribute13 S* ('/>' / '>' S* Content13 S* '</location>') S*
+Attribute13
+   = AttChoice13* AttDef13_0 AttChoice13* AttDef13_3 AttChoice13* ENDTAG
+   / AttChoice13* AttDef13_3 AttChoice13* AttDef13_0 AttChoice13* ENDTAG
+AttChoice13
+   = AttDef13_1
+   / AttDef13_2
+AttDef13_1
+   = 'latitude' S* '=' S* STRING S*
+AttDef13_2
+   = 'longitude' S* '=' S* STRING S*
+AttDef13_0
+   = 'human_address' S* '=' S* STRING S*
+AttDef13_3
+   = 'needs_recoding' S* '=' S* '"' ('false' / 'true') '"' S*
+Content13
+   = EMPTY
+EMPTY
+   = S*
+Element_number_of_computers
+   = '<number_of_computers' S* ('/>' / '>' S* Content14 S* '</number_of_computers>') S*
+Content14
+   = PCDATA*
+Element_open_to_public
+   = '<open_to_public' S* ('/>' / '>' S* Content15 S* '</open_to_public>') S*
+Content15
+   = PCDATA*
+Element_organization_type
+   = '<organization_type' S* ('/>' / '>' S* Content16 S* '</organization_type>') S*
+Content16
+   = PCDATA*
+Element_other_technology
+   = '<other_technology' S* ('/>' / '>' S* Content17 S* '</other_technology>') S*
+Content17
+   = PCDATA*
+Element_parent_organization
+   = '<parent_organization' S* ('/>' / '>' S* Content18 S* '</parent_organization>') S*
+Content18
+   = PCDATA*
+Element_phone_ext
+   = '<phone_ext' S* ('/>' / '>' S* Content19 S* '</phone_ext>') S*
+Content19
+   = PCDATA*
+Element_phone_number
+   = '<phone_number' S* ('/>' / '>' S* Content20 S* '</phone_number>') S*
+Content20
+   = PCDATA*
+Element_postal_code
+   = '<postal_code' S* ('/>' / '>' S* Content21 S* '</postal_code>') S*
+Content21
+   = PCDATA*
+Element_target_audience
+   = '<target_audience' S* ('/>' / '>' S* Content23 S* '</target_audience>') S*
+Content23
+   = PCDATA*
+Element_target_audience_other
+   = '<target_audience_other' S* ('/>' / '>' S* Content24 S* '</target_audience_other>') S*
+Content24
+   = PCDATA*
+Element_title
+   = '<title' S* ('/>' / '>' S* Content25 S* '</title>') S*
+Content25
+   = PCDATA*
+Element_twitter_url
+   = '<twitter_url' S* ('/>' / '>' S* Content26 S* '</twitter_url>') S*
+Content26
+   = PCDATA*
+Element_website_url
+   = '<website_url' S* ('/>' / '>' S* Content27 S* '</website_url>') S*
+Content27
+   = PCDATA*
+Element_wi_fi_available
+   = '<wi_fi_available' S* ('/>' / '>' S* Content28 S* '</wi_fi_available>') S*
+Content28
+   = PCDATA*
+Element_windows_mac_os
+   = '<windows_mac_os' S* ('/>' / '>' S* Content29 S* '</windows_mac_os>') S*
+Content29
+   = PCDATA*
